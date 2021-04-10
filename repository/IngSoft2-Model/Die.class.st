@@ -7,10 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-Die >> + aDie [ 
-	self shouldBeImplemented.
-]
 
 { #category : #functions }
 Die >> roll [
