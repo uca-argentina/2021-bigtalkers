@@ -7,7 +7,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-
 { #category : #functions }
 Die >> roll [
 	^((1 to: sides) atRandom)
