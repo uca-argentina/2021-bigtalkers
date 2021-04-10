@@ -19,6 +19,6 @@ Board >> initializeUsing: aNumberOfSlots [
 ]
 
 { #category : #validation }
-Board >> slotsAmmount [
+Board >> slotsAmount [
 	^slots.
 ]
