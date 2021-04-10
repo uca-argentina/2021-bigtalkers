@@ -7,6 +7,16 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'as yet unclassified' }
+Die >> + aDie [ 
+	self shouldBeImplemented.
+]
+
+{ #category : #functions }
+Die >> roll [
+	^((1 to: sides) atRandom)
+]
+
 { #category : #attributes }
 Die >> sidesAmmount [
 	^sides
