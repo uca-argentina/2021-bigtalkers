@@ -61,7 +61,7 @@ DiceTest >> test05RollTwentySided100Times [
 { #category : #tests }
 DiceTest >> test06RollTwentySided [
 	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
+	"asd: class-variables  &  instance-variables"	
 			
 	| aDie aRoll|
 	aDie := Die new withSides: 20. 
