@@ -52,3 +52,16 @@ GameTest >> test04CreateAGameWithTwoPlayersAndTwoDiceAndABoard [
 	aGame := Game withPlayers:  {player1.player2} withDice:{aDie.anotherDie} withBoard: aBoard.
 	self assert: (aGame  boardSlotsAmount = 25).
 ]
+
+{ #category : #tests }
+GameTest >> test05AGameWithTwoPlayersAndADieAndABoardHasNotFinished [
+	
+	| aGame player1 player2 aDie aBoard|
+	player1 := Player start.
+	player2 := Player start.
+	aDie := Die withSides: 2.
+	aBoard :=Board withSlots: 2.
+	aGame := Game withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
+	self deny: ( aGame  hasFinished ).
+
+]

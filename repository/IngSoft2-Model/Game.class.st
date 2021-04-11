@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'players',
 		'dice',
-		'board'
+		'board',
+		'finished'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -34,15 +35,22 @@ Game >> diceAmount [
 	^dice size.
 ]
 
+{ #category : #validation }
+Game >> hasFinished [
+	^finished.
+]
+
 { #category : #initialization }
 Game >> initializeWith: aCollectionOfPlayers [
 	players:= aCollectionOfPlayers.
+	finished := false.
 ]
 
 { #category : #initialization }
 Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection [ 
 	players:= aCollectionOfPlayers.
 	dice := aDiceCollection.
+	finished := false.
 ]
 
 { #category : #initalize }
@@ -50,6 +58,7 @@ Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection wi
 	players:= aCollectionOfPlayers.
 	dice := aDiceCollection.
 	board := aBoard.
+	finished := false.
 ]
 
 { #category : #validation }
