@@ -5,6 +5,7 @@ Class {
 		'players',
 		'dice',
 		'board',
+		'scoreboard',
 		'finished'
 	],
 	#category : #'IngSoft2-Model'
@@ -58,7 +59,19 @@ Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection wi
 	players:= aCollectionOfPlayers.
 	dice := aDiceCollection.
 	board := aBoard.
+	scoreboard := Scoreboard withPlayers: players.
 	finished := false.
+]
+
+{ #category : #validation }
+Game >> playerMove: aPlayer [
+	aPlayer movesForward: 1.
+	scoreboard updatePositions: players.
+]
+
+{ #category : #validation }
+Game >> playerScore: aPlayerName [  
+	^scoreboard currentPosition: aPlayerName .
 ]
 
 { #category : #validation }

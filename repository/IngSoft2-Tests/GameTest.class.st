@@ -65,3 +65,32 @@ GameTest >> test05AGameWithTwoPlayersAndADieAndABoardHasNotFinished [
 	self deny: ( aGame  hasFinished ).
 
 ]
+
+{ #category : #tests }
+GameTest >> test06AGameWithScoreboard [
+	
+	| aGame player1 player2 aDie aBoard|
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	aDie := Die withSides: 2.
+	aBoard :=Board withSlots: 2.
+	aGame := Game withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
+	self assert: ( (aGame  playerScore: 'Gaspar') = 0 ).
+	self assert: ( (aGame  playerScore: 'Martin') = 0 ).
+
+]
+
+{ #category : #tests }
+GameTest >> test07AGameWithScoreboardMovesForward [
+	
+	| aGame player1 player2 aDie aBoard|
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	aDie := Die withSides: 2.
+	aBoard :=Board withSlots: 2.
+	aGame := Game withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
+	aGame playerMove: player1.
+	self assert: ( (aGame  playerScore: 'Gaspar') = 1 ).
+	self assert: ( (aGame  playerScore: 'Martin') = 0 ).
+
+]
