@@ -83,14 +83,31 @@ GameTest >> test06AGameWithScoreboard [
 { #category : #tests }
 GameTest >> test07AGameWithScoreboardMovesForward [
 	
-	| aGame player1 player2 aDie aBoard|
+	| aGame player1 player2 aDie aDice aBoard|
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	aDie := Die withSides: 2.
+	aDice := Dice from:{aDie}.
+	aBoard :=Board withSlots: 2.
+	aGame := Game withPlayers:  {player1.player2} withDice:aDice withBoard: aBoard.
+	aGame playerMove: player1.
+	self assert: ( (aGame  playerScore: 'Gaspar') between:1 and: 2).
+	self assert: ( (aGame  playerScore: 'Martin') = 0 ).
+
+]
+
+{ #category : #tests }
+GameTest >> test08AGameWithScoreboardTestLeader [
+	
+	| aGame player1 player2 aDie aBoard aLeader|
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
 	aDie := Die withSides: 2.
 	aBoard :=Board withSlots: 2.
 	aGame := Game withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
 	aGame playerMove: player1.
-	self assert: ( (aGame  playerScore: 'Gaspar') = 1 ).
-	self assert: ( (aGame  playerScore: 'Martin') = 0 ).
+	aLeader :=aGame leader.
+	self assert: ( aLeader  = 1 ).
+
 
 ]

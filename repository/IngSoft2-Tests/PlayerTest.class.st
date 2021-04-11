@@ -18,3 +18,10 @@ PlayerTest >> test02APlayerMovesForward [
 	aPlayer movesForward: 1.
 	self assert: (aPlayer isAt: 1).
 ]
+
+{ #category : #test }
+PlayerTest >> test03CreatePlayerWithName [
+	| aPlayer |
+	aPlayer := Player startWithName: 'Martin'.
+	self assert: ((aPlayer playerName) = 'Martin').
+]

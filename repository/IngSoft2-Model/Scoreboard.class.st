@@ -24,7 +24,15 @@ Scoreboard >> initializeWithPlayers: aCollectionOfPlayers [
 	aCollectionOfPlayers do: [ :player | scoreboard add: (player playerName) -> (player playerPosition ) ].
 ]
 
-{ #category : #initialization }
+{ #category : #action }
+Scoreboard >> leader [
+|topScore| 
+	topScore := 0.
+	scoreboard  do: [ :score | (topScore < score) ifTrue: [topScore := score] ].
+	^topScore.
+]
+
+{ #category : #action }
 Scoreboard >> updatePositions: aCollectionOfPlayers [ 
 	
 	aCollectionOfPlayers do: [ :player | scoreboard add: (player playerName) -> (player playerPosition ) ]
