@@ -12,7 +12,7 @@ Die class >> withSides: aNumberOfSides [
 	^self new initializeUsing: aNumberOfSides.
 ]
 
-{ #category : #initalize }
+{ #category : #initialization }
 Die >> initializeUsing: aNumberOfSides [
 	sides := aNumberOfSides 
 ]
