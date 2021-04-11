@@ -28,12 +28,12 @@ GameTest >> test02CreateAGameWithTwoPlayersAndOneDie [
 
 { #category : #tests }
 GameTest >> test03CreateAGameWithTwoPlayersAndTwoDice [
-	
+	"prueba con dos dados"
 	| aGame player1 player2 aDie anotherDie|
 	player1 := Player start.
 	player2 := Player start.
 	aDie := Die withSides: 2.
-	anotherDie := Die withSides: 4.
+	anotherDie := Die withSides: 4. 
 	aGame := Game withPlayers:  {player1.player2} withDice:{aDie.anotherDie}.
 	self assert: ( aGame  playersAmount =2).
 	self assert: ( aGame  diceAmount =2).
