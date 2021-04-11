@@ -17,7 +17,7 @@ Die >> sidesAmmount [
 	^sides
 ]
 
-{ #category : #'item creation' }
+{ #category : #'instance creation' }
 Die >> withSides: aNumberOfSides [
 	 sides := aNumberOfSides
 ]
