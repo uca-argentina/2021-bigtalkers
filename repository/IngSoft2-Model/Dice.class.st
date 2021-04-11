@@ -8,7 +8,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-Dice >> from: aDiceCollection [ 
+Dice class >> from: aDiceCollection [
+^self new initializeUsing: aDiceCollection . 
+]
+
+{ #category : #initialization }
+Dice >> initializeUsing: aDiceCollection [ 
 	dice := aDiceCollection 
 ]
 

@@ -7,6 +7,16 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'instance creation' }
+Die class >> withSides: aNumberOfSides [ 
+	^self new initializeUsing: aNumberOfSides.
+]
+
+{ #category : #initalize }
+Die >> initializeUsing: aNumberOfSides [
+	sides := aNumberOfSides 
+]
+
 { #category : #functions }
 Die >> roll [
 	^((1 to: sides) atRandom)
@@ -15,9 +25,4 @@ Die >> roll [
 { #category : #attributes }
 Die >> sidesAmmount [
 	^sides
-]
-
-{ #category : #'instance creation' }
-Die >> withSides: aNumberOfSides [
-	 sides := aNumberOfSides
 ]

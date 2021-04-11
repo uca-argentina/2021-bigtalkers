@@ -10,7 +10,7 @@ DiceTest >> test01DiceOneSided [
 	"scope: class-variables  &  instance-variables"	
 			
 	| aDie |
-	aDie := Die new withSides: 1.
+	aDie := Die withSides: 1.
 	
 	self assert: (aDie sidesAmmount = 1)
 ]
@@ -21,7 +21,7 @@ DiceTest >> test02DiceTwoSided [
 	"scope: class-variables  &  instance-variables"	
 			
 	| aDie |
-	aDie := Die new withSides: 2. 
+	aDie := Die withSides: 2. 
 	
 	self assert: (aDie sidesAmmount = 2)
 ]
@@ -32,7 +32,7 @@ DiceTest >> test03DiceTwentySided [
 	"scope: class-variables  &  instance-variables"	
 			
 	| aDie |
-	aDie := Die new withSides: 20. 
+	aDie := Die withSides: 20. 
 	
 	self assert: (aDie sidesAmmount = 20)
 ]
@@ -43,7 +43,7 @@ DiceTest >> test04RollTwoSided [
 	"scope: class-variables  &  instance-variables"	
 			
 	| aDie aRoll|
-	aDie := Die new withSides: 2. 
+	aDie := Die withSides: 2. 
 	aRoll := aDie roll.
 	self assert: (aRoll between:1 and: 2)
 ]
@@ -54,7 +54,7 @@ DiceTest >> test05RollTwentySided100Times [
 	"scope: class-variables  &  instance-variables"	
 			
 	| aDie |
-	aDie := Die new withSides: 20. 
+	aDie := Die withSides: 20. 
 	1 to: 100 do: [ :iter| self assert: (aDie roll between: 1 and: 20) ].
 ]
 
@@ -64,7 +64,7 @@ DiceTest >> test06RollTwentySided [
 	"asd: class-variables  &  instance-variables"	
 			
 	| aDie aRoll|
-	aDie := Die new withSides: 20. 
+	aDie := Die withSides: 20. 
 	aRoll := aDie roll.
 	self assert: (aRoll between:1 and: 20)
 ]
@@ -75,10 +75,10 @@ DiceTest >> test07RollDice [
 	"scope: class-variables  &  instance-variables"	
 			
 	| aFourSidedDie aTwoSidedDie someDice|
-	aTwoSidedDie := Die new withSides: 2. 
-	aFourSidedDie := Die new withSides: 4. 
+	aTwoSidedDie := Die withSides: 2. 
+	aFourSidedDie := Die withSides: 4. 
 	
-	someDice := Dice new from:{(aTwoSidedDie).(aFourSidedDie)}.
+	someDice := Dice from:{(aTwoSidedDie).(aFourSidedDie)}.
 	1 to: 1000 do: [ :iter| self assert: (someDice roll between:1 and: 6) ].
 	
 ]
