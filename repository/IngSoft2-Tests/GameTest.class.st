@@ -17,6 +17,7 @@ GameTest >> test01CreateAGameWithTwoPlayers [
 { #category : #tests }
 GameTest >> test02CreateAGameWithTwoPlayersAndOneDie [
 	
+	"prueba con 1 dado"
 	| aGame player1 player2 aDie |
 	player1 := Player start.
 	player2 := Player start.
