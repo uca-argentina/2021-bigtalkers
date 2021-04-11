@@ -38,3 +38,16 @@ GameTest >> test03CreateAGameWithTwoPlayersAndTwoDice [
 	self assert: ( aGame  playersAmount =2).
 	self assert: ( aGame  diceAmount =2).
 ]
+
+{ #category : #tests }
+GameTest >> test04CreateAGameWithTwoPlayersAndTwoDiceAndABoard [
+	"prueba con dos dados"
+	| aGame player1 player2 aDie anotherDie aBoard|
+	player1 := Player start.
+	player2 := Player start.
+	aDie := Die withSides: 2.
+	anotherDie := Die withSides: 4. 
+	aBoard := Board withSlots: 25.
+	aGame := Game withPlayers:  {player1.player2} withDice:{aDie.anotherDie} withBoard: aBoard.
+	self assert: (aGame  boardSlotsAmount = 25).
+]

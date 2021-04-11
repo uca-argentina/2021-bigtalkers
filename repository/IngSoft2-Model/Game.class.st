@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'players',
-		'dice'
+		'dice',
+		'board'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,6 +17,16 @@ Game class >> withPlayers: aCollectionOfPlayers [
 { #category : #'instance creation' }
 Game class >> withPlayers: aCollectionOfPlayers withDice: aCollectionOfDice [ 
 	^self new initializeWithPlayers: aCollectionOfPlayers withDice: aCollectionOfDice.
+]
+
+{ #category : #'instance creation' }
+Game class >> withPlayers: aCollectionOfPlayers withDice: aCollectionOfDice withBoard: aBoard [ 
+	^self new initializeWithPlayers: aCollectionOfPlayers withDice: aCollectionOfDice withBoard: aBoard .
+]
+
+{ #category : #validation }
+Game >> boardSlotsAmount [
+	^board slotsAmount.
 ]
 
 { #category : #validation }
@@ -32,6 +43,13 @@ Game >> initializeWith: aCollectionOfPlayers [
 Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection [ 
 	players:= aCollectionOfPlayers.
 	dice := aDiceCollection.
+]
+
+{ #category : #initalize }
+Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection withBoard: aBoard [
+	players:= aCollectionOfPlayers.
+	dice := aDiceCollection.
+	board := aBoard.
 ]
 
 { #category : #validation }
