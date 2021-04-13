@@ -97,17 +97,18 @@ GameTest >> test07AGameWithScoreboardMovesForward [
 ]
 
 { #category : #tests }
-GameTest >> test08AGameWithScoreboardTestLeader [
+GameTest >> test08AGameWithScoreboardTestLeaderUsingRoll [
 	
-	| aGame player1 player2 aDie aBoard aLeader|
+	| aGame player1 player2 aDie aBoard aDice aLeader|
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
 	aDie := Die withSides: 2.
+	aDice := Dice from:{aDie}.
 	aBoard :=Board withSlots: 2.
-	aGame := Game withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
+	aGame := Game withPlayers:  {player1.player2} withDice: aDice withBoard: aBoard.
 	aGame playerMove: player1.
 	aLeader :=aGame leader.
-	self assert: ( aLeader  = 1 ).
+	self assert: ( aLeader  between: 1 and: 2).
 
 
 ]
