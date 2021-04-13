@@ -25,10 +25,18 @@ Scoreboard >> initializeWithPlayers: aCollectionOfPlayers [
 ]
 
 { #category : #action }
-Scoreboard >> leader [
-|topScore| 
+Scoreboard >> leaderName [
+|topScore topPlayerName| 
 	topScore := 0.
-	scoreboard  do: [ :score | (topScore < score) ifTrue: [topScore := score] ].
+	scoreboard  associationsDo: [ :score | (topScore < score value) ifTrue: [topScore := score value. topPlayerName := score key] ].
+	^topPlayerName.
+]
+
+{ #category : #action }
+Scoreboard >> leaderScore [
+|topScore | 
+	topScore := 0.
+	scoreboard  associationsDo: [ :score | (topScore < score value) ifTrue: [topScore := score value] ].
 	^topScore.
 ]
 

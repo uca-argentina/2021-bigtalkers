@@ -107,7 +107,7 @@ GameTest >> test08AGameWithScoreboardTestLeaderUsingRoll [
 	aBoard :=Board withSlots: 2.
 	aGame := Game withPlayers:  {player1.player2} withDice: aDice withBoard: aBoard.
 	aGame playerMove: player1.
-	aLeader :=aGame leader.
+	aLeader :=aGame leaderScore.
 	self assert: ( aLeader  between: 1 and: 2).
 
 
@@ -122,7 +122,20 @@ GameTest >> test09AGameWithDefaultValues [
 	player2 := Player startWithName: 'Martin'.
 	aGame := Game testDefaultGameWithPlayers: {player1.player2}.
 	aGame playerMove: player1.
-	aLeader :=aGame leader.
+	aLeader :=aGame leaderScore.
 	self assert: ( aLeader between:2 and: 12).
+
+]
+
+{ #category : #tests }
+GameTest >> test10CheckLeaderName [
+	
+	| aGame aLeader player1 player2|
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	aGame := Game testDefaultGameWithPlayers: {player1.player2}.
+	aGame playerMove: player1.
+	self assert: ( aGame leaderName = 'Gaspar').
 
 ]

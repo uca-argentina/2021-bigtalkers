@@ -75,17 +75,22 @@ Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection wi
 	finished := false.
 ]
 
+{ #category : #validate }
+Game >> leaderName [
+	^scoreboard leaderName .
+]
+
 { #category : #action }
-Game >> leader [
+Game >> leaderScore [
 scoreboard updatePositions: players.
-	^scoreboard leader.
+	^scoreboard leaderScore.
 ]
 
 { #category : #validation }
 Game >> playerMove: aPlayer [
 	aPlayer movesForward: (dice roll).
 	scoreboard updatePositions: players.
-	finished := (scoreboard leader) >= (self boardSlotsAmount)  
+	finished := (scoreboard leaderScore) >= (self boardSlotsAmount)  
 ]
 
 { #category : #validation }
