@@ -12,6 +12,18 @@ Class {
 }
 
 { #category : #'instance creation' }
+Game class >> testDefaultGame [
+"Board for testing only with default values"
+	^self new initializeWithPlayers: {Player startWithName: 'Gaspar'.Player startWithName: 'Martin'} withDice: (Dice from:{Die withSides: 6.Die withSides: 6}) withBoard: (Board withSlots: 20) .
+]
+
+{ #category : #'instance creation' }
+Game class >> testDefaultGameWithPlayers: aCollectionOfPlayers [
+"Board for testing only with default values"
+	^self new initializeWithPlayers: aCollectionOfPlayers withDice: (Dice from:{Die withSides: 6.Die withSides: 6}) withBoard: (Board withSlots: 20) .
+]
+
+{ #category : #'instance creation' }
 Game class >> withPlayers: aCollectionOfPlayers [
 	^self new initializeWith: aCollectionOfPlayers .
 ]

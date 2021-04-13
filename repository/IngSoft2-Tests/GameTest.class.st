@@ -112,3 +112,17 @@ GameTest >> test08AGameWithScoreboardTestLeaderUsingRoll [
 
 
 ]
+
+{ #category : #tests }
+GameTest >> test09AGameWithDefaultValues [
+	
+	| aGame aLeader player1 player2|
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	aGame := Game testDefaultGameWithPlayers: {player1.player2}.
+	aGame playerMove: player1.
+	aLeader :=aGame leader.
+	self assert: ( aLeader between:2 and: 12).
+
+]
