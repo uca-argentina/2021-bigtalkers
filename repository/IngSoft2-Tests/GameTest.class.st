@@ -167,3 +167,48 @@ GameTest >> test12CheckPlayerPositionsWithATie [
 	self assert:( (aGame playerRank: player3 )= 2).
 
 ]
+
+{ #category : #tests }
+GameTest >> test13CheckPlayerTurn [
+	
+	| aGame player1 player2 player3|
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	player3 := Player startWithName: 'Carla'.
+	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
+	self assert:( (aGame currentTurnPlayerName )= 'Gaspar').
+	
+
+]
+
+{ #category : #tests }
+GameTest >> test14CheckPlayerTurnAfterMove [
+	
+	| aGame player1 player2 player3|
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	player3 := Player startWithName: 'Carla'.
+	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
+	aGame playerMove: player1.
+	self assert:( (aGame currentTurnPlayerName )= 'Martin').
+	
+
+]
+
+{ #category : #tests }
+GameTest >> test15GameControlledMovement [	
+	| aGame player1 player2 player3|
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	player3 := Player startWithName: 'Carla'.
+	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	self assert:( (aGame currentTurnPlayerName )= 'Gaspar').
+	
+
+]
