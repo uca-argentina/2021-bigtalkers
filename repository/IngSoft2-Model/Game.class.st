@@ -6,7 +6,9 @@ Class {
 		'dice',
 		'board',
 		'scoreboard',
-		'finished'
+		'finished',
+		'turn',
+		'round'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -38,6 +40,16 @@ Game >> boardSlotsAmount [
 ]
 
 { #category : #validation }
+Game >> currentTurnPlayer [
+	^(players at: turn).
+]
+
+{ #category : #validation }
+Game >> currentTurnPlayerName [
+	^(self currentTurnPlayer )playerName.
+]
+
+{ #category : #validation }
 Game >> diceAmount [
 	^dice size.
 ]
@@ -60,13 +72,15 @@ Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection [
 	finished := false.
 ]
 
-{ #category : #initalize }
+{ #category : #initialization }
 Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection withBoard: aBoard [
 	players:= aCollectionOfPlayers.
 	dice := aDiceCollection.
 	board := aBoard.
 	scoreboard := Scoreboard withPlayers: players.
 	finished := false.
+	turn := 1.
+	round := 1.
 ]
 
 { #category : #action }
@@ -80,10 +94,16 @@ scoreboard updatePositions: players.
 	^scoreboard leaderScore.
 ]
 
+{ #category : #action }
+Game >> moveCurrentPlayer [
+	self playerMove: (self currentTurnPlayer)
+]
+
 { #category : #validation }
 Game >> playerMove: aPlayer [
 	aPlayer movesForward: (dice roll).
 	scoreboard updatePositions: players.
+	turn := ((turn * ((turn < (self playersAmount ) ) asBit) )+ 1).
 	finished := (scoreboard leaderScore) >= (self boardSlotsAmount)  
 ]
 
