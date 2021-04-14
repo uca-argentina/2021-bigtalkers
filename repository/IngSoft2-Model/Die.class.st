@@ -21,8 +21,3 @@ Die >> initializeUsing: aNumberOfSides [
 Die >> roll [
 	^((1 to: sides) atRandom).
 ]
-
-{ #category : #validation }
-Die >> sidesAmmount [
-	^sides.
-]

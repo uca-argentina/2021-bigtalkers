@@ -21,8 +21,3 @@ LoadedDie >> initializeUsing: aNumberOfSides [
 LoadedDie >> roll [
 	^sides.
 ]
-
-{ #category : #validation }
-LoadedDie >> sidesAmmount [
-	^sides.
-]

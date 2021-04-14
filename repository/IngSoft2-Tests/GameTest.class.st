@@ -14,51 +14,15 @@ GameTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErro
 ]
 
 { #category : #tests }
-GameTest >> test01CreateAGameWithTwoPlayers [
-	
-	| aGame player1 player2 |
-	player1 := Player start.
-	player2 := Player start.
-	aGame := Game withPlayers:  {player1.player2}.
-	self assert:  aGame  playersAmount equals: 2.
-]
-
-{ #category : #tests }
-GameTest >> test02CreateAGameWithTwoPlayersAndOneDie [
-	
-	"prueba con 1 dado"
-	| aGame player1 player2 aDie |
-	player1 := Player start.
-	player2 := Player start.
-	aDie := Die withSides: 2.
-	aGame := Game withPlayers:  {player1.player2} withDice:{aDie}.
-	self assert: aGame  playersAmount equals: 2.
-	self assert:  aGame  diceAmount equals: 1.
-]
-
-{ #category : #tests }
-GameTest >> test03CreateAGameWithTwoPlayersAndTwoDice [
-	"prueba con dos dados"
-	| aGame player1 player2 aDie anotherDie|
-	player1 := Player start.
-	player2 := Player start.
-	aDie := Die withSides: 2.
-	anotherDie := Die withSides: 4. 
-	aGame := Game withPlayers:  {player1.player2} withDice:{aDie.anotherDie}.
-	self assert: aGame  playersAmount equals: 2.
-	self assert: aGame  diceAmount equals: 2.
-]
-
-{ #category : #tests }
 GameTest >> test04CreateAGameWithTwoPlayersAndTwoDiceAndABoard [
 	"prueba con dos dados"
 	| aGame player1 player2 aDie anotherDie aBoard|
-	player1 := Player start.
-	player2 := Player start.
+player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
 	aDie := Die withSides: 2.
 	anotherDie := Die withSides: 4. 
 	aBoard := Board withSlots: 25.
-	aGame := Game withPlayers:  {player1.player2} withDice:{aDie.anotherDie} withBoard: aBoard.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice:{aDie.anotherDie} withBoard: aBoard.
 	self assert: aGame  boardSlotsAmount equals: 25.
 ]
 
@@ -66,11 +30,11 @@ GameTest >> test04CreateAGameWithTwoPlayersAndTwoDiceAndABoard [
 GameTest >> test05AGameWithTwoPlayersAndADieAndABoardHasNotFinished [
 	
 	| aGame player1 player2 aDie aBoard|
-	player1 := Player start.
-	player2 := Player start.
+player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
 	aDie := Die withSides: 2.
 	aBoard :=Board withSlots: 2.
-	aGame := Game withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
 	self deny: ( aGame  hasFinished ).
 
 ]
@@ -83,7 +47,7 @@ GameTest >> test06AGameWithScoreboard [
 	player2 := Player startWithName: 'Martin'.
 	aDie := Die withSides: 2.
 	aBoard :=Board withSlots: 2.
-	aGame := Game withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
 	self assert: (aGame  playerScore: 'Gaspar') equals: 0 .
 	self assert: (aGame  playerScore: 'Martin') equals: 0 .
 
@@ -98,7 +62,7 @@ GameTest >> test07AGameWithScoreboardMovesForward [
 	aDie := Die withSides: 2.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board withSlots: 2.
-	aGame := Game withPlayers:  {player1.player2} withDice:aDice withBoard: aBoard.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice:aDice withBoard: aBoard.
 	aGame playerMove: player1.
 	self assert: ( (aGame  playerScore: 'Gaspar') between:1 and: 2).
 	self assert:  (aGame  playerScore: 'Martin') equals: 0 .
@@ -114,7 +78,7 @@ GameTest >> test08AGameWithScoreboardTestLeaderUsingRoll [
 	aDie := Die withSides: 2.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board withSlots: 2.
-	aGame := Game withPlayers:  {player1.player2} withDice: aDice withBoard: aBoard.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice: aDice withBoard: aBoard.
 	aGame playerMove: player1.
 	aLeader :=aGame leaderScore.
 	self assert: ( aLeader  between: 1 and: 2).
@@ -125,25 +89,31 @@ GameTest >> test08AGameWithScoreboardTestLeaderUsingRoll [
 { #category : #tests }
 GameTest >> test09AGameWithDefaultValues [
 	
-	| aGame aLeader player1 player2|
+	| aGame aLeader player1 player2 aDie aDice aBoard |
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
-	aGame := Game defaultGameWithPlayers: {player1.player2}.
+	aDie := Die withSides: 2.
+	aDice := Dice with:{aDie}.
+	aBoard :=Board withSlots: 2.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice:aDice withBoard: aBoard.
 	aGame playerMove: player1.
 	aLeader :=aGame leaderScore.
-	self assert: ( aLeader between:2 and: 12).
+	self assert: ( aLeader between:1 and: 2).
 
 ]
 
 { #category : #tests }
 GameTest >> test10CheckLeaderName [
 	
-	| aGame player1 player2|
+	| aGame player1 player2 aDie aDice aBoard |
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
-	aGame := Game defaultGameWithPlayers: {player1.player2}.
+	aDie := Die withSides: 2.
+	aDice := Dice with:{aDie}.
+	aBoard :=Board withSlots: 2.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice:aDice withBoard: aBoard.
 	aGame playerMove: player1.
 	self assert: aGame leaderName equals: 'Gaspar'.
 
@@ -152,11 +122,14 @@ GameTest >> test10CheckLeaderName [
 { #category : #tests }
 GameTest >> test11CheckPlayerPositions [
 	
-	| aGame player1 player2|
+	| aGame player1 player2 aDie aDice aBoard |
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
-	aGame := Game defaultGameWithPlayers: {player1.player2}.
+	aDie := Die withSides: 2.
+	aDice := Dice with:{aDie}.
+	aBoard :=Board withSlots: 2.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice:aDice withBoard: aBoard.
 	aGame playerMove: player1.
 	self assert: (aGame playerRank: player2 ) equals: 2.
 
@@ -165,12 +138,15 @@ GameTest >> test11CheckPlayerPositions [
 { #category : #tests }
 GameTest >> test12CheckPlayerPositionsWithATie [
 	
-	| aGame player1 player2 player3|
+	| aGame player1 player2 player3 aDie aDice aBoard |
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
 	player3 := Player startWithName: 'Carla'.
-	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
+	aDie := Die withSides: 2.
+	aDice := Dice with:{aDie}.
+	aBoard :=Board withSlots: 2.
+	aGame := BigTalkGame withPlayers:  {player1.player2.player3} withDice:aDice withBoard: aBoard.
 	aGame playerMove: player1.
 	self assert:(aGame playerRank: player2 ) equals: 2.
 	self assert:(aGame playerRank: player3 ) equals: 2.
@@ -180,12 +156,15 @@ GameTest >> test12CheckPlayerPositionsWithATie [
 { #category : #tests }
 GameTest >> test13CheckPlayerTurn [
 	
-	| aGame player1 player2 player3|
+	| aGame player1 player2 player3 aDie aDice aBoard |
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
 	player3 := Player startWithName: 'Carla'.
-	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
+	aDie := Die withSides: 2.
+	aDice := Dice with:{aDie}.
+	aBoard :=Board withSlots: 2.
+	aGame := BigTalkGame withPlayers:  {player1.player2.player3} withDice:aDice withBoard: aBoard.
 	self assert:(aGame currentTurnPlayerName ) equals: 'Gaspar'.
 	
 
@@ -194,12 +173,15 @@ GameTest >> test13CheckPlayerTurn [
 { #category : #tests }
 GameTest >> test14CheckPlayerTurnAfterMove [
 	
-	| aGame player1 player2 player3|
+	| aGame player1 player2 player3 aDie aDice aBoard |
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
 	player3 := Player startWithName: 'Carla'.
-	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
+	aDie := Die withSides: 2.
+	aDice := Dice with:{aDie}.
+	aBoard :=Board withSlots: 2.
+	aGame := BigTalkGame withPlayers:  {player1.player2.player3} withDice:aDice withBoard: aBoard.
 	aGame playerMove: player1.
 	self assert: (aGame currentTurnPlayerName ) equals: 'Martin'.
 	
@@ -208,12 +190,15 @@ GameTest >> test14CheckPlayerTurnAfterMove [
 
 { #category : #tests }
 GameTest >> test15GameControlledMovement [	
-	| aGame player1 player2 player3|
+	| aGame player1 player2 player3 aDie aDice aBoard |
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
 	player3 := Player startWithName: 'Carla'.
-	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
+	aDie := Die withSides: 2.
+	aDice := Dice with:{aDie}.
+	aBoard :=Board withSlots: 20.
+	aGame := BigTalkGame withPlayers:  {player1.player2.player3} withDice:aDice withBoard: aBoard.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
@@ -229,11 +214,10 @@ GameTest >> test16GameFinishedAndStillMovePlayer [
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
 	player3 := Player startWithName: 'Carla'.
-	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
 	aDie := Die withSides: 2.
 	aDice := Dice with: { aDie }.
 	aBoard :=Board withSlots: 1.
-	aGame := Game withPlayers:  {player1.player2.player3 } withDice: aDice withBoard: aBoard.
+	aGame := BigTalkGame withPlayers:  {player1.player2.player3 } withDice: aDice withBoard: aBoard.
 	aGame moveCurrentPlayer.
 	self should: [ aGame moveCurrentPlayer. ] 
 	raise: Error  
