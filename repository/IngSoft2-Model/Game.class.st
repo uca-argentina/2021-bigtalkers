@@ -75,7 +75,7 @@ Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection wi
 	finished := false.
 ]
 
-{ #category : #validate }
+{ #category : #action }
 Game >> leaderName [
 	^scoreboard leaderName .
 ]

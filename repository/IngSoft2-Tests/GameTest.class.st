@@ -130,7 +130,7 @@ GameTest >> test09AGameWithDefaultValues [
 { #category : #tests }
 GameTest >> test10CheckLeaderName [
 	
-	| aGame aLeader player1 player2|
+	| aGame player1 player2|
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
