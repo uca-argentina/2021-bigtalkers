@@ -41,6 +41,17 @@ Scoreboard >> leaderScore [
 ]
 
 { #category : #action }
+Scoreboard >> playerRank: aPlayer [ 
+	| position aSortedCollection|
+	position := scoreboard size.
+	aSortedCollection := SortedCollection new.
+	scoreboard  do: [ :score | (aSortedCollection add: score) ].
+	aSortedCollection do: [ :score | ((scoreboard at: (aPlayer playerName) ) = score )  ifTrue: [^position.] 	ifFalse: [position := 	position - 1]].
+	
+	
+]
+
+{ #category : #action }
 Scoreboard >> updatePositions: aCollectionOfPlayers [ 
 	
 	aCollectionOfPlayers do: [ :player | scoreboard add: (player playerName) -> (player playerPosition ) ]

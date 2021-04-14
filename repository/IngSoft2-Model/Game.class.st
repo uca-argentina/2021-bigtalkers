@@ -93,6 +93,11 @@ Game >> playerMove: aPlayer [
 	finished := (scoreboard leaderScore) >= (self boardSlotsAmount)  
 ]
 
+{ #category : #action }
+Game >> playerRank: aPlayer [ 
+	^scoreboard playerRank: aPlayer.
+]
+
 { #category : #validation }
 Game >> playerScore: aPlayerName [  
 	^scoreboard currentPosition: aPlayerName .

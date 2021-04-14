@@ -139,3 +139,16 @@ GameTest >> test10CheckLeaderName [
 	self assert: ( aGame leaderName = 'Gaspar').
 
 ]
+
+{ #category : #tests }
+GameTest >> test11CheckPlayerPositions [
+	
+	| aGame player1 player2|
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	aGame := Game testDefaultGameWithPlayers: {player1.player2}.
+	aGame playerMove: player1.
+	self assert:( (aGame playerRank: player2 )= 2).
+
+]
