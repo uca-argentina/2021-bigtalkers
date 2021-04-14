@@ -65,9 +65,3 @@ Scoreboard >> updatePosition: aPlayer slots: aNumberOfSlots [
 	
 	scoreboard add: (aPlayer playerName) -> (currentPosition  + aNumberOfSlots )
 ]
-
-{ #category : #function }
-Scoreboard >> updatePositions: aCollectionOfPlayers [ 
-	
-	aCollectionOfPlayers do: [ :player | scoreboard add: (player playerName) -> (player playerPosition ) ].
-]
