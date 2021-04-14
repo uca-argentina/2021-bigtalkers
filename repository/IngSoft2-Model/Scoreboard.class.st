@@ -21,14 +21,16 @@ Scoreboard >> currentPosition: aPlayerName [
 Scoreboard >> initializeWithPlayers: aCollectionOfPlayers [ 
  	scoreboard := Dictionary new.
 	
-	aCollectionOfPlayers do: [ :player | scoreboard add: (player playerName) -> (player playerPosition ) ].
+	aCollectionOfPlayers do: 
+		[ :player | scoreboard add: (player playerName) -> (player playerPosition ) ].
 ]
 
 { #category : #action }
 Scoreboard >> leaderName [
 |topScore topPlayerName| 
 	topScore := 0.
-	scoreboard  associationsDo: [ :score | (topScore < score value) ifTrue: [topScore := score value. topPlayerName := score key] ].
+	scoreboard  associationsDo: 
+		[ :score | (topScore < score value) ifTrue: [topScore := score value. topPlayerName := score key] ].
 	^topPlayerName.
 ]
 
@@ -36,7 +38,8 @@ Scoreboard >> leaderName [
 Scoreboard >> leaderScore [
 |topScore | 
 	topScore := 0.
-	scoreboard  associationsDo: [ :score | (topScore < score value) ifTrue: [topScore := score value] ].
+	scoreboard  associationsDo: 
+		[ :score | (topScore < score value) ifTrue: [topScore := score value] ].
 	^topScore.
 ]
 
@@ -45,10 +48,13 @@ Scoreboard >> playerRank: aPlayer [
 	| position aSortedCollection aSet|
 	aSet := Set new.
 	aSortedCollection := SortedCollection new.
-	scoreboard  do: [ :score | (aSet add: score) ].
-	aSet do:  [ :score | (aSortedCollection add: score)  ].
+	scoreboard  do: 
+		[ :score | (aSet add: score) ].
+	aSet do:  
+		[ :score | (aSortedCollection add: score)  ].
 	position := aSortedCollection size.
-	aSortedCollection do: [ :score | ((scoreboard at: (aPlayer playerName) ) = score )  ifTrue: [^position.] 	ifFalse: [position := 	position - 1]].
+	aSortedCollection do: 
+		[ :score | ( (scoreboard at: (aPlayer playerName)) = score )  ifTrue: [^position.] 	ifFalse: [position := position - 1]].
 	
 	
 ]

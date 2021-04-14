@@ -109,6 +109,6 @@ Game >> playersAmount [
 ]
 
 { #category : #validation }
-Game >> playersAmount: aNumberOfPlayers [ 
+Game >> verifyPlayerAmount: aNumberOfPlayers [ 
 	^(players size = aNumberOfPlayers).
 ]
