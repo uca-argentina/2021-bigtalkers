@@ -34,26 +34,8 @@ BigTalkGame >> currentTurnPlayerName [
 ]
 
 { #category : #validation }
-BigTalkGame >> diceAmount [
-	^dice size.
-]
-
-{ #category : #validation }
 BigTalkGame >> hasFinished [
 	^finished.
-]
-
-{ #category : #initialize }
-BigTalkGame >> initializeWith: aCollectionOfPlayers [
-	players:= aCollectionOfPlayers.
-	finished := false.
-]
-
-{ #category : #initialize }
-BigTalkGame >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection [ 
-	players:= aCollectionOfPlayers.
-	dice := aDiceCollection.
-	finished := false.
 ]
 
 { #category : #initialize }

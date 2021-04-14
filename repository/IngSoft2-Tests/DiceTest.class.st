@@ -5,28 +5,6 @@ Class {
 }
 
 { #category : #tests }
-DiceTest >> test01DiceOneSided [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
-	| aDie |
-	aDie := Die withSides: 1.
-	
-	self assert: aDie sidesAmmount equals: 1
-]
-
-{ #category : #tests }
-DiceTest >> test03DiceTwentySided [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
-	| aDie |
-	aDie := Die withSides: 20. 
-	
-	self assert: aDie sidesAmmount equals: 20.
-]
-
-{ #category : #tests }
 DiceTest >> test04RollTwoSided [
 	"comment stating purpose of instance-side message"
 	"scope: class-variables  &  instance-variables"	
