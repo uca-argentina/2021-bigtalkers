@@ -152,3 +152,18 @@ GameTest >> test11CheckPlayerPositions [
 	self assert:( (aGame playerRank: player2 )= 2).
 
 ]
+
+{ #category : #tests }
+GameTest >> test12CheckPlayerPositionsWithATie [
+	
+	| aGame player1 player2 player3|
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	player3 := Player startWithName: 'Carla'.
+	aGame := Game testDefaultGameWithPlayers: {player1.player2.player3}.
+	aGame playerMove: player1.
+	self assert:( (aGame playerRank: player2 )= 2).
+	self assert:( (aGame playerRank: player3 )= 2).
+
+]
