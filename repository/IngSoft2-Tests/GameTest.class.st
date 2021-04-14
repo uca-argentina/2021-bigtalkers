@@ -4,6 +4,15 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #asserting }
+GameTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErrorMessage [  
+	self 
+		should: anErrorBlock
+		raise: exceptionClass 
+		withExceptionDo: 
+			[ :error | self assert: error messageText equals: expectedErrorMessage  ].
+]
+
 { #category : #tests }
 GameTest >> test01CreateAGameWithTwoPlayers [
 	
@@ -87,7 +96,7 @@ GameTest >> test07AGameWithScoreboardMovesForward [
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
 	aDie := Die withSides: 2.
-	aDice := Dice from:{aDie}.
+	aDice := Dice with:{aDie}.
 	aBoard :=Board withSlots: 2.
 	aGame := Game withPlayers:  {player1.player2} withDice:aDice withBoard: aBoard.
 	aGame playerMove: player1.
@@ -103,7 +112,7 @@ GameTest >> test08AGameWithScoreboardTestLeaderUsingRoll [
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
 	aDie := Die withSides: 2.
-	aDice := Dice from:{aDie}.
+	aDice := Dice with:{aDie}.
 	aBoard :=Board withSlots: 2.
 	aGame := Game withPlayers:  {player1.player2} withDice: aDice withBoard: aBoard.
 	aGame playerMove: player1.
@@ -209,6 +218,26 @@ GameTest >> test15GameControlledMovement [
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert:( (aGame currentTurnPlayerName )= 'Gaspar').
+	
+
+]
+
+{ #category : #tests }
+GameTest >> test16GameFinishedAndStillMovePlayer [
+	| aGame aDie aDice aBoard player1 player2 player3|
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	player3 := Player startWithName: 'Carla'.
+	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
+	aDie := Die withSides: 2.
+	aDice := Dice with: { aDie }.
+	aBoard :=Board withSlots: 1.
+	aGame := Game withPlayers:  {player1.player2.player3 } withDice: aDice withBoard: aBoard.
+	aGame moveCurrentPlayer.
+	self should: [ aGame moveCurrentPlayer. ] 
+	raise: Error  
+	withMessage: 'The game has finished'.
 	
 
 ]

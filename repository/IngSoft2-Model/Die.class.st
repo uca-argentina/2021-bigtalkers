@@ -12,17 +12,17 @@ Die class >> withSides: aNumberOfSides [
 	^self new initializeUsing: aNumberOfSides.
 ]
 
-{ #category : #initialization }
+{ #category : #initialize }
 Die >> initializeUsing: aNumberOfSides [
 	sides := aNumberOfSides 
 ]
 
-{ #category : #functions }
+{ #category : #function }
 Die >> roll [
-	^((1 to: sides) atRandom)
+	^((1 to: sides) atRandom).
 ]
 
-{ #category : #attributes }
+{ #category : #validation }
 Die >> sidesAmmount [
-	^sides
+	^sides.
 ]

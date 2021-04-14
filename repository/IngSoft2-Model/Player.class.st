@@ -22,33 +22,33 @@ Player class >> startWithName: aName [
 	^self new initializeWithName: aName.
 ]
 
-{ #category : #initialization }
+{ #category : #initialize }
 Player >> initializeAtStart [
 	position := 0.
 ]
 
-{ #category : #initialization }
+{ #category : #initialize }
 Player >> initializeWithName: aName [
 	position := 0.
 	name := aName.
 ]
 
-{ #category : #validate }
+{ #category : #validation }
 Player >> isAt: aPosition [ 
 	^(position = aPosition).
 ]
 
-{ #category : #action }
+{ #category : #function }
 Player >> movesForward: aNumber [ 
 	position := position + aNumber.
 ]
 
-{ #category : #validate }
+{ #category : #validation }
 Player >> playerName [
-^name
+	^name.
 ]
 
-{ #category : #validate }
+{ #category : #validation }
 Player >> playerPosition [
-^position
+	^position.
 ]

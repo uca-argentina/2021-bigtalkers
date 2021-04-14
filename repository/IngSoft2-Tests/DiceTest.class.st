@@ -78,7 +78,7 @@ DiceTest >> test07RollDice [
 	aTwoSidedDie := Die withSides: 2. 
 	aFourSidedDie := Die withSides: 4. 
 	
-	someDice := Dice from:{(aTwoSidedDie).(aFourSidedDie)}.
+	someDice := Dice with:{(aTwoSidedDie).(aFourSidedDie)}.
 	1 to: 1000 do: [ :iter| self assert: (someDice roll between:1 and: 6) ].
 	
 ]
