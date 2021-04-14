@@ -1,6 +1,6 @@
 # Ingenieria del Software II - Template
 
-[![Build Status](https://travis-ci.org/uca-is2/2021-bigtalkers.svg?branch=master)](https://travis-ci.org/uca-is2/2021-bigtalkers)
+[![Build Status](https://travis-ci.com/uca-is2/2021-bigtalkers.svg?branch=master)](https://travis-ci.com/uca-is2/2021-bigtalkers)
 [![Coverage Status](https://coveralls.io/repos/github/uca-is2/2021-bigtalkers/badge.svg?branch=master)](https://coveralls.io/github/uca-is2/2021-bigtalkers?branch=master)
 
 ## Metacello
