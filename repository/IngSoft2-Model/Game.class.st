@@ -16,7 +16,7 @@ Class {
 { #category : #'instance creation' }
 Game class >> defaultGameWithPlayers: aCollectionOfPlayers [
 "Board for testing only with default values"
-	^self new initializeWithPlayers: aCollectionOfPlayers withDice: (Dice from:{Die withSides: 6.Die withSides: 6}) withBoard: (Board withSlots: 20) .
+	^self new initializeWithPlayers: aCollectionOfPlayers withDice: (Dice with:{Die withSides: 6.Die withSides: 6}) withBoard: (Board withSlots: 20) .
 ]
 
 { #category : #'instance creation' }
@@ -41,7 +41,7 @@ Game >> boardSlotsAmount [
 
 { #category : #validation }
 Game >> currentTurnPlayer [
-	^(players at: turn).
+	^players at: turn.
 ]
 
 { #category : #validation }
@@ -59,20 +59,20 @@ Game >> hasFinished [
 	^finished.
 ]
 
-{ #category : #initialization }
+{ #category : #initialize }
 Game >> initializeWith: aCollectionOfPlayers [
 	players:= aCollectionOfPlayers.
 	finished := false.
 ]
 
-{ #category : #initialization }
+{ #category : #initialize }
 Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection [ 
 	players:= aCollectionOfPlayers.
 	dice := aDiceCollection.
 	finished := false.
 ]
 
-{ #category : #initialization }
+{ #category : #initialize }
 Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection withBoard: aBoard [
 	players:= aCollectionOfPlayers.
 	dice := aDiceCollection.
@@ -83,20 +83,21 @@ Game >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection wi
 	round := 1.
 ]
 
-{ #category : #action }
+{ #category : #function }
 Game >> leaderName [
 	^scoreboard leaderName .
 ]
 
-{ #category : #action }
+{ #category : #function }
 Game >> leaderScore [
 scoreboard updatePositions: players.
 	^scoreboard leaderScore.
 ]
 
-{ #category : #action }
+{ #category : #function }
 Game >> moveCurrentPlayer [
-	self playerMove: (self currentTurnPlayer)
+	(finished) ifFalse: [  self playerMove: (self currentTurnPlayer)]  ifTrue: [  Error signal: 'The game has finished'] .
+	
 ]
 
 { #category : #validation }
@@ -107,7 +108,7 @@ Game >> playerMove: aPlayer [
 	finished := (scoreboard leaderScore) >= (self boardSlotsAmount)  
 ]
 
-{ #category : #action }
+{ #category : #function }
 Game >> playerRank: aPlayer [ 
 	^scoreboard playerRank: aPlayer.
 ]

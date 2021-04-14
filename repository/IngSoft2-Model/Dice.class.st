@@ -8,16 +8,16 @@ Class {
 }
 
 { #category : #'instance creation' }
-Dice class >> from: aDiceCollection [
+Dice class >> with: aDiceCollection [
 ^self new initializeUsing: aDiceCollection . 
 ]
 
-{ #category : #initialization }
+{ #category : #initialize }
 Dice >> initializeUsing: aDiceCollection [ 
 	dice := aDiceCollection 
 ]
 
-{ #category : #functions }
+{ #category : #function }
 Dice >> roll [
 	^(dice sum: [:die| die roll ])
 ]

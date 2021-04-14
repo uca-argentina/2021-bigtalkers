@@ -12,20 +12,19 @@ Scoreboard class >> withPlayers: aCollectionOfPlayers [
 	^self new initializeWithPlayers: aCollectionOfPlayers
 ]
 
-{ #category : #initialization }
+{ #category : #initialize }
 Scoreboard >> currentPosition: aPlayerName [
 	^scoreboard at: aPlayerName.
 ]
 
-{ #category : #initialization }
+{ #category : #initialize }
 Scoreboard >> initializeWithPlayers: aCollectionOfPlayers [ 
  	scoreboard := Dictionary new.
-	
 	aCollectionOfPlayers do: 
 		[ :player | scoreboard add: (player playerName) -> (player playerPosition ) ].
 ]
 
-{ #category : #action }
+{ #category : #function }
 Scoreboard >> leaderName [
 |topScore topPlayerName| 
 	topScore := 0.
@@ -34,7 +33,7 @@ Scoreboard >> leaderName [
 	^topPlayerName.
 ]
 
-{ #category : #action }
+{ #category : #function }
 Scoreboard >> leaderScore [
 |topScore | 
 	topScore := 0.
@@ -43,7 +42,7 @@ Scoreboard >> leaderScore [
 	^topScore.
 ]
 
-{ #category : #action }
+{ #category : #function }
 Scoreboard >> playerRank: aPlayer [ 
 	| position aSortedCollection aSet|
 	aSet := Set new.
@@ -59,8 +58,8 @@ Scoreboard >> playerRank: aPlayer [
 	
 ]
 
-{ #category : #action }
+{ #category : #function }
 Scoreboard >> updatePositions: aCollectionOfPlayers [ 
 	
-	aCollectionOfPlayers do: [ :player | scoreboard add: (player playerName) -> (player playerPosition ) ]
+	aCollectionOfPlayers do: [ :player | scoreboard add: (player playerName) -> (player playerPosition ) ].
 ]
