@@ -12,13 +12,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-Game class >> testDefaultGame [
-"Board for testing only with default values"
-	^self new initializeWithPlayers: {Player startWithName: 'Gaspar'.Player startWithName: 'Martin'} withDice: (Dice from:{Die withSides: 6.Die withSides: 6}) withBoard: (Board withSlots: 20) .
-]
-
-{ #category : #'instance creation' }
-Game class >> testDefaultGameWithPlayers: aCollectionOfPlayers [
+Game class >> defaultGameWithPlayers: aCollectionOfPlayers [
 "Board for testing only with default values"
 	^self new initializeWithPlayers: aCollectionOfPlayers withDice: (Dice from:{Die withSides: 6.Die withSides: 6}) withBoard: (Board withSlots: 20) .
 ]
@@ -106,9 +100,4 @@ Game >> playerScore: aPlayerName [
 { #category : #validation }
 Game >> playersAmount [
 	^players size.
-]
-
-{ #category : #validation }
-Game >> verifyPlayerAmount: aNumberOfPlayers [ 
-	^(players size = aNumberOfPlayers).
 ]

@@ -120,7 +120,7 @@ GameTest >> test09AGameWithDefaultValues [
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
-	aGame := Game testDefaultGameWithPlayers: {player1.player2}.
+	aGame := Game defaultGameWithPlayers: {player1.player2}.
 	aGame playerMove: player1.
 	aLeader :=aGame leaderScore.
 	self assert: ( aLeader between:2 and: 12).
@@ -134,7 +134,7 @@ GameTest >> test10CheckLeaderName [
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
-	aGame := Game testDefaultGameWithPlayers: {player1.player2}.
+	aGame := Game defaultGameWithPlayers: {player1.player2}.
 	aGame playerMove: player1.
 	self assert: ( aGame leaderName = 'Gaspar').
 
@@ -147,7 +147,7 @@ GameTest >> test11CheckPlayerPositions [
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
-	aGame := Game testDefaultGameWithPlayers: {player1.player2}.
+	aGame := Game defaultGameWithPlayers: {player1.player2}.
 	aGame playerMove: player1.
 	self assert:( (aGame playerRank: player2 )= 2).
 
@@ -161,7 +161,7 @@ GameTest >> test12CheckPlayerPositionsWithATie [
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
 	player3 := Player startWithName: 'Carla'.
-	aGame := Game testDefaultGameWithPlayers: {player1.player2.player3}.
+	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
 	aGame playerMove: player1.
 	self assert:( (aGame playerRank: player2 )= 2).
 	self assert:( (aGame playerRank: player3 )= 2).
