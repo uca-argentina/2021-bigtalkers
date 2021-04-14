@@ -12,7 +12,7 @@ DiceTest >> test01DiceOneSided [
 	| aDie |
 	aDie := Die withSides: 1.
 	
-	self assert: (aDie sidesAmmount = 1)
+	self assert: aDie sidesAmmount equals: 1
 ]
 
 { #category : #tests }
@@ -23,7 +23,7 @@ DiceTest >> test02DiceTwoSided [
 	| aDie |
 	aDie := Die withSides: 2. 
 	
-	self assert: (aDie sidesAmmount = 2)
+	self assert: aDie sidesAmmount equals: 2
 ]
 
 { #category : #tests }
@@ -34,7 +34,7 @@ DiceTest >> test03DiceTwentySided [
 	| aDie |
 	aDie := Die withSides: 20. 
 	
-	self assert: (aDie sidesAmmount = 20)
+	self assert: aDie sidesAmmount equals: 20.
 ]
 
 { #category : #tests }

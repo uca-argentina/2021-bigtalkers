@@ -20,7 +20,7 @@ GameTest >> test01CreateAGameWithTwoPlayers [
 	player1 := Player start.
 	player2 := Player start.
 	aGame := Game withPlayers:  {player1.player2}.
-	self assert: ( aGame  playersAmount =2).
+	self assert:  aGame  playersAmount equals: 2.
 ]
 
 { #category : #tests }
@@ -32,8 +32,8 @@ GameTest >> test02CreateAGameWithTwoPlayersAndOneDie [
 	player2 := Player start.
 	aDie := Die withSides: 2.
 	aGame := Game withPlayers:  {player1.player2} withDice:{aDie}.
-	self assert: ( aGame  playersAmount =2).
-	self assert: ( aGame  diceAmount =1).
+	self assert: aGame  playersAmount equals: 2.
+	self assert:  aGame  diceAmount equals: 1.
 ]
 
 { #category : #tests }
@@ -45,8 +45,8 @@ GameTest >> test03CreateAGameWithTwoPlayersAndTwoDice [
 	aDie := Die withSides: 2.
 	anotherDie := Die withSides: 4. 
 	aGame := Game withPlayers:  {player1.player2} withDice:{aDie.anotherDie}.
-	self assert: ( aGame  playersAmount =2).
-	self assert: ( aGame  diceAmount =2).
+	self assert: aGame  playersAmount equals: 2.
+	self assert: aGame  diceAmount equals: 2.
 ]
 
 { #category : #tests }
@@ -59,7 +59,7 @@ GameTest >> test04CreateAGameWithTwoPlayersAndTwoDiceAndABoard [
 	anotherDie := Die withSides: 4. 
 	aBoard := Board withSlots: 25.
 	aGame := Game withPlayers:  {player1.player2} withDice:{aDie.anotherDie} withBoard: aBoard.
-	self assert: (aGame  boardSlotsAmount = 25).
+	self assert: aGame  boardSlotsAmount equals: 25.
 ]
 
 { #category : #tests }
@@ -84,8 +84,8 @@ GameTest >> test06AGameWithScoreboard [
 	aDie := Die withSides: 2.
 	aBoard :=Board withSlots: 2.
 	aGame := Game withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
-	self assert: ( (aGame  playerScore: 'Gaspar') = 0 ).
-	self assert: ( (aGame  playerScore: 'Martin') = 0 ).
+	self assert: (aGame  playerScore: 'Gaspar') equals: 0 .
+	self assert: (aGame  playerScore: 'Martin') equals: 0 .
 
 ]
 
@@ -101,7 +101,7 @@ GameTest >> test07AGameWithScoreboardMovesForward [
 	aGame := Game withPlayers:  {player1.player2} withDice:aDice withBoard: aBoard.
 	aGame playerMove: player1.
 	self assert: ( (aGame  playerScore: 'Gaspar') between:1 and: 2).
-	self assert: ( (aGame  playerScore: 'Martin') = 0 ).
+	self assert:  (aGame  playerScore: 'Martin') equals: 0 .
 
 ]
 
@@ -145,7 +145,7 @@ GameTest >> test10CheckLeaderName [
 	player2 := Player startWithName: 'Martin'.
 	aGame := Game defaultGameWithPlayers: {player1.player2}.
 	aGame playerMove: player1.
-	self assert: ( aGame leaderName = 'Gaspar').
+	self assert: aGame leaderName equals: 'Gaspar'.
 
 ]
 
@@ -158,7 +158,7 @@ GameTest >> test11CheckPlayerPositions [
 	player2 := Player startWithName: 'Martin'.
 	aGame := Game defaultGameWithPlayers: {player1.player2}.
 	aGame playerMove: player1.
-	self assert:( (aGame playerRank: player2 )= 2).
+	self assert: (aGame playerRank: player2 ) equals: 2.
 
 ]
 
@@ -172,8 +172,8 @@ GameTest >> test12CheckPlayerPositionsWithATie [
 	player3 := Player startWithName: 'Carla'.
 	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
 	aGame playerMove: player1.
-	self assert:( (aGame playerRank: player2 )= 2).
-	self assert:( (aGame playerRank: player3 )= 2).
+	self assert:(aGame playerRank: player2 ) equals: 2.
+	self assert:(aGame playerRank: player3 ) equals: 2.
 
 ]
 
@@ -186,7 +186,7 @@ GameTest >> test13CheckPlayerTurn [
 	player2 := Player startWithName: 'Martin'.
 	player3 := Player startWithName: 'Carla'.
 	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
-	self assert:( (aGame currentTurnPlayerName )= 'Gaspar').
+	self assert:(aGame currentTurnPlayerName ) equals: 'Gaspar'.
 	
 
 ]
@@ -201,7 +201,7 @@ GameTest >> test14CheckPlayerTurnAfterMove [
 	player3 := Player startWithName: 'Carla'.
 	aGame := Game defaultGameWithPlayers: {player1.player2.player3}.
 	aGame playerMove: player1.
-	self assert:( (aGame currentTurnPlayerName )= 'Martin').
+	self assert: (aGame currentTurnPlayerName ) equals: 'Martin'.
 	
 
 ]
@@ -217,7 +217,7 @@ GameTest >> test15GameControlledMovement [
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
-	self assert:( (aGame currentTurnPlayerName )= 'Gaspar').
+	self assert: (aGame currentTurnPlayerName ) equals: 'Gaspar'.
 	
 
 ]

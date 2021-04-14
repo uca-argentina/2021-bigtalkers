@@ -23,5 +23,5 @@ PlayerTest >> test02APlayerMovesForward [
 PlayerTest >> test03CreatePlayerWithName [
 	| aPlayer |
 	aPlayer := Player startWithName: 'Martin'.
-	self assert: ((aPlayer playerName) = 'Martin').
+	self assert: (aPlayer playerName) equals: 'Martin'.
 ]

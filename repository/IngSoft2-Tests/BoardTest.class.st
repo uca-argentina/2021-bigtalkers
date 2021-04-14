@@ -10,7 +10,7 @@ BoardTest >> test01CreateBoard [
 | aBoard |
 aBoard := Board withSlots: 30.
 
-self assert: (aBoard slotsAmount =  30).
+self assert: aBoard slotsAmount equals:   30.
 
 
 
