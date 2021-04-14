@@ -90,7 +90,6 @@ Game >> leaderName [
 
 { #category : #function }
 Game >> leaderScore [
-scoreboard updatePositions: players.
 	^scoreboard leaderScore.
 ]
 
@@ -102,8 +101,7 @@ Game >> moveCurrentPlayer [
 
 { #category : #validation }
 Game >> playerMove: aPlayer [
-	aPlayer movesForward: (dice roll).
-	scoreboard updatePositions: players.
+	scoreboard updatePosition: aPlayer slots: (dice roll)..
 	turn := ((turn * ((turn < (self playersAmount ) ) asBit) )+ 1).
 	finished := (scoreboard leaderScore) >= (self boardSlotsAmount)  
 ]

@@ -21,7 +21,7 @@ Scoreboard >> currentPosition: aPlayerName [
 Scoreboard >> initializeWithPlayers: aCollectionOfPlayers [ 
  	scoreboard := Dictionary new.
 	aCollectionOfPlayers do: 
-		[ :player | scoreboard add: (player playerName) -> (player playerPosition ) ].
+		[ :player | scoreboard add: (player playerName) -> (0 ) ].
 ]
 
 { #category : #function }
@@ -56,6 +56,14 @@ Scoreboard >> playerRank: aPlayer [
 		[ :score | ( (scoreboard at: (aPlayer playerName)) = score )  ifTrue: [^position.] 	ifFalse: [position := position - 1]].
 	
 	
+]
+
+{ #category : #function }
+Scoreboard >> updatePosition: aPlayer slots: aNumberOfSlots [
+	|currentPosition|
+	currentPosition := scoreboard  at: (aPlayer playerName ).
+	
+	scoreboard add: (aPlayer playerName) -> (currentPosition  + aNumberOfSlots )
 ]
 
 { #category : #function }

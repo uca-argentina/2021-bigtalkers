@@ -16,17 +16,6 @@ DiceTest >> test01DiceOneSided [
 ]
 
 { #category : #tests }
-DiceTest >> test02DiceTwoSided [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
-	| aDie |
-	aDie := Die withSides: 2. 
-	
-	self assert: aDie sidesAmmount equals: 2
-]
-
-{ #category : #tests }
 DiceTest >> test03DiceTwentySided [
 	"comment stating purpose of instance-side message"
 	"scope: class-variables  &  instance-variables"	
@@ -80,5 +69,19 @@ DiceTest >> test07RollDice [
 	
 	someDice := Dice with:{(aTwoSidedDie).(aFourSidedDie)}.
 	1 to: 1000 do: [ :iter| self assert: (someDice roll between:1 and: 6) ].
+	
+]
+
+{ #category : #tests }
+DiceTest >> test08RollLoadedDice [
+	"comment stating purpose of instance-side message"
+	"scope: class-variables  &  instance-variables"	
+			
+	| aFourSidedDie aTwoSidedDie someDice|
+	aTwoSidedDie := LoadedDie withSides: 2. 
+	aFourSidedDie := LoadedDie withSides: 4. 
+	
+	someDice := Dice with:{(aTwoSidedDie).(aFourSidedDie)}.
+	1 to: 1000 do: [ :iter| self assert: (someDice roll ) equals: 6 ].
 	
 ]
