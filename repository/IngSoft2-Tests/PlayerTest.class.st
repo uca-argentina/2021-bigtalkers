@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #test }
-PlayerTest >> test03CreatePlayerWithName [
+PlayerTest >> testCreatePlayerWithName [
 	| aPlayer |
 	aPlayer := Player startWithName: 'Martin'.
 	self assert: (aPlayer playerName) equals: 'Martin'.
