@@ -113,12 +113,14 @@ GameTest >> testCheckPlayerPositions [
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
-	aDie := Die withSides: 4.
+	aDie := LoadedDie withSides: 4.
 	aDice := Dice with:{aDie}.
-	aBoard :=Board withSlots: 4.
+	aBoard :=Board withSlots: 20.
 	aGame := BigTalkGame withPlayers:  {player1.player2} withDice:aDice withBoard: aBoard.
-	aGame playerMove: player1.
-	self assert: (aGame playerRank: player2 ) equals: 2.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	self assert: (aGame playerPosition: player2 ) equals: 4.
 
 ]
 
@@ -172,6 +174,22 @@ GameTest >> testCheckPlayerTurnAfterMove [
 	aGame playerMove: player1.
 	self assert: (aGame currentTurnPlayerName ) equals: 'Martin'.
 	
+
+]
+
+{ #category : #tests }
+GameTest >> testCheckRankingPositions [
+	
+	| aGame player1 player2 aDie aDice aBoard |
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Martin'.
+	aDie := Die withSides: 4.
+	aDice := Dice with:{aDie}.
+	aBoard :=Board withSlots: 4.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice:aDice withBoard: aBoard.
+	aGame playerMove: player1.
+	self assert: (aGame playerRank: player2 ) equals: 2.
 
 ]
 
