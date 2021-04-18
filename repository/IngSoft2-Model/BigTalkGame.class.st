@@ -73,6 +73,11 @@ BigTalkGame >> playerMove: aPlayer [
 ]
 
 { #category : #function }
+BigTalkGame >> playerPosition: aPlayer [ 
+	^scoreboard currentPosition: (aPlayer playerName ).
+]
+
+{ #category : #function }
 BigTalkGame >> playerRank: aPlayer [ 
 	^scoreboard playerRank: aPlayer.
 ]
