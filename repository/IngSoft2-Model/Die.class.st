@@ -14,7 +14,8 @@ Die class >> withSides: aNumberOfSides [
 
 { #category : #initialize }
 Die >> initializeUsing: aNumberOfSides [
-	sides := aNumberOfSides 
+(aNumberOfSides < 4 ) ifFalse: [ sides := aNumberOfSides ]  ifTrue: [  Error signal: 'Dice have to have at least 4 sides'] .
+
 ]
 
 { #category : #function }
