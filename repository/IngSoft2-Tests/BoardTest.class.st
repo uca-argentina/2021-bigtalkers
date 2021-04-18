@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-BoardTest >> test01CreateBoard [
+BoardTest >> testCreateBoard [
 
 | aBoard |
 aBoard := Board withSlots: 30.
