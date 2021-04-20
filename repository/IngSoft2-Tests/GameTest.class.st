@@ -243,3 +243,21 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 	
 
 ]
+
+{ #category : #tests }
+GameTest >> testGameWithTwoPlayersWithSameName [
+	| aGame aDie aDice aBoard player1 player2 player3|
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Carla'.
+	player3 := Player startWithName: 'Carla'.
+	aDie := LoadedDie withSides: 4.
+	aDice := Dice with: { aDie }.
+	aBoard :=Board withSlots: 4.
+	
+	self should: [ aGame := BigTalkGame withPlayers:  {player1.player2.player3 } withDice: aDice withBoard: aBoard ] 
+	raise: Error  
+	withMessage: 'There can not be two players with the same name'.
+	
+
+]
