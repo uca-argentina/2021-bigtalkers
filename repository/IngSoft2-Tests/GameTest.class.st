@@ -20,7 +20,7 @@ GameTest >> testAGameWithDefaultValues [
 	
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDie := Die withSides: 4.
+	aDie := Die d4.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
@@ -36,7 +36,7 @@ GameTest >> testAGameWithScoreboard [
 	| aGame player1 player2 aDice aBoard|
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDice := Dice with: {(Die withSides: 4)}.
+	aDice := Dice with: {(Die d4)}.
 	aBoard :=Board sized: 2.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed: aDice playedOn: aBoard.
 	self assert: (aGame  playerScore: 'Gaspar') equals: 0 .
@@ -50,7 +50,7 @@ GameTest >> testAGameWithScoreboardMovesForward [
 	| aGame player1 player2 aDie aDice aBoard|
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDie := Die withSides: 4.
+	aDie := Die d4.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 2.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
@@ -66,7 +66,7 @@ GameTest >> testAGameWithScoreboardTestLeaderUsingRoll [
 	| aGame player1 player2 aDie aBoard aDice aLeader|
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDie := Die withSides: 4.
+	aDie := Die usingCustomSides: 4.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 2.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed: aDice playedOn: aBoard.
@@ -83,7 +83,7 @@ GameTest >> testAGameWithTwoPlayersAndADieAndABoardHasNotFinished [
 	| aGame player1 player2 aDice aBoard|
 player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDice := Dice with: {(Die withSides: 4)}.
+	aDice := Dice with: {(Die usingCustomSides: 4)}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed: aDice playedOn: aBoard.
 	self deny: ( aGame  hasFinished ).
@@ -97,7 +97,7 @@ GameTest >> testCheckLeaderName [
 	
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDie := Die withSides: 4.
+	aDie := Die usingCustomSides: 4.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
@@ -113,7 +113,7 @@ GameTest >> testCheckPlayerPositions [
 	
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie alwaysFallsOn: 4.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 20.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
@@ -132,7 +132,7 @@ GameTest >> testCheckPlayerPositionsWithATie [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	player3 := Player named: 'Carla'.
-	aDie := Die withSides: 4.
+	aDie := Die usingCustomSides: 4.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2.player3} diceUsed:aDice playedOn: aBoard.
@@ -150,7 +150,7 @@ GameTest >> testCheckPlayerTurn [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	player3 := Player named: 'Carla'.
-	aDie := Die withSides: 4.
+	aDie := Die usingCustomSides: 4.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2.player3} diceUsed:aDice playedOn: aBoard.
@@ -167,7 +167,7 @@ GameTest >> testCheckPlayerTurnAfterMove [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	player3 := Player named: 'Carla'.
-	aDie := Die withSides: 4.
+	aDie := Die usingCustomSides: 4.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2.player3} diceUsed:aDice playedOn: aBoard.
@@ -184,7 +184,7 @@ GameTest >> testCheckRankingPositions [
 	
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDie := Die withSides: 4.
+	aDie := Die usingCustomSides: 4.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
@@ -199,8 +199,8 @@ GameTest >> testCreateAGameWithTwoPlayersAndTwoDiceAndABoard [
 	| aGame player1 player2 aDie anotherDie aDice aBoard|
 player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDie := Die withSides: 4.
-	anotherDie := Die withSides: 4. 
+	aDie := Die usingCustomSides: 4.
+	anotherDie := Die usingCustomSides: 4. 
 	aDice := Dice with:{aDie.anotherDie}.
 	aBoard := Board sized: 25.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
@@ -214,7 +214,7 @@ GameTest >> testGameControlledMovement [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	player3 := Player named: 'Carla'.
-	aDie := Die withSides: 4.
+	aDie := Die usingCustomSides: 4.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 20.
 	aGame := BigTalkGame playedBy:  {player1.player2.player3} diceUsed:aDice playedOn: aBoard.
@@ -233,7 +233,7 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	player3 := Player named: 'Carla'.
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie alwaysFallsOn: 4.
 	aDice := Dice with: { aDie }.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2.player3 } diceUsed: aDice playedOn: aBoard.
@@ -249,7 +249,7 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 GameTest >> testGameWithNoPlayers [
 	| aDie aDice aBoard |
 	
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie alwaysFallsOn: 4.
 	aDice := Dice with: { aDie }.
 	aBoard :=Board sized: 4.
 	
@@ -267,7 +267,7 @@ GameTest >> testGameWithTwoPlayersWithSameName [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
 	player3 := Player named: 'Carla'.
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie alwaysFallsOn: 4.
 	aDice := Dice with: { aDie }.
 	aBoard :=Board sized: 4.
 	
@@ -285,7 +285,7 @@ GameTest >> testGameWithWrongBoardClass [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
 
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie alwaysFallsOn: 4.
 	aDice := Dice with: { aDie }.
 
 	
@@ -302,7 +302,7 @@ GameTest >> testGameWithWrongDiceClass [
 	
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie alwaysFallsOn: 4.
 	aBoard :=Board sized: 4.
 	
 	self should: [ BigTalkGame playedBy:{player1.player2} diceUsed: aDie playedOn: aBoard ] 
@@ -316,7 +316,7 @@ GameTest >> testGameWithWrongDiceClass [
 GameTest >> testGameWithWrongPlayerClass [
 	| aDie aDice aBoard |
 	
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie alwaysFallsOn: 4.
 	aDice := Dice with: { aDie }.
 	aBoard :=Board sized: 4.
 	

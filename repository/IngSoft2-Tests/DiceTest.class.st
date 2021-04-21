@@ -29,7 +29,7 @@ DiceTest >> testNonExistantDie [
 	"comment stating purpose of instance-side message"
 	"scope: class-variables  &  instance-variables"	
 
-	self should: [ Die withSides: 2. ] 
+	self should: [ Die usingCustomSides: 2. ] 
 	raise: Error
 	withMessage: 'Dice have to have at least 4 sides'.
 	
@@ -41,8 +41,8 @@ DiceTest >> testRollDice [
 	"scope: class-variables  &  instance-variables"	
 			
 	| aFourSidedDie anotherFourSidedDie someDice|
-	aFourSidedDie := Die withSides: 4. 
-	anotherFourSidedDie := Die withSides: 4. 
+	aFourSidedDie := Die d4. 
+	anotherFourSidedDie := Die d4. 
 	
 	someDice := Dice with:{(anotherFourSidedDie).(aFourSidedDie)}.
 	1 to: 1000 do: [ :iter| self assert: (someDice roll between:2 and: 8) ].
@@ -55,7 +55,7 @@ DiceTest >> testRollFourSided [
 	"scope: class-variables  &  instance-variables"	
 			
 	| aDie aRoll|
-	aDie := Die withSides: 4. 
+	aDie := Die d4. 
 	aRoll := aDie roll.
 	self assert: (aRoll between:1 and: 4)
 ]
@@ -66,8 +66,8 @@ DiceTest >> testRollLoadedDice [
 	"scope: class-variables  &  instance-variables"	
 			
 	| aFourSidedDie aTwoSidedDie someDice|
-	aTwoSidedDie := LoadedDie withSides: 2. 
-	aFourSidedDie := LoadedDie withSides: 4. 
+	aTwoSidedDie := LoadedDie alwaysFallsOn: 2. 
+	aFourSidedDie := LoadedDie alwaysFallsOn: 4. 
 	
 	someDice := Dice with:{(aTwoSidedDie).(aFourSidedDie)}.
 	1 to: 1000 do: [ :iter| self assert: (someDice roll ) equals: 6 ].
@@ -80,7 +80,7 @@ DiceTest >> testRollTwentySided [
 	"asd: class-variables  &  instance-variables"	
 			
 	| aDie aRoll|
-	aDie := Die withSides: 20. 
+	aDie := Die d20. 
 	aRoll := aDie roll.
 	self assert: (aRoll between:1 and: 20)
 ]
@@ -91,6 +91,6 @@ DiceTest >> testRollTwentySided100Times [
 	"scope: class-variables  &  instance-variables"	
 			
 	| aDie |
-	aDie := Die withSides: 20. 
+	aDie := Die d20. 
 	1 to: 100 do: [ :iter| self assert: (aDie roll between: 1 and: 20) ].
 ]

@@ -8,8 +8,8 @@ Class {
 }
 
 { #category : #'instance creation' }
-LoadedDie class >> withSides: aNumberOfSides [ 
-	^self new initializeUsing: aNumberOfSides.
+LoadedDie class >> alwaysFallsOn: aNumber [ 
+	^self new initializeUsing: aNumber.
 ]
 
 { #category : #initialize }
