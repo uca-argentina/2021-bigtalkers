@@ -7,6 +7,6 @@ Class {
 { #category : #test }
 PlayerTest >> testCreatePlayerWithName [
 	| aPlayer |
-	aPlayer := Player startWithName: 'Martin'.
+	aPlayer := Player named: 'Martin'.
 	self assert: (aPlayer playerName) equals: 'Martin'.
 ]

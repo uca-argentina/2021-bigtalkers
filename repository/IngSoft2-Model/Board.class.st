@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-Board class >> withSlots: aNumber [ 
+Board class >> sized: aNumber [ 
 	^self new initializeUsing: aNumber.
 ]
 

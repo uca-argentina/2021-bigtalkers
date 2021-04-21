@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-Player class >> startWithName: aName [
+Player class >> named: aName [
 	^self new initializeWithName: aName.
 ]
 
