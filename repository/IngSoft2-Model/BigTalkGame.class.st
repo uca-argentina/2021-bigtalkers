@@ -34,19 +34,33 @@ BigTalkGame >> currentTurnPlayerName [
 ]
 
 { #category : #validation }
+BigTalkGame >> duplicatePlayers: aCollectionOfPlayers [
+	|aSetOfPlayerNames aCollectionOfPlayerNames|
+	aSetOfPlayerNames := Set new.
+	aCollectionOfPlayerNames  := OrderedCollection new.
+	
+	aCollectionOfPlayers do: [ :player | aSetOfPlayerNames add: (player playerName ). aCollectionOfPlayerNames add: (player playerName ).].
+	 ^((aCollectionOfPlayers size) ~= (aSetOfPlayerNames size) ).
+]
+
+{ #category : #validation }
 BigTalkGame >> hasFinished [
 	^finished.
 ]
 
 { #category : #initialize }
 BigTalkGame >> initializeWithPlayers: aCollectionOfPlayers withDice: aDiceCollection withBoard: aBoard [
-	players:= aCollectionOfPlayers.
+ (self duplicatePlayers: aCollectionOfPlayers) 
+
+ifFalse: [players:= aCollectionOfPlayers.
 	dice := aDiceCollection.
 	board := aBoard.
 	scoreboard := Scoreboard withPlayers: players.
 	finished := false.
 	turn := 1.
-	round := 1.
+	round := 1.]
+
+ifTrue: [  Error signal: 'There can not be two players with the same name'] .	
 ]
 
 { #category : #function }
