@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-Scoreboard class >> withPlayers: aCollectionOfPlayers [ 
+Scoreboard class >> competingPlayers: aCollectionOfPlayers [ 
 	^self new initializeWithPlayers: aCollectionOfPlayers
 ]
 

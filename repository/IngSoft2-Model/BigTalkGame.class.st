@@ -14,8 +14,8 @@ Class {
 }
 
 { #category : #'instance creation' }
-BigTalkGame class >> withPlayers: aCollectionOfPlayers withDice: aCollectionOfDice withBoard: aBoard [ 
-	^self new initializeWithPlayers: aCollectionOfPlayers withDice: aCollectionOfDice withBoard: aBoard .
+BigTalkGame class >> playedBy: aCollectionOfPlayers diceUsed: someDice playedOn: aBoard [ 
+	^self new initializeWithPlayers: aCollectionOfPlayers withDice: someDice withBoard: aBoard .
 ]
 
 { #category : #queries }
@@ -52,7 +52,7 @@ BigTalkGame >> initializeWithPlayers: aCollectionOfPlayers withDice: someDice wi
 	players:= aCollectionOfPlayers.
 	dice := someDice.
 	board := aBoard.
-	scoreboard := Scoreboard withPlayers: players.
+	scoreboard := Scoreboard competingPlayers: players.
 	finished := false.
 	turn := 1.
 	round := 1.
