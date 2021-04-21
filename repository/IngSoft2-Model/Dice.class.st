@@ -13,11 +13,17 @@ Dice class >> with: aDiceCollection [
 ]
 
 { #category : #initialize }
-Dice >> initializeUsing: aDiceCollection [ 
+Dice >> initializeUsing: aDiceCollection [
+	self validateEmptyDiceCollection: aDiceCollection .
 	dice := aDiceCollection 
 ]
 
 { #category : #function }
 Dice >> roll [
 	^(dice sum: [:die| die roll ])
+]
+
+{ #category : #validation }
+Dice >> validateEmptyDiceCollection: aDiceCollection [ 
+	(aDiceCollection isEmpty ) ifTrue: [ Error signal: 'Dice need to have at least one Die'  ]
 ]

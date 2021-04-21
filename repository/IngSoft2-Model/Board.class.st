@@ -15,10 +15,16 @@ Board class >> withSlots: aNumber [
 
 { #category : #initialize }
 Board >> initializeUsing: aNumberOfSlots [
+	self validateMinimumSlots: aNumberOfSlots.
 	slots := aNumberOfSlots 
 ]
 
 { #category : #validation }
 Board >> slotsAmount [
 	^slots
+]
+
+{ #category : #validation }
+Board >> validateMinimumSlots: aNumberOfSlots [
+	(aNumberOfSlots > 0) ifFalse: [ Error signal: 'Boards need at least one slot'  ]
 ]

@@ -14,6 +14,17 @@ DiceTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErro
 ]
 
 { #category : #tests }
+DiceTest >> testEmptyDiceSet [
+	"comment stating purpose of instance-side message"
+	"scope: class-variables  &  instance-variables"	
+	
+	self should: [ Dice with: {}] 
+	raise: Error
+	withMessage: 'Dice need to have at least one Die'.
+	
+]
+
+{ #category : #tests }
 DiceTest >> testNonExistantDie [
 	"comment stating purpose of instance-side message"
 	"scope: class-variables  &  instance-variables"	
