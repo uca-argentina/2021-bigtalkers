@@ -33,12 +33,12 @@ GameTest >> testAGameWithDefaultValues [
 { #category : #tests }
 GameTest >> testAGameWithScoreboard [
 	
-	| aGame player1 player2 aDie aBoard|
+	| aGame player1 player2 aDice aBoard|
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
-	aDie := Die withSides: 4.
+	aDice := Dice with: {(Die withSides: 4)}.
 	aBoard :=Board withSlots: 2.
-	aGame := BigTalkGame withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice: aDice withBoard: aBoard.
 	self assert: (aGame  playerScore: 'Gaspar') equals: 0 .
 	self assert: (aGame  playerScore: 'Martin') equals: 0 .
 
@@ -80,12 +80,12 @@ GameTest >> testAGameWithScoreboardTestLeaderUsingRoll [
 { #category : #tests }
 GameTest >> testAGameWithTwoPlayersAndADieAndABoardHasNotFinished [
 	
-	| aGame player1 player2 aDie aBoard|
+	| aGame player1 player2 aDice aBoard|
 player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
-	aDie := Die withSides: 4.
+	aDice := Dice with: {(Die withSides: 4)}.
 	aBoard :=Board withSlots: 4.
-	aGame := BigTalkGame withPlayers:  {player1.player2} withDice: {aDie} withBoard: aBoard.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice: aDice withBoard: aBoard.
 	self deny: ( aGame  hasFinished ).
 
 ]
@@ -196,13 +196,14 @@ GameTest >> testCheckRankingPositions [
 { #category : #tests }
 GameTest >> testCreateAGameWithTwoPlayersAndTwoDiceAndABoard [
 	"prueba con dos dados"
-	| aGame player1 player2 aDie anotherDie aBoard|
+	| aGame player1 player2 aDie anotherDie aDice aBoard|
 player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Martin'.
 	aDie := Die withSides: 4.
 	anotherDie := Die withSides: 4. 
+	aDice := Dice with:{aDie.anotherDie}.
 	aBoard := Board withSlots: 25.
-	aGame := BigTalkGame withPlayers:  {player1.player2} withDice:{aDie.anotherDie} withBoard: aBoard.
+	aGame := BigTalkGame withPlayers:  {player1.player2} withDice:aDice withBoard: aBoard.
 	self assert: aGame  boardSlotsAmount equals: 25.
 ]
 
@@ -245,8 +246,23 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 ]
 
 { #category : #tests }
+GameTest >> testGameWithNoPlayers [
+	| aDie aDice aBoard |
+	
+	aDie := LoadedDie withSides: 4.
+	aDice := Dice with: { aDie }.
+	aBoard :=Board withSlots: 4.
+	
+	self should: [ BigTalkGame withPlayers:  {} withDice: aDice withBoard: aBoard ] 
+	raise: Error  
+	withMessage: 'You need at least one player to play'.
+	
+
+]
+
+{ #category : #tests }
 GameTest >> testGameWithTwoPlayersWithSameName [
-	| aGame aDie aDice aBoard player1 player2 player3|
+	| aDie aDice aBoard player1 player2 player3|
 	
 	player1 := Player startWithName: 'Gaspar'.
 	player2 := Player startWithName: 'Carla'.
@@ -255,9 +271,58 @@ GameTest >> testGameWithTwoPlayersWithSameName [
 	aDice := Dice with: { aDie }.
 	aBoard :=Board withSlots: 4.
 	
-	self should: [ aGame := BigTalkGame withPlayers:  {player1.player2.player3 } withDice: aDice withBoard: aBoard ] 
+	self should: [ BigTalkGame withPlayers:  {player1.player2.player3 } withDice: aDice withBoard: aBoard ] 
 	raise: Error  
 	withMessage: 'There can not be two players with the same name'.
+	
+
+]
+
+{ #category : #tests }
+GameTest >> testGameWithWrongBoardClass [
+	| aDie aDice player1 player2 |
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Carla'.
+
+	aDie := LoadedDie withSides: 4.
+	aDice := Dice with: { aDie }.
+
+	
+	self should: [ BigTalkGame withPlayers:  {player1.player2 } withDice: aDice withBoard: false ] 
+	raise: Error  
+	withMessage: 'Board should be instance of class Board'.
+	
+
+]
+
+{ #category : #tests }
+GameTest >> testGameWithWrongDiceClass [
+	| aDie aBoard player1 player2|
+	
+	player1 := Player startWithName: 'Gaspar'.
+	player2 := Player startWithName: 'Carla'.
+	aDie := LoadedDie withSides: 4.
+	aBoard :=Board withSlots: 4.
+	
+	self should: [ BigTalkGame withPlayers:{player1.player2} withDice: aDie withBoard: aBoard ] 
+	raise: Error  
+	withMessage: 'Dice should be instances of class Dice'.
+	
+
+]
+
+{ #category : #tests }
+GameTest >> testGameWithWrongPlayerClass [
+	| aDie aDice aBoard |
+	
+	aDie := LoadedDie withSides: 4.
+	aDice := Dice with: { aDie }.
+	aBoard :=Board withSlots: 4.
+	
+	self should: [ BigTalkGame withPlayers:  {'Pepito'.'Charlie'} withDice: aDice withBoard: aBoard ] 
+	raise: Error  
+	withMessage: 'Players should be instances of class Player'.
 	
 
 ]

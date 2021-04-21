@@ -44,16 +44,13 @@ Scoreboard >> leaderScore [
 
 { #category : #function }
 Scoreboard >> playerRank: aPlayer [ 
-	| position aSortedCollection aSet|
-	aSet := Set new.
-	aSortedCollection := SortedCollection new.
-	scoreboard  do: 
-		[ :score | (aSet add: score) ].
-	aSet do:  
-		[ :score | (aSortedCollection add: score)  ].
-	position := aSortedCollection size.
-	aSortedCollection do: 
-		[ :score | ( (scoreboard at: (aPlayer playerName)) = score )  ifTrue: [^position.] 	ifFalse: [position := position - 1]].
+	| place aSortedCollectionOfPlayerPositions|
+	
+	aSortedCollectionOfPlayerPositions := SortedCollection withAll: (Set withAll: (scoreboard collect: [:score | score])).
+	place := aSortedCollectionOfPlayerPositions size.
+	
+	aSortedCollectionOfPlayerPositions do: 
+		[ :score | ( (scoreboard at: (aPlayer playerName)) = score )  ifTrue: [^place.] 	ifFalse: [place := place - 1]].
 	
 	
 ]
