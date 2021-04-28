@@ -2,9 +2,7 @@ Class {
 	#name : #Player,
 	#superclass : #Object,
 	#instVars : [
-		'position',
-		'name',
-		'scoreboard'
+		'name'
 	],
 	#classInstVars : [
 		'position'
@@ -19,7 +17,6 @@ Player class >> named: aName [
 
 { #category : #initialize }
 Player >> initializeWithName: aName [
-	position := 0.
 	name := aName.
 ]
 

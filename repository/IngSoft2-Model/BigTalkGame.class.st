@@ -77,7 +77,7 @@ BigTalkGame >> moveCurrentPlayer [
 	
 ]
 
-{ #category : #function }
+{ #category : #private }
 BigTalkGame >> playerMove: aPlayer [
 	scoreboard updatePosition: aPlayer slots: (dice roll)..
 	turn := ((turn * ((turn < (self playersAmount ) ) asBit) )+ 1).
@@ -86,7 +86,7 @@ BigTalkGame >> playerMove: aPlayer [
 
 { #category : #queries }
 BigTalkGame >> playerPosition: aPlayer [ 
-	^scoreboard currentPosition: (aPlayer playerName ).
+	^scoreboard currentPosition: aPlayer.
 ]
 
 { #category : #queries }

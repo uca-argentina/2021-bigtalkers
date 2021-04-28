@@ -66,8 +66,8 @@ DiceTest >> testRollLoadedDice [
 	"scope: class-variables  &  instance-variables"	
 			
 	| aFourSidedDie aTwoSidedDie someDice|
-	aTwoSidedDie := LoadedDie withSides: 2. 
-	aFourSidedDie := LoadedDie withSides: 4. 
+	aTwoSidedDie := LoadedDie rolling: 2. 
+	aFourSidedDie := LoadedDie rolling: 4. 
 	
 	someDice := Dice with:{(aTwoSidedDie).(aFourSidedDie)}.
 	1 to: 1000 do: [ :iter| self assert: (someDice roll ) equals: 6 ].

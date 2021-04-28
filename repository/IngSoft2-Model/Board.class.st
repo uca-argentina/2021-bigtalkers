@@ -2,7 +2,6 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'sides',
 		'slots'
 	],
 	#category : #'IngSoft2-Model'
