@@ -120,7 +120,7 @@ GameTest >> testCheckPlayerPositions [
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
-	self assert: (aGame playerPosition: player2 ) equals: 4.
+	self assert: (aGame positionOf: player2 ) equals: 4.
 
 ]
 

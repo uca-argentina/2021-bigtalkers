@@ -45,7 +45,7 @@ DiceTest >> testRollDice [
 	anotherFourSidedDie := Die withSides: 4. 
 	
 	someDice := Dice with:{(anotherFourSidedDie).(aFourSidedDie)}.
-	1 to: 1000 do: [ :iter| self assert: (someDice roll between:2 and: 8) ].
+	100 timesRepeat: [self assert: (someDice roll between:2 and: 8) ].
 	
 ]
 
@@ -70,7 +70,7 @@ DiceTest >> testRollLoadedDice [
 	aFourSidedDie := LoadedDie rolling: 4. 
 	
 	someDice := Dice with:{(aTwoSidedDie).(aFourSidedDie)}.
-	1 to: 1000 do: [ :iter| self assert: (someDice roll ) equals: 6 ].
+	100 timesRepeat:  [ self assert: (someDice roll ) equals: 6 ].
 	
 ]
 
@@ -83,14 +83,4 @@ DiceTest >> testRollTwentySided [
 	aDie := Die withSides: 20. 
 	aRoll := aDie roll.
 	self assert: (aRoll between:1 and: 20)
-]
-
-{ #category : #tests }
-DiceTest >> testRollTwentySided100Times [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
-	| aDie |
-	aDie := Die withSides: 20. 
-	1 to: 100 do: [ :iter| self assert: (aDie roll between: 1 and: 20) ].
 ]

@@ -85,11 +85,6 @@ BigTalkGame >> playerMove: aPlayer [
 ]
 
 { #category : #queries }
-BigTalkGame >> playerPosition: aPlayer [ 
-	^scoreboard currentPosition: aPlayer.
-]
-
-{ #category : #queries }
 BigTalkGame >> playerRank: aPlayer [ 
 	^scoreboard playerRank: aPlayer.
 ]
@@ -102,6 +97,11 @@ BigTalkGame >> playerScore: aPlayerName [
 { #category : #queries }
 BigTalkGame >> playersAmount [
 	^players size.
+]
+
+{ #category : #queries }
+BigTalkGame >> positionOf: aPlayer [ 
+	^scoreboard currentPosition: aPlayer.
 ]
 
 { #category : #validation }
