@@ -13,52 +13,55 @@ Scoreboard class >> competingPlayers: aCollectionOfPlayers [
 ]
 
 { #category : #initialize }
-Scoreboard >> currentPosition: aPlayerName [
-	^scoreboard at: aPlayerName.
+Scoreboard >> currentPosition: aPlayer [
+	^scoreboard at: aPlayer.
 ]
 
 { #category : #initialize }
-Scoreboard >> initializeWithPlayers: aCollectionOfPlayers [ 
- 	scoreboard := Dictionary new.
-	aCollectionOfPlayers do: 
-		[ :player | scoreboard add: (player playerName) -> (0 ) ].
+Scoreboard >> initializeWithPlayers: aCollectionOfPlayers [
+	scoreboard := Dictionary new.
+	aCollectionOfPlayers
+		do: [ :player | scoreboard at: player put: 0 ]
+]
+
+{ #category : #function }
+Scoreboard >> leader [
+	| topScore leader|
+	topScore := 0.
+	scoreboard
+		associationsDo: [ :score | 
+			topScore < score value
+				ifTrue: [ topScore := score value. leader := score ] ].
+	^ leader
 ]
 
 { #category : #function }
 Scoreboard >> leaderName [
-|topScore topPlayerName| 
-	topScore := 0.
-	scoreboard  associationsDo: 
-		[ :score | (topScore < score value) ifTrue: [topScore := score value. topPlayerName := score key] ].
-	^topPlayerName.
+	^(self leader key) playerName .
 ]
 
 { #category : #function }
 Scoreboard >> leaderScore [
-|topScore | 
-	topScore := 0.
-	scoreboard  associationsDo: 
-		[ :score | (topScore < score value) ifTrue: [topScore := score value] ].
-	^topScore.
+	^ self leader value
 ]
 
 { #category : #function }
-Scoreboard >> playerRank: aPlayer [ 
-	| place aSortedCollectionOfPlayerPositions|
-	
-	aSortedCollectionOfPlayerPositions := SortedCollection withAll: (Set withAll: (scoreboard collect: [:score | score])).
-	place := aSortedCollectionOfPlayerPositions size.
-	
-	aSortedCollectionOfPlayerPositions do: 
-		[ :score | ( (scoreboard at: (aPlayer playerName)) = score )  ifTrue: [^place.] 	ifFalse: [place := place - 1]].
-	
-	
+Scoreboard >> playerRank: aPlayer [
+	| place playerPlaces |
+	playerPlaces := SortedCollection
+		withAll: (Set withAll: scoreboard values).
+	place := playerPlaces size.
+	playerPlaces
+		do: [ :score | 
+			(scoreboard at: aPlayer) = score
+				ifTrue: [ ^ place ]
+				ifFalse: [ place := place - 1 ] ]
 ]
 
 { #category : #function }
 Scoreboard >> updatePosition: aPlayer slots: aNumberOfSlots [
 	|currentPosition|
-	currentPosition := scoreboard  at: (aPlayer playerName ).
+	currentPosition := scoreboard  at: aPlayer.
 	
-	scoreboard add: (aPlayer playerName) -> (currentPosition  + aNumberOfSlots )
+	scoreboard at: aPlayer put: (currentPosition  + aNumberOfSlots )
 ]

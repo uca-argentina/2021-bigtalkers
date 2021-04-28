@@ -2,22 +2,22 @@ Class {
 	#name : #LoadedDie,
 	#superclass : #Object,
 	#instVars : [
-		'sides'
+		'rollValue'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-LoadedDie class >> withSides: aNumberOfSides [ 
-	^self new initializeUsing: aNumberOfSides.
+LoadedDie class >> rolling: anExpectedRoll [ 
+	^self new initializeUsing: anExpectedRoll.
 ]
 
 { #category : #initialize }
-LoadedDie >> initializeUsing: aNumberOfSides [
-	sides := aNumberOfSides 
+LoadedDie >> initializeUsing: anExpectedRoll [
+	rollValue := anExpectedRoll.
 ]
 
 { #category : #function }
 LoadedDie >> roll [
-	^sides.
+	^rollValue .
 ]

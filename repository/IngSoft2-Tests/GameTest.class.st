@@ -39,8 +39,8 @@ GameTest >> testAGameWithScoreboard [
 	aDice := Dice with: {(Die withSides: 4)}.
 	aBoard :=Board sized: 2.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed: aDice playedOn: aBoard.
-	self assert: (aGame  playerScore: 'Gaspar') equals: 0 .
-	self assert: (aGame  playerScore: 'Martin') equals: 0 .
+	self assert: (aGame  playerScore: player1 ) equals: 0 .
+	self assert: (aGame  playerScore: player2 ) equals: 0 .
 
 ]
 
@@ -55,8 +55,8 @@ GameTest >> testAGameWithScoreboardMovesForward [
 	aBoard :=Board sized: 2.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
 	aGame playerMove: player1.
-	self assert: ( (aGame  playerScore: 'Gaspar') between:1 and: 4).
-	self assert:  (aGame  playerScore: 'Martin') equals: 0 .
+	self assert: ( (aGame  playerScore: player1 ) between:1 and: 4).
+	self assert:  (aGame  playerScore: player2 ) equals: 0 .
 
 ]
 
@@ -113,7 +113,7 @@ GameTest >> testCheckPlayerPositions [
 	
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie rolling: 4.
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 20.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
@@ -233,7 +233,7 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	player3 := Player named: 'Carla'.
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: { aDie }.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2.player3 } diceUsed: aDice playedOn: aBoard.
@@ -249,7 +249,7 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 GameTest >> testGameWithNoPlayers [
 	| aDie aDice aBoard |
 	
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: { aDie }.
 	aBoard :=Board sized: 4.
 	
@@ -267,7 +267,7 @@ GameTest >> testGameWithTwoPlayersWithSameName [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
 	player3 := Player named: 'Carla'.
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: { aDie }.
 	aBoard :=Board sized: 4.
 	
@@ -285,7 +285,7 @@ GameTest >> testGameWithWrongBoardClass [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
 
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: { aDie }.
 
 	
@@ -302,7 +302,7 @@ GameTest >> testGameWithWrongDiceClass [
 	
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie rolling: 4.
 	aBoard :=Board sized: 4.
 	
 	self should: [ BigTalkGame playedBy:{player1.player2} diceUsed: aDie playedOn: aBoard ] 
@@ -316,7 +316,7 @@ GameTest >> testGameWithWrongDiceClass [
 GameTest >> testGameWithWrongPlayerClass [
 	| aDie aDice aBoard |
 	
-	aDie := LoadedDie withSides: 4.
+	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: { aDie }.
 	aBoard :=Board sized: 4.
 	
