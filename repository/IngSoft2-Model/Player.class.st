@@ -12,15 +12,18 @@ Class {
 
 { #category : #'instance creation' }
 Player class >> named: aName [
-	^self new initializeWithName: aName.
+
+	^ self new initializeWithName: aName.
 ]
 
 { #category : #initialize }
 Player >> initializeWithName: aName [
+
 	name := aName.
 ]
 
 { #category : #validation }
 Player >> playerName [
-	^name.
+
+	^ name.
 ]
