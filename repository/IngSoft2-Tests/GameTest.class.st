@@ -120,7 +120,7 @@ GameTest >> testCheckPlayerPositions [
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
-	self assert: (aGame playerPosition: player2 ) equals: 4.
+	self assert: (aGame positionOf: player2 ) equals: 4.
 
 ]
 
@@ -171,7 +171,7 @@ GameTest >> testCheckPlayerTurnAfterMove [
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2.player3} diceUsed:aDice playedOn: aBoard.
-	aGame playerMove: player1.
+	aGame moveCurrentPlayer .
 	self assert: (aGame currentTurnPlayerName ) equals: 'Martin'.
 	
 
@@ -274,55 +274,6 @@ GameTest >> testGameWithTwoPlayersWithSameName [
 	self should: [ BigTalkGame playedBy:  {player1.player2.player3 } diceUsed: aDice playedOn: aBoard ] 
 	raise: Error  
 	withMessage: 'There can not be two players with the same name'.
-	
-
-]
-
-{ #category : #tests }
-GameTest >> testGameWithWrongBoardClass [
-	| aDie aDice player1 player2 |
-	
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Carla'.
-
-	aDie := LoadedDie rolling: 4.
-	aDice := Dice with: { aDie }.
-
-	
-	self should: [ BigTalkGame playedBy:  {player1.player2 } diceUsed: aDice playedOn: false ] 
-	raise: Error  
-	withMessage: 'Board should be instance of class Board'.
-	
-
-]
-
-{ #category : #tests }
-GameTest >> testGameWithWrongDiceClass [
-	| aDie aBoard player1 player2|
-	
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 4.
-	aBoard :=Board sized: 4.
-	
-	self should: [ BigTalkGame playedBy:{player1.player2} diceUsed: aDie playedOn: aBoard ] 
-	raise: Error  
-	withMessage: 'Dice should be instances of class Dice'.
-	
-
-]
-
-{ #category : #tests }
-GameTest >> testGameWithWrongPlayerClass [
-	| aDie aDice aBoard |
-	
-	aDie := LoadedDie rolling: 4.
-	aDice := Dice with: { aDie }.
-	aBoard :=Board sized: 4.
-	
-	self should: [ BigTalkGame playedBy:  {'Pepito'.'Charlie'} diceUsed: aDice playedOn: aBoard ] 
-	raise: Error  
-	withMessage: 'Players should be instances of class Player'.
 	
 
 ]
