@@ -24,7 +24,7 @@ GameTest >> testAGameWithDefaultValues [
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
-	aGame playerMove: player1.
+	aGame moveCurrentPlayer.
 	aLeader :=aGame leaderScore.
 	self assert: ( aLeader between:1 and: 4).
 
@@ -54,7 +54,7 @@ GameTest >> testAGameWithScoreboardMovesForward [
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 2.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
-	aGame playerMove: player1.
+	aGame moveCurrentPlayer.
 	self assert: ( (aGame  playerScore: player1 ) between:1 and: 4).
 	self assert:  (aGame  playerScore: player2 ) equals: 0 .
 
@@ -70,7 +70,7 @@ GameTest >> testAGameWithScoreboardTestLeaderUsingRoll [
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 2.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed: aDice playedOn: aBoard.
-	aGame playerMove: player1.
+	aGame moveCurrentPlayer.
 	aLeader :=aGame leaderScore.
 	self assert: ( aLeader  between: 1 and: 4).
 
@@ -101,7 +101,7 @@ GameTest >> testCheckLeaderName [
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
-	aGame playerMove: player1.
+	aGame moveCurrentPlayer.
 	self assert: aGame leaderName equals: 'Gaspar'.
 
 ]
@@ -136,7 +136,7 @@ GameTest >> testCheckPlayerPositionsWithATie [
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2.player3} diceUsed:aDice playedOn: aBoard.
-	aGame playerMove: player1.
+	aGame moveCurrentPlayer.
 	self assert:(aGame playerRank: player2 ) equals: 2.
 	self assert:(aGame playerRank: player3 ) equals: 2.
 
@@ -188,7 +188,7 @@ GameTest >> testCheckRankingPositions [
 	aDice := Dice with:{aDie}.
 	aBoard :=Board sized: 4.
 	aGame := BigTalkGame playedBy:  {player1.player2} diceUsed:aDice playedOn: aBoard.
-	aGame playerMove: player1.
+	aGame moveCurrentPlayer.
 	self assert: (aGame playerRank: player2 ) equals: 2.
 
 ]
