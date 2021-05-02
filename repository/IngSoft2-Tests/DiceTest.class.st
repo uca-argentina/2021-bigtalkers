@@ -73,14 +73,3 @@ DiceTest >> testRollLoadedDice [
 	100 timesRepeat:  [ self assert: (someDice roll ) equals: 6 ].
 	
 ]
-
-{ #category : #tests }
-DiceTest >> testRollTwentySided [
-	"comment stating purpose of instance-side message"
-	"asd: class-variables  &  instance-variables"	
-			
-	| aDie aRoll|
-	aDie := Die withSides: 20. 
-	aRoll := aDie roll.
-	self assert: (aRoll between:1 and: 20)
-]
