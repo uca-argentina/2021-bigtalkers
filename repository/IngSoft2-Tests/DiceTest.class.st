@@ -14,7 +14,7 @@ DiceTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErro
 ]
 
 { #category : #tests }
-DiceTest >> testEmptyDiceSet [
+DiceTest >> testEmptyDiceSetThrowsError [
 	"comment stating purpose of instance-side message"
 	"scope: class-variables  &  instance-variables"	
 	
@@ -25,7 +25,21 @@ DiceTest >> testEmptyDiceSet [
 ]
 
 { #category : #tests }
-DiceTest >> testNonExistantDie [
+DiceTest >> testLoadedDiceRollsExpectedValue [
+	"comment stating purpose of instance-side message"
+	"scope: class-variables  &  instance-variables"	
+			
+	| aFourSidedDie aTwoSidedDie someDice|
+	aTwoSidedDie := LoadedDie rolling: 2. 
+	aFourSidedDie := LoadedDie rolling: 4. 
+	
+	someDice := Dice with:{(aTwoSidedDie).(aFourSidedDie)}.
+	100 timesRepeat:  [ self assert: (someDice roll ) equals: 6 ].
+	
+]
+
+{ #category : #tests }
+DiceTest >> testNonExistantDieThrowsError [
 	"comment stating purpose of instance-side message"
 	"scope: class-variables  &  instance-variables"	
 
@@ -36,21 +50,7 @@ DiceTest >> testNonExistantDie [
 ]
 
 { #category : #tests }
-DiceTest >> testRollDice [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
-	| aFourSidedDie anotherFourSidedDie someDice|
-	aFourSidedDie := Die withSides: 4. 
-	anotherFourSidedDie := Die withSides: 4. 
-	
-	someDice := Dice with:{(anotherFourSidedDie).(aFourSidedDie)}.
-	100 timesRepeat: [self assert: (someDice roll between:2 and: 8) ].
-	
-]
-
-{ #category : #tests }
-DiceTest >> testRollFourSided [
+DiceTest >> testRollingD4RollsBetween1and4 [
 	"comment stating purpose of instance-side message"
 	"scope: class-variables  &  instance-variables"	
 			
@@ -61,15 +61,15 @@ DiceTest >> testRollFourSided [
 ]
 
 { #category : #tests }
-DiceTest >> testRollLoadedDice [
+DiceTest >> testTwoD4RollBetween2and8 [
 	"comment stating purpose of instance-side message"
 	"scope: class-variables  &  instance-variables"	
 			
-	| aFourSidedDie aTwoSidedDie someDice|
-	aTwoSidedDie := LoadedDie rolling: 2. 
-	aFourSidedDie := LoadedDie rolling: 4. 
+	| aFourSidedDie anotherFourSidedDie someDice|
+	aFourSidedDie := Die withSides: 4. 
+	anotherFourSidedDie := Die withSides: 4. 
 	
-	someDice := Dice with:{(aTwoSidedDie).(aFourSidedDie)}.
-	100 timesRepeat:  [ self assert: (someDice roll ) equals: 6 ].
+	someDice := Dice with:{(anotherFourSidedDie).(aFourSidedDie)}.
+	100 timesRepeat: [self assert: (someDice roll between:2 and: 8) ].
 	
 ]
