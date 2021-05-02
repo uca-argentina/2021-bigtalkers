@@ -100,11 +100,6 @@ BigTalkGame >> playerScore: aPlayerName [
 ]
 
 { #category : #queries }
-BigTalkGame >> playersAmount [
-	^players size.
-]
-
-{ #category : #queries }
 BigTalkGame >> positionOf: aPlayer [ 
 	^scoreboard currentPosition: aPlayer.
 ]
