@@ -18,6 +18,23 @@ BigTalkGame class >> playedBy: aCollectionOfPlayers diceUsed: someDice playedOn:
 	^self new initializeWithPlayers: aCollectionOfPlayers withDice: someDice withBoard: aBoard .
 ]
 
+{ #category : #validation }
+BigTalkGame class >> validateDuplicatePlayers: aCollectionOfPlayers [
+
+	| aSetOfPlayerNames |
+	aSetOfPlayerNames := Set
+		withAll: (aCollectionOfPlayers collect: [ :player | player playerName ]).
+	aCollectionOfPlayers size ~= aSetOfPlayerNames size
+		ifTrue: [ Error signal: 'There can not be two players with the same name' ]
+]
+
+{ #category : #validation }
+BigTalkGame class >> validateNoPlayers: aCollectionOfPlayers [
+
+	aCollectionOfPlayers isEmpty
+		ifTrue: [ Error signal: 'You need at least one player to play' ]
+]
+
 { #category : #queries }
 BigTalkGame >> boardSlotsAmount [
 	^board slotsAmount.
@@ -47,8 +64,8 @@ BigTalkGame >> hasFinished [
 { #category : #initialize }
 BigTalkGame >> initializeWithPlayers: aCollectionOfPlayers withDice: someDice withBoard: aBoard [
 	
-	self validateDuplicatePlayers: aCollectionOfPlayers.
-	self validateNoPlayers: aCollectionOfPlayers .
+	self class validateDuplicatePlayers: aCollectionOfPlayers.
+	self class validateNoPlayers: aCollectionOfPlayers .
 	
 	
 	players:= aCollectionOfPlayers.
@@ -102,19 +119,4 @@ BigTalkGame >> playerScore: aPlayerName [
 { #category : #queries }
 BigTalkGame >> positionOf: aPlayer [ 
 	^scoreboard currentPosition: aPlayer.
-]
-
-{ #category : #validation }
-BigTalkGame >> validateDuplicatePlayers: aCollectionOfPlayers [
-	|aSetOfPlayerNames |
-
-	
-	aSetOfPlayerNames := Set withAll: (aCollectionOfPlayers collect: [:player | player playerName ]) .
-	
-	((aCollectionOfPlayers size) ~= (aSetOfPlayerNames size) ) ifTrue:[Error signal: 'There can not be two players with the same name']
-]
-
-{ #category : #validation }
-BigTalkGame >> validateNoPlayers: aCollectionOfPlayers [
-	((aCollectionOfPlayers isEmpty) ) ifTrue:[Error signal: 'You need at least one player to play']
 ]

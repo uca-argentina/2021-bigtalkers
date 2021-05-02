@@ -12,18 +12,20 @@ Board class >> sized: aNumber [
 	^self new initializeUsing: aNumber.
 ]
 
+{ #category : #validation }
+Board class >> validateMinimumSlots: aNumberOfSlots [
+
+	aNumberOfSlots > 0
+		ifFalse: [ Error signal: 'Boards need at least one slot' ]
+]
+
 { #category : #initialize }
 Board >> initializeUsing: aNumberOfSlots [
-	self validateMinimumSlots: aNumberOfSlots.
+	self class validateMinimumSlots: aNumberOfSlots.
 	slots := aNumberOfSlots 
 ]
 
-{ #category : #validation }
+{ #category : #'testing - variables' }
 Board >> slotsAmount [
 	^slots
-]
-
-{ #category : #validation }
-Board >> validateMinimumSlots: aNumberOfSlots [
-	(aNumberOfSlots > 0) ifFalse: [ Error signal: 'Boards need at least one slot'  ]
 ]
