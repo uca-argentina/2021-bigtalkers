@@ -8,7 +8,7 @@ Class {
 		'scoreboard',
 		'finished',
 		'turn',
-		'round'
+		'currPlayer'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -23,9 +23,15 @@ BigTalkGame >> boardSlotsAmount [
 	^board slotsAmount.
 ]
 
+{ #category : #function }
+BigTalkGame >> changeTurn [
+	turn nextPut: currPlayer.
+	currPlayer := turn next.
+]
+
 { #category : #queries }
 BigTalkGame >> currentTurnPlayer [
-	^players at: turn.
+	^ currPlayer.
 ]
 
 { #category : #queries }
@@ -40,10 +46,6 @@ BigTalkGame >> hasFinished [
 
 { #category : #initialize }
 BigTalkGame >> initializeWithPlayers: aCollectionOfPlayers withDice: someDice withBoard: aBoard [
- 	
-	self validateCollectionOfPlayersClass: aCollectionOfPlayers.
-	self validateBoardClass: aBoard.
-	self validateDiceClass: someDice.
 	
 	self validateDuplicatePlayers: aCollectionOfPlayers.
 	self validateNoPlayers: aCollectionOfPlayers .
@@ -54,8 +56,10 @@ BigTalkGame >> initializeWithPlayers: aCollectionOfPlayers withDice: someDice wi
 	board := aBoard.
 	scoreboard := Scoreboard competingPlayers: players.
 	finished := false.
-	turn := 1.
-	round := 1.
+	turn := SharedQueue new.
+	players do: [ :player | turn nextPut: player].
+	currPlayer := turn next.
+
 
 
 
@@ -73,15 +77,16 @@ BigTalkGame >> leaderScore [
 
 { #category : #function }
 BigTalkGame >> moveCurrentPlayer [
-	(finished) ifFalse: [  self playerMove: (self currentTurnPlayer)]  ifTrue: [  Error signal: 'The game has finished'] .
-	
+	finished
+		ifFalse: [ self playerMove: self currentTurnPlayer.
+			self changeTurn ]
+		ifTrue: [ Error signal: 'The game has finished' ]
 ]
 
 { #category : #private }
 BigTalkGame >> playerMove: aPlayer [
-	scoreboard updatePosition: aPlayer slots: (dice roll)..
-	turn := ((turn * ((turn < (self playersAmount ) ) asBit) )+ 1).
-	finished := (scoreboard leaderScore) >= (self boardSlotsAmount)  
+	scoreboard updatePosition: aPlayer slots: dice roll.
+	finished := scoreboard leaderScore >= self boardSlotsAmount
 ]
 
 { #category : #queries }
@@ -102,21 +107,6 @@ BigTalkGame >> playersAmount [
 { #category : #queries }
 BigTalkGame >> positionOf: aPlayer [ 
 	^scoreboard currentPosition: aPlayer.
-]
-
-{ #category : #validation }
-BigTalkGame >> validateBoardClass: aBoard [
-	(aBoard isKindOf: Board) ifFalse: [Error signal: 'Board should be instance of class Board'] 
-]
-
-{ #category : #validation }
-BigTalkGame >> validateCollectionOfPlayersClass: aCollectionOfPlayers [
-	aCollectionOfPlayers do: [ :player | (player isKindOf: Player) ifFalse: [Error signal: 'Players should be instances of class Player'] ] 
-]
-
-{ #category : #validation }
-BigTalkGame >> validateDiceClass: aDice [
-	(aDice isKindOf: Dice) ifFalse: [Error signal: 'Dice should be instances of class Dice'] 
 ]
 
 { #category : #validation }
