@@ -38,6 +38,20 @@ DiceTest >> testLoadedDiceRollsExpectedValue [
 ]
 
 { #category : #tests }
+DiceTest >> testLoadedDieCannotHaveNegativeResult [
+	"comment stating purpose of instance-side message"
+	"scope: class-variables  &  instance-variables"	
+			
+	
+	
+	
+	self should: [ LoadedDie rolling: -1] 
+	raise: Error
+	withMessage: 'A loaded die cannot have a negative result'.
+	
+]
+
+{ #category : #tests }
 DiceTest >> testNonExistantDieThrowsError [
 	"comment stating purpose of instance-side message"
 	"scope: class-variables  &  instance-variables"	

@@ -16,13 +16,20 @@ Player class >> named: aName [
 	^ self new initializeWithName: aName.
 ]
 
+{ #category : #validation }
+Player class >> validatePlayersNameCannotBeEmpty: aName [
+
+	aName = ''
+		ifTrue: [ Error signal: 'A player cannot have an empty name' ]
+]
+
 { #category : #initialize }
 Player >> initializeWithName: aName [
-
+	self class validatePlayersNameCannotBeEmpty: aName.
 	name := aName.
 ]
 
-{ #category : #validation }
+{ #category : #'testing - variables' }
 Player >> playerName [
 
 	^ name.
