@@ -14,6 +14,12 @@ Scoreboard class >> competingPlayers: somePlayers [
 ]
 
 { #category : #initialize }
+Scoreboard >> currentLap: aPlayer [
+
+	^ (scoreboard at: aPlayer) lap.
+]
+
+{ #category : #initialize }
 Scoreboard >> currentPosition: aPlayer [
 
 	^ (scoreboard at: aPlayer) position.
@@ -73,5 +79,14 @@ Scoreboard >> updatePosition: aPlayer slots: aNumberOfSlots [
 
 	| currentPosition |
 	currentPosition := scoreboard at: aPlayer.
+	scoreboard at: aPlayer put: currentPosition + aNumberOfSlots.
+]
+
+{ #category : #function }
+Scoreboard >> updatePosition: aPlayer slots: aNumberOfSlots laps: aNumberOfLaps [
+
+	| currentPosition |
+	currentPosition := scoreboard at: aPlayer.
+	1 to: aNumberOfLaps do: [ :lap | currentPosition addLap ].
 	scoreboard at: aPlayer put: currentPosition + aNumberOfSlots.
 ]

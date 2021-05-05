@@ -49,6 +49,11 @@ Position >> initializeUsing: startingSlot [
 ]
 
 { #category : #accessing }
+Position >> lap [
+	^ lap
+]
+
+{ #category : #accessing }
 Position >> position [
 	^ slot
 ]

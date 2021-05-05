@@ -88,6 +88,12 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 ]
 
 { #category : #queries }
+BigTalkGame >> lapOf: aPlayer [
+
+	^ scoreboard currentLap: aPlayer.
+]
+
+{ #category : #queries }
 BigTalkGame >> leader [
 
 	^ scoreboard leader key.
@@ -116,9 +122,16 @@ BigTalkGame >> moveCurrentPlayer [
 
 { #category : #private }
 BigTalkGame >> playerMove: aPlayer [
-
-	scoreboard updatePosition: aPlayer slots: dice roll.
-	finished := scoreboard leaderScore >= self boardSlotsAmount.
+	| playerposition rollvalue laps newPosition |
+	playerposition := scoreboard currentPosition: aPlayer.
+	rollvalue := dice roll.
+	newPosition := rollvalue + playerposition.
+	newPosition > self boardSlotsAmount
+		ifTrue: [ laps := 1.
+			rollvalue := newPosition - self boardSlotsAmount ]
+		ifFalse: [ laps := 0 ].
+	scoreboard updatePosition: aPlayer slots: rollvalue laps: laps.
+	finished := scoreboard leaderScore >= self boardSlotsAmount
 ]
 
 { #category : #queries }
