@@ -23,7 +23,6 @@ Board class >> validateMinimumSlots: aNumberOfSlots [
 { #category : #initialize }
 Board >> initializeUsing: aNumberOfSlots [
 
-	self class validateMinimumSlots: aNumberOfSlots.
 	slots := aNumberOfSlots.
 ]
 

@@ -76,8 +76,7 @@ BigTalkGame >> hasFinished [
 { #category : #initialize }
 BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard [
 
-	self class validateDuplicatePlayers: somePlayers .
-	self class validateNoPlayers: somePlayers.
+
 	players := somePlayers.
 	dice := someDice.
 	board := aBoard.

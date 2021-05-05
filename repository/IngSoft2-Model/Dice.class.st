@@ -24,7 +24,6 @@ Dice class >> with: aDiceCollection [
 { #category : #initialize }
 Dice >> initializeUsing: aDiceCollection [
 
-	self class validateEmptyDiceCollection: aDiceCollection.
 	dice := aDiceCollection.
 ]
 
