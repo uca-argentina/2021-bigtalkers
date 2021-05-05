@@ -15,7 +15,10 @@ Class {
 
 { #category : #'instance creation' }
 BigTalkGame class >> playedBy: somePlayers diceUsed: someDice playedOn: aBoard [
-
+	
+	self validateDuplicatePlayers: somePlayers .
+	self validateNoPlayers: somePlayers.
+	
 	^ self new
 		initializeWithPlayers: somePlayers
 		withDice: someDice

@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-Board class >> sized: aNumber [
-
-	^ self new initializeUsing: aNumber.
+Board class >> sized: aNumberOfSlots [
+	self validateMinimumSlots: aNumberOfSlots.
+	^ self new initializeUsing: aNumberOfSlots
 ]
 
 { #category : #validation }

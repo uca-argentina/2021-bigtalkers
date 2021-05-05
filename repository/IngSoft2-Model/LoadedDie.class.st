@@ -9,7 +9,7 @@ Class {
 
 { #category : #'instance creation' }
 LoadedDie class >> rolling: anExpectedRoll [
-
+	self validateLoadedDieCannotHaveNegativeResult: anExpectedRoll.
 	^ self new initializeUsing: anExpectedRoll.
 ]
 
@@ -23,7 +23,6 @@ LoadedDie class >> validateLoadedDieCannotHaveNegativeResult: anExpectedRoll [
 { #category : #initialize }
 LoadedDie >> initializeUsing: anExpectedRoll [
 	
-	self class validateLoadedDieCannotHaveNegativeResult: anExpectedRoll.
 	rollValue := anExpectedRoll.
 ]
 
