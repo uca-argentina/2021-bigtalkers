@@ -324,6 +324,29 @@ GameTest >> testGameFinishedWithWinner [
 ]
 
 { #category : #tests }
+GameTest >> testGameNewLap [
+
+	| aGame aDie aDice aBoard player1 player2 player3 |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	player3 := Player named: 'Carla'.
+	aDie := LoadedDie rolling: 4.
+	aDice := Dice with: {aDie}.
+	aBoard := Board sized: 15.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2.
+			player3}
+		diceUsed: aDice
+		playedOn: aBoard.
+	10  timesRepeat: [aGame moveCurrentPlayer].
+	self assert: (aGame lapOf: player1 )equals: 1.
+	self assert: (aGame positionOf: player1 )equals: 1.
+
+]
+
+{ #category : #tests }
 GameTest >> testGameWithNoPlayers [
 
 	| aDie aDice aBoard |

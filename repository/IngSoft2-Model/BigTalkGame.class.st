@@ -76,8 +76,7 @@ BigTalkGame >> hasFinished [
 { #category : #initialize }
 BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard [
 
-	self class validateDuplicatePlayers: somePlayers .
-	self class validateNoPlayers: somePlayers.
+
 	players := somePlayers.
 	dice := someDice.
 	board := aBoard.
@@ -86,6 +85,12 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	turn := SharedQueue new.
 	players do: [ :player | turn nextPut: player ].
 	currPlayer := turn next.
+]
+
+{ #category : #queries }
+BigTalkGame >> lapOf: aPlayer [
+
+	^ scoreboard currentLap: aPlayer.
 ]
 
 { #category : #queries }
@@ -117,9 +122,16 @@ BigTalkGame >> moveCurrentPlayer [
 
 { #category : #private }
 BigTalkGame >> playerMove: aPlayer [
-
-	scoreboard updatePosition: aPlayer slots: dice roll.
-	finished := scoreboard leaderScore >= self boardSlotsAmount.
+	| playerposition rollvalue laps newPosition |
+	playerposition := scoreboard currentPosition: aPlayer.
+	rollvalue := dice roll.
+	newPosition := rollvalue + playerposition.
+	newPosition > self boardSlotsAmount
+		ifTrue: [ laps := 1.
+			rollvalue := newPosition - self boardSlotsAmount ]
+		ifFalse: [ laps := 0 ].
+	scoreboard updatePosition: aPlayer slots: rollvalue laps: laps.
+	finished := scoreboard leaderScore >= self boardSlotsAmount
 ]
 
 { #category : #queries }
