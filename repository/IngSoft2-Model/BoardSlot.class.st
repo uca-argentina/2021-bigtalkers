@@ -8,15 +8,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-Board class >> boardTestSized: aNumberOfSlots [
-	self validateMinimumSlots: aNumberOfSlots.
-	^ self new initializeUsingEffectTests: aNumberOfSlots
-]
 
-{ #category : #'instance creation' }
-Board class >> sized: aNumberOfSlots [
-	self validateMinimumSlots: aNumberOfSlots.
-	^ self new initializeUsing: aNumberOfSlots
 ]
 
 { #category : #validation }
@@ -31,15 +23,6 @@ Board >> effectAt: aPosition [
 	^ (self slotAt: aPosition) getEffect
 ]
 
-{ #category : #accessing }
-Board >> effectNameAt: aPosition [
-	^ (self slotAt: aPosition) getEffectName 
-]
-
-{ #category : #initialize }
-Board >> initializeUsing: aNumberOfSlots [
-	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
 
 ]
 

@@ -347,6 +347,44 @@ GameTest >> testGameNewLap [
 ]
 
 { #category : #tests }
+GameTest >> testGamePlayerOneFallsInAtomicBomb [
+	| aDie aDice aBoard player1 player2 aGame |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Carla'.
+	aDie := LoadedDie rolling: 7.
+	aDice := Dice with: {aDie}.
+	aBoard := Board boardTestSized: 16.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		diceUsed: aDice
+		playedOn: aBoard.
+	aGame moveCurrentPlayer.
+	self assert: (aGame positionOf: player1) equals: 0.
+	self assert: (aGame positionOf: player2) equals: 0
+]
+
+{ #category : #tests }
+GameTest >> testGamePlayerOneFallsInMoonWalk [
+	| aDie aDice aBoard player1 player2 aGame |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Carla'.
+	aDie := LoadedDie rolling: 6.
+	aDice := Dice with: {aDie}.
+	aBoard := Board boardTestSized: 16.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		diceUsed: aDice
+		playedOn: aBoard.
+	aGame moveCurrentPlayer.
+	self assert: (aGame positionOf: player1) equals: 6.
+	self assert: (aGame positionOf: player2) equals: -2
+]
+
+{ #category : #tests }
 GameTest >> testGamePlayerOneFallsInSpeedUp [
 	| aDie aDice aBoard player1 player2 aGame |
 	player1 := Player named: 'Gaspar'.
