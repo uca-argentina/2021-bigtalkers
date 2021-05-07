@@ -31,11 +31,6 @@ Board >> effectAt: aPosition [
 	^ (self slotAt: aPosition) getEffect
 ]
 
-{ #category : #accessing }
-Board >> effectNameAt: aPosition [
-	^ (self slotAt: aPosition) getEffectName 
-]
-
 { #category : #initialize }
 Board >> initializeUsing: aNumberOfSlots [
 	slots := OrderedCollection new.

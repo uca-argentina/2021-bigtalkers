@@ -1,58 +1,47 @@
 Class {
-	#name : #BoardSlot,
+	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'effect'
+		'slots'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-BoardSlot class >> withAtomicBomb [
-	^ self new initializeWith: AtomicBomb new
+
 ]
 
-{ #category : #'instance creation' }
-BoardSlot class >> withEffect: anEffect [
-	self new initializeWith: anEffect.
+{ #category : #validation }
+Board class >> validateMinimumSlots: aNumberOfSlots [
+
+	aNumberOfSlots > 0
+		ifFalse: [ Error signal: 'Boards need at least one slot' ].
 ]
 
-{ #category : #'instance creation' }
-BoardSlot class >> withMoonwalk [
-	^ self new initializeWith: Moonwalk  new
+{ #category : #accessing }
+Board >> effectAt: aPosition [
+	^ (self slotAt: aPosition) getEffect
 ]
 
-{ #category : #'instance creation' }
-BoardSlot class >> withNoEffect [
-	^ self new initializeWith: NoEffect new
+
 ]
 
-{ #category : #'instance creation' }
-BoardSlot class >> withSpeedUp [
-	^ self new initializeWith: SpeedUp new.
+{ #category : #initialize }
+Board >> initializeUsingEffectTests: aNumberOfSlots [
+	slots := OrderedCollection new.
+	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
+	slots at: 4 put: BoardSlot withSpeedUp.
+	slots at: 5 put: BoardSlot withWormHole.
+	slots at: 6 put: BoardSlot withMoonwalk.
+	slots at: 7 put: BoardSlot withAtomicBomb
 ]
 
-{ #category : #'instance creation' }
-BoardSlot class >> withWormHole [
-	^ self new initializeWith: WormHole new
+{ #category : #accessing }
+Board >> slotAt: aPosition [
+	^ (slots at: aPosition).
 ]
 
-{ #category : #accesing }
-BoardSlot >> getEffect [
-	^ effect
-]
-
-{ #category : #queries }
-BoardSlot >> getEffectName [
-	^ effect name.
-]
-
-{ #category : #initialization }
-BoardSlot >> initializeWith: anEffect [
-	effect := anEffect
-]
-
-{ #category : #queries }
-BoardSlot >> name [
-	^ effect name.
+{ #category : #'testing - variables' }
+Board >> slotsAmount [
+	^ slots size
 ]
