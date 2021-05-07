@@ -347,6 +347,45 @@ GameTest >> testGameNewLap [
 ]
 
 { #category : #tests }
+GameTest >> testGamePlayerOneFallsInSpeedUp [
+	| aDie aDice aBoard player1 player2 aGame |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Carla'.
+	aDie := LoadedDie rolling: 4.
+	aDice := Dice with: {aDie}.
+	aBoard := Board boardTestSized:  16.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		diceUsed: aDice
+		playedOn: aBoard.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	self assert: (aGame positionOf: player1) equals: 12.
+	self assert: (aGame positionOf: player2) equals: 8
+]
+
+{ #category : #tests }
+GameTest >> testGamePlayerOneFallsInWormhole [
+	| aDie aDice aBoard player1 player2 aGame |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Carla'.
+	aDie := LoadedDie rolling: 5.
+	aDice := Dice with: {aDie}.
+	aBoard := Board boardTestSized: 16.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		diceUsed: aDice
+		playedOn: aBoard.
+	aGame moveCurrentPlayer.
+	self assert: (aGame positionOf: player1) equals: 1
+]
+
+{ #category : #tests }
 GameTest >> testGameWithNoPlayers [
 
 	| aDie aDice aBoard |
