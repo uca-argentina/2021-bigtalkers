@@ -42,6 +42,23 @@ BigTalkGame class >> validateNoPlayers: somePlayers [
 		ifTrue: [ Error signal: 'You need at least one player to play' ].
 ]
 
+{ #category : #'effect-application' }
+BigTalkGame >> applyEffectAt: aPlayerPosition [
+|effect|
+effect := self effectAt: aPlayerPosition.
+effect applyTo: self.
+]
+
+{ #category : #'effect-application' }
+BigTalkGame >> applySpeedUp [
+	self playerMove: self currentTurnPlayer slots: 4
+]
+
+{ #category : #'effect-application' }
+BigTalkGame >> applyWormHole [
+	self playerMove: self currentTurnPlayer slots: -4
+]
+
 { #category : #queries }
 BigTalkGame >> boardSlotsAmount [
 
@@ -65,6 +82,18 @@ BigTalkGame >> currentTurnPlayer [
 BigTalkGame >> currentTurnPlayerName [
 
 	^ self currentTurnPlayer playerName.
+]
+
+{ #category : #queries }
+BigTalkGame >> currentTurnPlayerPosition [
+
+	^ self positionOf: currPlayer.
+]
+
+{ #category : #accessing }
+BigTalkGame >> effectAt: aPosition [
+
+	^board effectAt: aPosition.
 ]
 
 { #category : #queries }
@@ -115,13 +144,28 @@ BigTalkGame >> leaderScore [
 BigTalkGame >> moveCurrentPlayer [
 
 	finished
-		ifFalse: [ self playerMove: self currentTurnPlayer.
+		ifFalse: [ self playerMoveAfterRoll: self currentTurnPlayer.
+			self applyEffectAt:  self currentTurnPlayerPosition .
 			self changeTurn ]
 		ifTrue: [ Error signal: 'The game has finished' ].
 ]
 
 { #category : #private }
-BigTalkGame >> playerMove: aPlayer [
+BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
+	| playerposition valueToMove laps newPosition |
+	playerposition := scoreboard currentPosition: aPlayer.
+	valueToMove := aNumberOfSlots.
+	newPosition := valueToMove + playerposition.
+	newPosition > self boardSlotsAmount
+		ifTrue: [ laps := 1.
+			valueToMove := newPosition - self boardSlotsAmount ]
+		ifFalse: [ laps := 0 ].
+	scoreboard updatePosition: aPlayer slots: valueToMove laps: laps.
+	finished := scoreboard leaderScore >= self boardSlotsAmount
+]
+
+{ #category : #private }
+BigTalkGame >> playerMoveAfterRoll: aPlayer [
 	| playerposition rollvalue laps newPosition |
 	playerposition := scoreboard currentPosition: aPlayer.
 	rollvalue := dice roll.
