@@ -425,7 +425,7 @@ GameTest >> testGamePlayerOneFallsInWormhole [
 
 { #category : #tests }
 GameTest >> testGameWithNoPlayers [
-
+"commit"
 	| aDie aDice aBoard |
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
