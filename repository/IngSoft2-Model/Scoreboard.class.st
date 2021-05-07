@@ -75,14 +75,6 @@ Scoreboard >> positions [
 ]
 
 { #category : #function }
-Scoreboard >> updatePosition: aPlayer slots: aNumberOfSlots [
-
-	| currentPosition |
-	currentPosition := scoreboard at: aPlayer.
-	scoreboard at: aPlayer put: currentPosition + aNumberOfSlots.
-]
-
-{ #category : #function }
 Scoreboard >> updatePosition: aPlayer slots: aNumberOfSlots laps: aNumberOfLaps [
 
 	| currentPosition |
