@@ -26,11 +26,6 @@ Position >> < aPosition [
 ]
 
 { #category : #arithmetic }
-Position >> <= aPosition [
-	^ self position <= aPosition position
-]
-
-{ #category : #arithmetic }
 Position >> > aPosition [
 	^ self position > aPosition position
 ]
@@ -39,11 +34,6 @@ Position >> > aPosition [
 Position >> addLap [
  lap := lap+1.
  slot := 0.
-]
-
-{ #category : #private }
-Position >> backToStart [
-	slot := 0
 ]
 
 { #category : #initialization }

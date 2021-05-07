@@ -43,9 +43,8 @@ Board >> initializeUsingEffectTests: aNumberOfSlots [
 	slots := OrderedCollection new.
 	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
 	slots at: 4 put: BoardSlot withSpeedUp.
-	slots at: 5 put: BoardSlot withWormHole.
-	slots at: 6 put: BoardSlot withMoonwalk.
-	slots at: 7 put: BoardSlot withAtomicBomb
+	slots at: 5 put: BoardSlot withWormHole.  
+
 ]
 
 { #category : #accessing }
