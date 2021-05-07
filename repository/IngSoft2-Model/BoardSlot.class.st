@@ -1,33 +1,64 @@
 Class {
-	#name : #BoardSlot,
+	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'effect'
+		'slots'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-BoardSlot class >> withNoEffect [
-	^ self new initializeWith: NoEffect new
+Board class >> boardTestSized: aNumberOfSlots [
+	self validateMinimumSlots: aNumberOfSlots.
+	^ self new initializeUsingEffectTests: aNumberOfSlots
 ]
 
 { #category : #'instance creation' }
-BoardSlot class >> withSpeedUp [
-	^ self new initializeWith: SpeedUp new.
+Board class >> sized: aNumberOfSlots [
+	self validateMinimumSlots: aNumberOfSlots.
+	^ self new initializeUsing: aNumberOfSlots
 ]
 
-{ #category : #'instance creation' }
-BoardSlot class >> withWormHole [
-	^ self new initializeWith: WormHole new
+{ #category : #validation }
+Board class >> validateMinimumSlots: aNumberOfSlots [
+
+	aNumberOfSlots > 0
+		ifFalse: [ Error signal: 'Boards need at least one slot' ].
 ]
 
 { #category : #accessing }
-BoardSlot >> getEffect [
-	^ effect
+Board >> effectAt: aPosition [
+	^ (self slotAt: aPosition) getEffect
 ]
 
-{ #category : #initialization }
-BoardSlot >> initializeWith: anEffect [
-	effect := anEffect
+{ #category : #accessing }
+Board >> effectNameAt: aPosition [
+	^ (self slotAt: aPosition) getEffectName 
+]
+
+{ #category : #initialize }
+Board >> initializeUsing: aNumberOfSlots [
+	slots := OrderedCollection new.
+	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
+
+]
+
+{ #category : #initialize }
+Board >> initializeUsingEffectTests: aNumberOfSlots [
+	slots := OrderedCollection new.
+	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
+	slots at: 4 put: BoardSlot withSpeedUp.
+	slots at: 5 put: BoardSlot withWormHole.
+	slots at: 6 put: BoardSlot withMoonwalk.
+	slots at: 7 put: BoardSlot withAtomicBomb
+]
+
+{ #category : #accessing }
+Board >> slotAt: aPosition [
+	^ (slots at: aPosition).
+]
+
+{ #category : #'testing - variables' }
+Board >> slotsAmount [
+	^ slots size
 ]
