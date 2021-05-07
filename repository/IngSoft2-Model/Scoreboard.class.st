@@ -39,7 +39,7 @@ Scoreboard >> leader [
 	topScore := Position startingPosition .
 	scoreboard
 		associationsDo: [ :score | 
-			topScore < score value
+			topScore <= score value
 				ifTrue: [ topScore := score value.
 					leader := score ] ].
 	^ leader.
@@ -54,6 +54,14 @@ Scoreboard >> leaderName [
 { #category : #function }
 Scoreboard >> leaderScore [
 	^ self leader value position
+]
+
+{ #category : #private }
+Scoreboard >> moveToStart: aPlayer [ 
+	| currentPosition |
+	currentPosition := scoreboard at: aPlayer.
+	currentPosition backToStart .
+	scoreboard at: aPlayer put: currentPosition.
 ]
 
 { #category : #function }
@@ -74,7 +82,7 @@ Scoreboard >> positions [
 	^scoreboard collect: [ :score | score value position ]
 ]
 
-{ #category : #function }
+{ #category : #private }
 Scoreboard >> updatePosition: aPlayer slots: aNumberOfSlots laps: aNumberOfLaps [
 
 	| currentPosition |

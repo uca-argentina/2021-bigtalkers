@@ -43,10 +43,22 @@ BigTalkGame class >> validateNoPlayers: somePlayers [
 ]
 
 { #category : #'effect-application' }
+BigTalkGame >> applyAtomicBomb [
+	players do: [ :player | self playerMoveToStart: player].
+
+]
+
+{ #category : #'effect-application' }
 BigTalkGame >> applyEffectAt: aPlayerPosition [
 |effect|
 effect := self effectAt: aPlayerPosition.
 effect applyTo: self.
+]
+
+{ #category : #'effect-application' }
+BigTalkGame >> applyMoonWalk: N [
+	players do: [ :player | self playerMove: player slots: N * -1 ].
+	self playerMove: self currentTurnPlayer slots: N
 ]
 
 { #category : #'effect-application' }
@@ -175,6 +187,12 @@ BigTalkGame >> playerMoveAfterRoll: aPlayer [
 			rollvalue := newPosition - self boardSlotsAmount ]
 		ifFalse: [ laps := 0 ].
 	scoreboard updatePosition: aPlayer slots: rollvalue laps: laps.
+	finished := scoreboard leaderScore >= self boardSlotsAmount
+]
+
+{ #category : #private }
+BigTalkGame >> playerMoveToStart: aPlayer [
+	scoreboard moveToStart: aPlayer.
 	finished := scoreboard leaderScore >= self boardSlotsAmount
 ]
 

@@ -8,8 +8,18 @@ Class {
 }
 
 { #category : #'instance creation' }
+BoardSlot class >> withAtomicBomb [
+	^ self new initializeWith: AtomicBomb new
+]
+
+{ #category : #'instance creation' }
 BoardSlot class >> withEffect: anEffect [
 	self new initializeWith: anEffect.
+]
+
+{ #category : #'instance creation' }
+BoardSlot class >> withMoonwalk [
+	^ self new initializeWith: Moonwalk  new
 ]
 
 { #category : #'instance creation' }
@@ -27,7 +37,7 @@ BoardSlot class >> withWormHole [
 	^ self new initializeWith: WormHole new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accesing }
 BoardSlot >> getEffect [
 	^ effect
 ]
