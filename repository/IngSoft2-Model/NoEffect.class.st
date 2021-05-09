@@ -6,5 +6,6 @@ Class {
 
 { #category : #operations }
 NoEffect >> applyTo: aGame [
- true.
+
+	true
 ]

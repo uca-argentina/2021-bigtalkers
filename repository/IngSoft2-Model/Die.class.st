@@ -11,24 +11,24 @@ Class {
 Die class >> validateSides: aNumberOfSides [
 
 	aNumberOfSides < 4
-		ifTrue: [ Error signal: 'Dice have to have at least 4 sides' ].
+		ifTrue: [ Error signal: 'Dice have to have at least 4 sides' ]
 ]
 
 { #category : #'instance creation' }
 Die class >> withSides: aNumberOfSides [
+
 	self validateSides: aNumberOfSides.
-	
-	^ self new initializeUsing: aNumberOfSides.
+	^ self new initializeUsing: aNumberOfSides
 ]
 
 { #category : #initialize }
 Die >> initializeUsing: aNumberOfSides [
 
-	sides := aNumberOfSides.
+	sides := aNumberOfSides
 ]
 
 { #category : #function }
 Die >> roll [
 
-	^ (1 to: sides) atRandom.
+	^ (1 to: sides) atRandom
 ]

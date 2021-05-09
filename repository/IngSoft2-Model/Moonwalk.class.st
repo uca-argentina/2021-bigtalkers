@@ -9,6 +9,7 @@ Class {
 
 { #category : #operations }
 Moonwalk >> applyTo: aGame [
+
 	N := 2.
 	aGame applyMoonWalk: N
 ]

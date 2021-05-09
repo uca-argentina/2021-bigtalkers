@@ -1,6 +1,6 @@
 Class {
 	#name : #LoadedDie,
-	#superclass : #Object,
+	#superclass : #Die,
 	#instVars : [
 		'rollValue'
 	],
@@ -9,6 +9,7 @@ Class {
 
 { #category : #'instance creation' }
 LoadedDie class >> rolling: anExpectedRoll [
+
 	self validateLoadedDieCannotHaveNegativeResult: anExpectedRoll.
 	^ self new initializeUsing: anExpectedRoll.
 ]

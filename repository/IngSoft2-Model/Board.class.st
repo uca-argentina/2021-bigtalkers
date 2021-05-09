@@ -9,12 +9,14 @@ Class {
 
 { #category : #'instance creation' }
 Board class >> boardTestSized: aNumberOfSlots [
+
 	self validateMinimumSlots: aNumberOfSlots.
 	^ self new initializeUsingEffectTests: aNumberOfSlots
 ]
 
 { #category : #'instance creation' }
 Board class >> sized: aNumberOfSlots [
+
 	self validateMinimumSlots: aNumberOfSlots.
 	^ self new initializeUsing: aNumberOfSlots
 ]
@@ -23,23 +25,25 @@ Board class >> sized: aNumberOfSlots [
 Board class >> validateMinimumSlots: aNumberOfSlots [
 
 	aNumberOfSlots > 0
-		ifFalse: [ Error signal: 'Boards need at least one slot' ].
+		ifFalse: [ Error signal: 'Boards need at least one slot' ]
 ]
 
 { #category : #accessing }
 Board >> effectAt: aPosition [
+
 	^ (self slotAt: aPosition) getEffect
 ]
 
 { #category : #initialize }
 Board >> initializeUsing: aNumberOfSlots [
-	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
 
+	slots := OrderedCollection new.
+	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ]
 ]
 
 { #category : #initialize }
 Board >> initializeUsingEffectTests: aNumberOfSlots [
+
 	slots := OrderedCollection new.
 	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
 	slots at: 4 put: BoardSlot withSpeedUp.
@@ -50,10 +54,12 @@ Board >> initializeUsingEffectTests: aNumberOfSlots [
 
 { #category : #accessing }
 Board >> slotAt: aPosition [
-	^ (slots at: aPosition).
+
+	^ slots at: aPosition
 ]
 
 { #category : #'testing - variables' }
 Board >> slotsAmount [
+
 	^ slots size
 ]

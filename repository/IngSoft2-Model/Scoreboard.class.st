@@ -16,7 +16,7 @@ Scoreboard class >> competingPlayers: somePlayers [
 { #category : #initialize }
 Scoreboard >> currentLap: aPlayer [
 
-	^ (scoreboard at: aPlayer) lap.
+	^ (scoreboard at: aPlayer) getLap.
 ]
 
 { #category : #initialize }
@@ -57,15 +57,17 @@ Scoreboard >> leaderScore [
 ]
 
 { #category : #private }
-Scoreboard >> moveToStart: aPlayer [ 
+Scoreboard >> moveToStart: aPlayer [
+
 	| currentPosition |
 	currentPosition := scoreboard at: aPlayer.
-	currentPosition backToStart .
-	scoreboard at: aPlayer put: currentPosition.
+	currentPosition backToStart.
+	scoreboard at: aPlayer put: currentPosition
 ]
 
 { #category : #function }
 Scoreboard >> playerRank: aPlayer [
+
 	| place playerPlaces |
 	playerPlaces := SortedCollection
 		withAll: (Set withAll: self positions).
@@ -79,7 +81,8 @@ Scoreboard >> playerRank: aPlayer [
 
 { #category : #private }
 Scoreboard >> positions [
-	^scoreboard collect: [ :score | score value position ]
+
+	^ scoreboard collect: [ :score | score value position ]
 ]
 
 { #category : #private }
@@ -88,5 +91,5 @@ Scoreboard >> updatePosition: aPlayer slots: aNumberOfSlots laps: aNumberOfLaps 
 	| currentPosition |
 	currentPosition := scoreboard at: aPlayer.
 	1 to: aNumberOfLaps do: [ :lap | currentPosition addLap ].
-	scoreboard at: aPlayer put: currentPosition + aNumberOfSlots.
+	scoreboard at: aPlayer put: currentPosition + aNumberOfSlots
 ]
