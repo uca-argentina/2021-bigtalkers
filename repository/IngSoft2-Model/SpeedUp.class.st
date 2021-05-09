@@ -6,5 +6,6 @@ Class {
 
 { #category : #operations }
 SpeedUp >> applyTo: aGame [
+
 	aGame applySpeedUp
 ]

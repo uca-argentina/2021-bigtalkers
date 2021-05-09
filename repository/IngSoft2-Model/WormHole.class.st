@@ -6,5 +6,6 @@ Class {
 
 { #category : #operations }
 WormHole >> applyTo: aGame [
-	aGame applyWormHole 
+
+	aGame applyWormHole
 ]

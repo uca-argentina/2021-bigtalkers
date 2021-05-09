@@ -36,6 +36,7 @@ DiceTest >> testLoadedDiceRollsExpectedValue [
 
 { #category : #tests }
 DiceTest >> testLoadedDieCannotHaveNegativeResult [
+
 	self
 		should: [ LoadedDie rolling: -1 ]
 		raise: Error
@@ -45,33 +46,30 @@ DiceTest >> testLoadedDieCannotHaveNegativeResult [
 { #category : #tests }
 DiceTest >> testNonExistantDieThrowsError [
 
-	self should: [ Die withSides: 2. ] 
-	raise: Error
-	withMessage: 'Dice have to have at least 4 sides'.
-	
+	self
+		should: [ Die withSides: 2 ]
+		raise: Error
+		withMessage: 'Dice have to have at least 4 sides'
 ]
 
 { #category : #tests }
-DiceTest >> testRollingD4RollsBetween1and4 [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
-	| aDie aRoll|
-	aDie := Die withSides: 4. 
+DiceTest >> testRollingDieWithFourSidesRollsBetween1and4 [
+
+	| aDie aRoll |
+	aDie := Die withSides: 4.
 	aRoll := aDie roll.
-	self assert: (aRoll between:1 and: 4)
+	self assert: (aRoll between: 1 and: 4)
 ]
 
 { #category : #tests }
-DiceTest >> testTwoD4RollBetween2and8 [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
-	| aFourSidedDie anotherFourSidedDie someDice|
-	aFourSidedDie := Die withSides: 4. 
-	anotherFourSidedDie := Die withSides: 4. 
-	
-	someDice := Dice with:{(anotherFourSidedDie).(aFourSidedDie)}.
-	100 timesRepeat: [self assert: (someDice roll between:2 and: 8) ].
-	
+DiceTest >> testTwoDiceWithFourSidesRollBetween2and8 [
+
+	| aFourSidedDie anotherFourSidedDie someDice |
+	aFourSidedDie := Die withSides: 4.
+	anotherFourSidedDie := Die withSides: 4.
+	someDice := Dice
+		with:
+			{anotherFourSidedDie.
+			aFourSidedDie}.
+	100 timesRepeat: [ self assert: (someDice roll between: 2 and: 8) ]
 ]

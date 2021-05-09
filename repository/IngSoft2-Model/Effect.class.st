@@ -9,5 +9,6 @@ Class {
 
 { #category : #operations }
 Effect >> applyTo: aGame [
+
 	^ self subclassResponsibility
 ]

@@ -6,5 +6,6 @@ Class {
 
 { #category : #operations }
 AtomicBomb >> applyTo: aGame [
+
 	aGame applyAtomicBomb
 ]

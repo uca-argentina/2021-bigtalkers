@@ -12,6 +12,7 @@ Class {
 
 { #category : #'instance creation' }
 Player class >> named: aName [
+
 	self  validatePlayersNameCannotBeEmpty: aName.
 	^ self new initializeWithName: aName.
 ]
