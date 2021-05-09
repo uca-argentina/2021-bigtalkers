@@ -15,46 +15,35 @@ DiceTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErro
 
 { #category : #tests }
 DiceTest >> testEmptyDiceSetThrowsError [
-
-	
-	self should: [ Dice with: {}] 
-	raise: Error
-	withMessage: 'Dice need to have at least one Die'.
-	
+	self
+		should: [ Dice with: {} ]
+		raise: Error
+		withMessage: 'Dice need to have at least one Die'
 ]
 
 { #category : #tests }
 DiceTest >> testLoadedDiceRollsExpectedValue [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
-	| aFourSidedDie aTwoSidedDie someDice|
-	aTwoSidedDie := LoadedDie rolling: 2. 
-	aFourSidedDie := LoadedDie rolling: 4. 
-	
-	someDice := Dice with:{(aTwoSidedDie).(aFourSidedDie)}.
-	100 timesRepeat:  [ self assert: (someDice roll ) equals: 6 ].
-	
+
+	| aFourSidedDie aTwoSidedDie someDice |
+	aTwoSidedDie := LoadedDie rolling: 2.
+	aFourSidedDie := LoadedDie rolling: 4.
+	someDice := Dice
+		with:
+			{aTwoSidedDie.
+			aFourSidedDie}.
+	100 timesRepeat: [ self assert: someDice roll equals: 6 ]
 ]
 
 { #category : #tests }
 DiceTest >> testLoadedDieCannotHaveNegativeResult [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
-	
-	
-	
-	self should: [ LoadedDie rolling: -1] 
-	raise: Error
-	withMessage: 'A loaded die cannot have a negative result'.
-	
+	self
+		should: [ LoadedDie rolling: -1 ]
+		raise: Error
+		withMessage: 'A loaded die cannot have a negative result'
 ]
 
 { #category : #tests }
 DiceTest >> testNonExistantDieThrowsError [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
 
 	self should: [ Die withSides: 2. ] 
 	raise: Error

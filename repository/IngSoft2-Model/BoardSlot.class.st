@@ -51,8 +51,3 @@ BoardSlot >> getEffectName [
 BoardSlot >> initializeWith: anEffect [
 	effect := anEffect
 ]
-
-{ #category : #acccessing }
-BoardSlot >> name [
-	^ effect name.
-]
