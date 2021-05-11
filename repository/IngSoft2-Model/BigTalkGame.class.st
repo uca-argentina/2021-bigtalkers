@@ -57,7 +57,6 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 
 { #category : #'effect-application' }
 BigTalkGame >> applyMoonWalk: N [
-
 	players do: [ :player | self playerMove: player slots: N * -1 ].
 	self playerMove: self currentTurnPlayer slots: N
 ]
