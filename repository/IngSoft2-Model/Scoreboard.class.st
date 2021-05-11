@@ -32,7 +32,7 @@ Scoreboard >> initializeWithPlayers: somePlayers [
 	somePlayers do: [ :player | scoreboard at: player put: Position startingPosition  ].
 ]
 
-{ #category : #function }
+{ #category : #acccessing }
 Scoreboard >> leader [
 
 	| topScore leader |
@@ -45,13 +45,13 @@ Scoreboard >> leader [
 	^ leader.
 ]
 
-{ #category : #function }
+{ #category : #acccessing }
 Scoreboard >> leaderName [
 
 	^ self leader key playerName.
 ]
 
-{ #category : #function }
+{ #category : #acccessing }
 Scoreboard >> leaderScore [
 	^ self leader value position
 ]
@@ -65,7 +65,7 @@ Scoreboard >> moveToStart: aPlayer [
 	scoreboard at: aPlayer put: currentPosition
 ]
 
-{ #category : #function }
+{ #category : #acccessing }
 Scoreboard >> playerRank: aPlayer [
 
 	| place playerPlaces |

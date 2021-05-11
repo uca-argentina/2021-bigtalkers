@@ -41,7 +41,7 @@ Board >> initializeUsing: aNumberOfSlots [
 	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ]
 ]
 
-{ #category : #initialize }
+{ #category : #'testing - initialization' }
 Board >> initializeUsingEffectTests: aNumberOfSlots [
 
 	slots := OrderedCollection new.

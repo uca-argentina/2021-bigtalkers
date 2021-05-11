@@ -27,7 +27,7 @@ Dice >> initializeUsing: aDiceCollection [
 	dice := aDiceCollection
 ]
 
-{ #category : #function }
+{ #category : #action }
 Dice >> roll [
 
 	^ dice sum: [ :die | die roll ]

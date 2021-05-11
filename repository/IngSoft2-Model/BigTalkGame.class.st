@@ -74,32 +74,32 @@ BigTalkGame >> applyWormHole [
 	self playerMove: self currentTurnPlayer slots: -4
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> boardSlotsAmount [
 
 	^ board slotsAmount
 ]
 
-{ #category : #function }
+{ #category : #'game-actions' }
 BigTalkGame >> changeTurn [
 
 	turn nextPut: currPlayer.
 	currPlayer := turn next
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> currentTurnPlayer [
 
 	^ currPlayer
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> currentTurnPlayerName [
 
 	^ self currentTurnPlayer playerName
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> currentTurnPlayerPosition [
 
 	^ self positionOf: currPlayer
@@ -111,7 +111,7 @@ BigTalkGame >> effectAt: aPosition [
 	^ board effectAt: aPosition
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> hasFinished [
 
 	^ finished
@@ -130,31 +130,31 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	currPlayer := turn next
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> lapOf: aPlayer [
 
 	^ scoreboard currentLap: aPlayer
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> leader [
 
 	^ scoreboard leader key
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> leaderName [
 
 	^ scoreboard leaderName
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> leaderScore [
 
 	^ scoreboard leaderScore
 ]
 
-{ #category : #function }
+{ #category : #'game-actions' }
 BigTalkGame >> moveCurrentPlayer [
 
 	finished
@@ -201,19 +201,19 @@ BigTalkGame >> playerMoveToStart: aPlayer [
 	finished := scoreboard leaderScore >= self boardSlotsAmount
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> playerRank: aPlayer [
 
 	^ scoreboard playerRank: aPlayer
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> playerScore: aPlayerName [
 
 	^ scoreboard currentPosition: aPlayerName.
 ]
 
-{ #category : #queries }
+{ #category : #accessing }
 BigTalkGame >> positionOf: aPlayer [
 
 	^ scoreboard currentPosition: aPlayer
