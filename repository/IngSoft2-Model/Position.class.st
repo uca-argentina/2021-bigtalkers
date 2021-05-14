@@ -29,8 +29,9 @@ Position >> < aPosition [
 
 { #category : #arithmetic }
 Position >> <= aPosition [
-
-	^ self position <= aPosition position
+	self lap = aPosition lap
+		ifTrue: [ ^ self position <= aPosition position ]
+		ifFalse: [ ^ self lap < aPosition lap ]
 ]
 
 { #category : #arithmetic }
@@ -52,17 +53,17 @@ Position >> backToStart [
 	slot := 0
 ]
 
-{ #category : #accessing }
-Position >> getLap [
-
-	^ lap
-]
-
 { #category : #initialization }
 Position >> initializeUsing: startingSlot [
 
 	slot := startingSlot.
 	lap := 0
+]
+
+{ #category : #accessing }
+Position >> lap [
+
+	^ lap
 ]
 
 { #category : #accessing }

@@ -8,7 +8,8 @@ Class {
 		'scoreboard',
 		'finished',
 		'turn',
-		'currPlayer'
+		'currPlayer',
+		'finishingLap'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -118,7 +119,7 @@ BigTalkGame >> hasFinished [
 
 { #category : #initialize }
 BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard [
-
+	finishingLap := 1.
 	players := somePlayers.
 	dice := someDice.
 	board := aBoard.
@@ -142,15 +143,21 @@ BigTalkGame >> leader [
 ]
 
 { #category : #accessing }
+BigTalkGame >> leaderLap [
+
+	^ scoreboard leaderLap
+]
+
+{ #category : #accessing }
 BigTalkGame >> leaderName [
 
 	^ scoreboard leaderName
 ]
 
 { #category : #accessing }
-BigTalkGame >> leaderScore [
+BigTalkGame >> leaderPosition [
 
-	^ scoreboard leaderScore
+	^ scoreboard leaderPosition
 ]
 
 { #category : #'game-actions' }
@@ -175,7 +182,7 @@ BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 			valueToMove := newPosition - self boardSlotsAmount ]
 		ifFalse: [ laps := 0 ].
 	scoreboard updatePosition: aPlayer slots: valueToMove laps: laps.
-	finished := scoreboard leaderScore >= self boardSlotsAmount
+	finished := self leaderLap  >= finishingLap 
 ]
 
 { #category : #private }
@@ -190,14 +197,14 @@ BigTalkGame >> playerMoveAfterRoll: aPlayer [
 			rollvalue := newPosition - self boardSlotsAmount ]
 		ifFalse: [ laps := 0 ].
 	scoreboard updatePosition: aPlayer slots: rollvalue laps: laps.
-	finished := scoreboard leaderScore >= self boardSlotsAmount
+	finished := self leaderLap  >= finishingLap 
 ]
 
 { #category : #private }
 BigTalkGame >> playerMoveToStart: aPlayer [
 
 	scoreboard moveToStart: aPlayer.
-	finished := scoreboard leaderScore >= self boardSlotsAmount
+	finished := self leaderLap  >= finishingLap 
 ]
 
 { #category : #accessing }

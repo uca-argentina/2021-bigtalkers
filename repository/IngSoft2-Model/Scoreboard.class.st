@@ -16,7 +16,7 @@ Scoreboard class >> competingPlayers: somePlayers [
 { #category : #initialize }
 Scoreboard >> currentLap: aPlayer [
 
-	^ (scoreboard at: aPlayer) getLap.
+	^ (scoreboard at: aPlayer) lap.
 ]
 
 { #category : #initialize }
@@ -46,13 +46,18 @@ Scoreboard >> leader [
 ]
 
 { #category : #acccessing }
+Scoreboard >> leaderLap [
+	^ self leader value lap
+]
+
+{ #category : #acccessing }
 Scoreboard >> leaderName [
 
 	^ self leader key playerName.
 ]
 
 { #category : #acccessing }
-Scoreboard >> leaderScore [
+Scoreboard >> leaderPosition [
 	^ self leader value position
 ]
 

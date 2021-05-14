@@ -30,7 +30,7 @@ GameTest >> testAGameWithDefaultValues [
 		diceUsed: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	aLeader := aGame leaderScore.
+	aLeader := aGame leaderPosition.
 	self assert: (aLeader between: 1 and: 4).
 ]
 
@@ -88,7 +88,7 @@ GameTest >> testAGameWithScoreboardTestLeaderUsingRoll [
 		diceUsed: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	aLeader := aGame leaderScore.
+	aLeader := aGame leaderPosition.
 	self assert: (aLeader between: 1 and: 4).
 ]
 
@@ -283,7 +283,7 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	player3 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 4.
+	aDie := LoadedDie rolling: 5.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sized: 4.
 	aGame := BigTalkGame
@@ -309,7 +309,7 @@ GameTest >> testGameFinishedWithWinner [
 	player3 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 16.
+	aBoard := Board sized: 5.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -317,7 +317,7 @@ GameTest >> testGameFinishedWithWinner [
 			player3}
 		diceUsed: aDice
 		playedOn: aBoard.
-	10  timesRepeat: [aGame moveCurrentPlayer].
+	4  timesRepeat: [aGame moveCurrentPlayer].
 	self assert: aGame hasFinished.
 	self assert: aGame leader  equals: player1.
 
