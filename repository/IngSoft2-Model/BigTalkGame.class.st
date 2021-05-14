@@ -86,25 +86,25 @@ BigTalkGame >> changeTurn [
 	currPlayer := turn next
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - player' }
 BigTalkGame >> currentTurnPlayer [
 
 	^ currPlayer
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - player' }
 BigTalkGame >> currentTurnPlayerName [
 
 	^ self currentTurnPlayer playerName
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - player' }
 BigTalkGame >> currentTurnPlayerPosition [
 
 	^ self positionOf: currPlayer
 ]
 
-{ #category : #accessing }
+{ #category : #'effect-application' }
 BigTalkGame >> effectAt: aPosition [
 
 	^ board effectAt: aPosition
@@ -128,31 +128,31 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	currPlayer := turn next
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - player' }
 BigTalkGame >> lapOf: aPlayer [
 
 	^ scoreboard currentLap: aPlayer
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - leader' }
 BigTalkGame >> leader [
 
 	^ scoreboard leader key
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - leader' }
 BigTalkGame >> leaderLap [
 
 	^ scoreboard leaderLap
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - leader' }
 BigTalkGame >> leaderName [
 
 	^ scoreboard leaderName
 ]
 
-{ #category : #accessing }
+{ #category : #'accessing - leader' }
 BigTalkGame >> leaderPosition [
 
 	^ scoreboard leaderPosition
@@ -204,20 +204,20 @@ BigTalkGame >> playerMoveToStart: aPlayer [
 
 ]
 
-{ #category : #accessing }
-BigTalkGame >> playerRank: aPlayer [
-
-	^ scoreboard playerRank: aPlayer
-]
-
-{ #category : #accessing }
-BigTalkGame >> playerScore: aPlayerName [
-
-	^ scoreboard currentPosition: aPlayerName.
-]
-
-{ #category : #accessing }
+{ #category : #'accessing - player' }
 BigTalkGame >> positionOf: aPlayer [
 
 	^ scoreboard currentPosition: aPlayer
+]
+
+{ #category : #'accessing - player' }
+BigTalkGame >> rankOf: aPlayer [
+
+	^ scoreboard rankOf: aPlayer
+]
+
+{ #category : #'accessing - player' }
+BigTalkGame >> scoreOf: aPlayerName [
+
+	^ scoreboard currentPosition: aPlayerName.
 ]
