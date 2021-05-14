@@ -6,7 +6,6 @@ Class {
 		'dice',
 		'board',
 		'scoreboard',
-		'finished',
 		'turn',
 		'currPlayer',
 		'finishingLap'
@@ -114,7 +113,7 @@ BigTalkGame >> effectAt: aPosition [
 { #category : #accessing }
 BigTalkGame >> hasFinished [
 
-	^ finished
+	^ self leaderLap >= finishingLap
 ]
 
 { #category : #initialize }
@@ -124,7 +123,6 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	dice := someDice.
 	board := aBoard.
 	scoreboard := Scoreboard competingPlayers: players.
-	finished := false.
 	turn := SharedQueue new.
 	players do: [ :player | turn nextPut: player ].
 	currPlayer := turn next
@@ -162,8 +160,7 @@ BigTalkGame >> leaderPosition [
 
 { #category : #'game-actions' }
 BigTalkGame >> moveCurrentPlayer [
-
-	finished
+	self hasFinished
 		ifFalse: [ self playerMoveAfterRoll: self currentTurnPlayer.
 			self applyEffectAt: self currentTurnPlayerPosition.
 			self changeTurn ]
@@ -182,7 +179,7 @@ BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 			valueToMove := newPosition - self boardSlotsAmount ]
 		ifFalse: [ laps := 0 ].
 	scoreboard updatePosition: aPlayer slots: valueToMove laps: laps.
-	finished := self leaderLap  >= finishingLap 
+
 ]
 
 { #category : #private }
@@ -197,14 +194,14 @@ BigTalkGame >> playerMoveAfterRoll: aPlayer [
 			rollvalue := newPosition - self boardSlotsAmount ]
 		ifFalse: [ laps := 0 ].
 	scoreboard updatePosition: aPlayer slots: rollvalue laps: laps.
-	finished := self leaderLap  >= finishingLap 
+
 ]
 
 { #category : #private }
 BigTalkGame >> playerMoveToStart: aPlayer [
 
 	scoreboard moveToStart: aPlayer.
-	finished := self leaderLap  >= finishingLap 
+
 ]
 
 { #category : #accessing }

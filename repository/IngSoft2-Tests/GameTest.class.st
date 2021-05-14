@@ -279,7 +279,7 @@ GameTest >> testGameControlledMovement [
 { #category : #tests }
 GameTest >> testGameFinishedAndStillMovePlayer [
 
-	| aGame aDie aDice aBoard player1 player2 player3 |
+	| aGame aDie aDice aBoard player1 player2 player3 leader |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	player3 := Player named: 'Carla'.
