@@ -14,12 +14,6 @@ BoardSlot class >> withAtomicBomb [
 ]
 
 { #category : #'instance creation' }
-BoardSlot class >> withEffect: anEffect [
-
-	self new initializeWith: anEffect
-]
-
-{ #category : #'instance creation' }
 BoardSlot class >> withMoonwalk [
 
 	^ self new initializeWith: Moonwalk new

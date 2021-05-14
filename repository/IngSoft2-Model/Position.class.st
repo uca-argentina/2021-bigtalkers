@@ -22,12 +22,6 @@ Position >> + aNumberOfSlots [
 ]
 
 { #category : #arithmetic }
-Position >> < aPosition [
-
-	^ self position < aPosition position
-]
-
-{ #category : #arithmetic }
 Position >> <= aPosition [
 	self lap = aPosition lap
 		ifTrue: [ ^ self position <= aPosition position ]
