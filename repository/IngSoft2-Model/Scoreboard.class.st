@@ -70,8 +70,14 @@ Scoreboard >> moveToStart: aPlayer [
 	scoreboard at: aPlayer put: currentPosition
 ]
 
+{ #category : #private }
+Scoreboard >> positions [
+
+	^ scoreboard collect: [ :score | score value ]
+]
+
 { #category : #acccessing }
-Scoreboard >> playerRank: aPlayer [
+Scoreboard >> rankOf: aPlayer [
 	| place playerPlaces |
 	playerPlaces := SortedCollection withAll: self positions.
 	place := 1.
@@ -80,12 +86,6 @@ Scoreboard >> playerRank: aPlayer [
 			(scoreboard at: aPlayer) >= score
 				ifFalse: [ place := place + 1 ] ].
 	^ place
-]
-
-{ #category : #private }
-Scoreboard >> positions [
-
-	^ scoreboard collect: [ :score | score value ]
 ]
 
 { #category : #private }

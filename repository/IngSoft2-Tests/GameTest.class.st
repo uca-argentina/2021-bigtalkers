@@ -48,8 +48,8 @@ GameTest >> testAGameWithScoreboard [
 			player2}
 		diceUsed: aDice
 		playedOn: aBoard.
-	self assert: (aGame playerScore: player1) equals: 0.
-	self assert: (aGame playerScore: player2) equals: 0.
+	self assert: (aGame scoreOf: player1) equals: 0.
+	self assert: (aGame scoreOf: player2) equals: 0.
 ]
 
 { #category : #tests }
@@ -68,8 +68,8 @@ GameTest >> testAGameWithScoreboardMovesForward [
 		diceUsed: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	self assert: ((aGame playerScore: player1) between: 1 and: 4).
-	self assert: (aGame playerScore: player2) equals: 0.
+	self assert: ((aGame scoreOf: player1) between: 1 and: 4).
+	self assert: (aGame scoreOf: player2) equals: 0.
 ]
 
 { #category : #tests }
@@ -167,7 +167,7 @@ GameTest >> testCheckPlayerPositionsWithATie [
 		diceUsed: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	self assert: (aGame playerRank: player2) equals: 2.
+	self assert: (aGame rankOf: player2) equals: 2.
 
 ]
 
@@ -230,7 +230,7 @@ GameTest >> testCheckRankingPositions [
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
-	self assert: (aGame playerRank: player2) equals: 2.
+	self assert: (aGame rankOf: player2) equals: 2.
 ]
 
 { #category : #tests }
