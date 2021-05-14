@@ -6,9 +6,9 @@ Class {
 		'dice',
 		'board',
 		'scoreboard',
-		'finished',
 		'turn',
-		'currPlayer'
+		'currPlayer',
+		'finishingLap'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -113,17 +113,16 @@ BigTalkGame >> effectAt: aPosition [
 { #category : #accessing }
 BigTalkGame >> hasFinished [
 
-	^ finished
+	^ self leaderLap >= finishingLap
 ]
 
 { #category : #initialize }
 BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard [
-
+	finishingLap := 1.
 	players := somePlayers.
 	dice := someDice.
 	board := aBoard.
 	scoreboard := Scoreboard competingPlayers: players.
-	finished := false.
 	turn := SharedQueue new.
 	players do: [ :player | turn nextPut: player ].
 	currPlayer := turn next
@@ -142,21 +141,26 @@ BigTalkGame >> leader [
 ]
 
 { #category : #accessing }
+BigTalkGame >> leaderLap [
+
+	^ scoreboard leaderLap
+]
+
+{ #category : #accessing }
 BigTalkGame >> leaderName [
 
 	^ scoreboard leaderName
 ]
 
 { #category : #accessing }
-BigTalkGame >> leaderScore [
+BigTalkGame >> leaderPosition [
 
-	^ scoreboard leaderScore
+	^ scoreboard leaderPosition
 ]
 
 { #category : #'game-actions' }
 BigTalkGame >> moveCurrentPlayer [
-
-	finished
+	self hasFinished
 		ifFalse: [ self playerMoveAfterRoll: self currentTurnPlayer.
 			self applyEffectAt: self currentTurnPlayerPosition.
 			self changeTurn ]
@@ -175,7 +179,7 @@ BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 			valueToMove := newPosition - self boardSlotsAmount ]
 		ifFalse: [ laps := 0 ].
 	scoreboard updatePosition: aPlayer slots: valueToMove laps: laps.
-	finished := scoreboard leaderScore >= self boardSlotsAmount
+
 ]
 
 { #category : #private }
@@ -190,14 +194,14 @@ BigTalkGame >> playerMoveAfterRoll: aPlayer [
 			rollvalue := newPosition - self boardSlotsAmount ]
 		ifFalse: [ laps := 0 ].
 	scoreboard updatePosition: aPlayer slots: rollvalue laps: laps.
-	finished := scoreboard leaderScore >= self boardSlotsAmount
+
 ]
 
 { #category : #private }
 BigTalkGame >> playerMoveToStart: aPlayer [
 
 	scoreboard moveToStart: aPlayer.
-	finished := scoreboard leaderScore >= self boardSlotsAmount
+
 ]
 
 { #category : #accessing }
