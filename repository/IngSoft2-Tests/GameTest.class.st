@@ -168,7 +168,7 @@ GameTest >> testCheckPlayerPositionsWithATie [
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
 	self assert: (aGame playerRank: player2) equals: 2.
-	self assert: (aGame playerRank: player3) equals: 2.
+
 ]
 
 { #category : #tests }
@@ -220,13 +220,15 @@ GameTest >> testCheckRankingPositions [
 	player2 := Player named: 'Martin'.
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
+	aBoard := Board sized: 5.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
 			player2}
 		diceUsed: aDice
 		playedOn: aBoard.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame playerRank: player2) equals: 2.
 ]
@@ -279,7 +281,7 @@ GameTest >> testGameControlledMovement [
 { #category : #tests }
 GameTest >> testGameFinishedAndStillMovePlayer [
 
-	| aGame aDie aDice aBoard player1 player2 player3 leader |
+	| aGame aDie aDice aBoard player1 player2 player3 |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	player3 := Player named: 'Carla'.
@@ -294,6 +296,9 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 		diceUsed: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
 	self
 		should: [ aGame moveCurrentPlayer ]
 		raise: Error
@@ -307,7 +312,7 @@ GameTest >> testGameFinishedWithWinner [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	player3 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 4.
+	aDie := LoadedDie rolling: 6.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sized: 5.
 	aGame := BigTalkGame

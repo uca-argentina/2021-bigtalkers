@@ -72,22 +72,20 @@ Scoreboard >> moveToStart: aPlayer [
 
 { #category : #acccessing }
 Scoreboard >> playerRank: aPlayer [
-
 	| place playerPlaces |
-	playerPlaces := SortedCollection
-		withAll: (Set withAll: self positions).
-	place := playerPlaces size.
+	playerPlaces := SortedCollection withAll: self positions.
+	place := 1.
 	playerPlaces
 		do: [ :score | 
-			(self currentPosition: aPlayer) = score
-				ifTrue: [ ^ place ]
-				ifFalse: [ place := place - 1 ] ]
+			(scoreboard at: aPlayer) >= score
+				ifFalse: [ place := place + 1 ] ].
+	^ place
 ]
 
 { #category : #private }
 Scoreboard >> positions [
 
-	^ scoreboard collect: [ :score | score value position ]
+	^ scoreboard collect: [ :score | score value ]
 ]
 
 { #category : #private }

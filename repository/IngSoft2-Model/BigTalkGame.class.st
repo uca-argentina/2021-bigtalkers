@@ -118,7 +118,7 @@ BigTalkGame >> hasFinished [
 
 { #category : #initialize }
 BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard [
-	finishingLap := 1.
+	finishingLap := 2.
 	players := somePlayers.
 	dice := someDice.
 	board := aBoard.
