@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #operations }
+{ #category : #'effect-application' }
 AtomicBomb >> applyTo: aGame [
 
 	aGame applyAtomicBomb

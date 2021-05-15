@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #operations }
+{ #category : #'effect-application' }
 Moonwalk >> applyTo: aGame [
 
 	N := 2.

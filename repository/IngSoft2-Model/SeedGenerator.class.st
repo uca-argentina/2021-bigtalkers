@@ -2,52 +2,34 @@ Class {
 	#name : #SeedGenerator,
 	#superclass : #Object,
 	#instVars : [
-		'arrayWithSlots',
-		'effects'
+		'slots'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-SeedGenerator class >> distributing: arrayOfsomething havingProbabilities: someProbabilities [
-	^ self new initializeWith: arrayOfsomething withProbabilities: someProbabilities.
+SeedGenerator class >> distributing: someEffects havingProbabilities: someProbabilities [
+
+	^ self new initializeWith: someEffects havingProbabilities: someProbabilities.
 ]
 
-{ #category : #'instance creation' }
-SeedGenerator class >> withFiveProbabilities: someProbabilities [ 
+{ #category : #'testing - slots' }
+SeedGenerator >> getAllSlots [
 
-	^self new initializeWith: someProbabilities
+	^ slots
 ]
 
-{ #category : #accessing }
+{ #category : #'testing - slots' }
 SeedGenerator >> getRandomSlot [
 
-	^ arrayWithSlots at: ((1 to:100) atRandom)
-]
-
-{ #category : #accessing }
-SeedGenerator >> getSlots [
-	^arrayWithSlots. 
+	^ slots at: (1 to: 100) atRandom
 ]
 
 { #category : #initialize }
-SeedGenerator >> initializeWith: someProbabilities [
+SeedGenerator >> initializeWith: someEffects  havingProbabilities: someProbabilities [
 
-	effects := {BoardSlot withNoEffect.
-	BoardSlot withWormHole.
-	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalk.
-	BoardSlot withAtomicBomb}.
-	arrayWithSlots := OrderedCollection  new.
+	slots := OrderedCollection new.
 	someProbabilities
 		doWithIndex:
-			[ :probability :index | 1 to: probability do: [ :iter | arrayWithSlots add: (effects at:  index) ] ]
-]
-
-{ #category : #initialize }
-SeedGenerator >> initializeWith: something withProbabilities: someProbabilities [
-	arrayWithSlots := OrderedCollection new.
-	someProbabilities
-		doWithIndex:
-			[ :probability :index | 1 to: probability do: [ :iter | arrayWithSlots add: (something at: index) ] ]
+			[ :probability :index | 1 to: probability do: [ :iter | slots add: (someEffects at: index) ] ]
 ]

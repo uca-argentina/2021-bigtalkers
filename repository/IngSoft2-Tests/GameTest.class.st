@@ -15,6 +15,26 @@ GameTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErro
 ]
 
 { #category : #tests }
+GameTest >> testAGameWithScoreboardGetLeaderUsingRoll [
+
+	| aGame player1 player2 aDie aBoard aDice aLeader |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	aDie := Die withSides: 4.
+	aDice := Dice with: {aDie}.
+	aBoard := Board sized: 2.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard.
+	aGame moveCurrentPlayer.
+	aLeader := aGame leaderPosition.
+	self assert: (aLeader between: 1 and: 4)
+]
+
+{ #category : #tests }
 GameTest >> testAGameWithScoreboardMovesForward [
 
 	| aGame player1 player2 aDie aDice aBoard |
@@ -27,31 +47,11 @@ GameTest >> testAGameWithScoreboardMovesForward [
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
 	self assert: ((aGame scoreOf: player1) between: 1 and: 4).
-	self assert: (aGame scoreOf: player2) equals: 0.
-]
-
-{ #category : #tests }
-GameTest >> testAGameWithScoreboardTestLeaderUsingRoll [
-
-	| aGame player1 player2 aDie aBoard aDice aLeader |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	aDie := Die withSides: 4.
-	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 2.
-	aGame := BigTalkGame
-		playedBy:
-			{player1.
-			player2}
-		diceUsed: aDice
-		playedOn: aBoard.
-	aGame moveCurrentPlayer.
-	aLeader := aGame leaderPosition.
-	self assert: (aLeader between: 1 and: 4).
+	self assert: (aGame scoreOf: player2) equals: 0
 ]
 
 { #category : #tests }
@@ -66,9 +66,9 @@ GameTest >> testAGameWithTwoPlayersAndADieAndABoardHasNotFinished [
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
-	self deny: aGame hasFinished.
+	self deny: aGame hasFinished
 ]
 
 { #category : #tests }
@@ -79,7 +79,7 @@ GameTest >> testCannotCreateAGameWithNoPlayers [
 	aDice := Dice with: {aDie}.
 	aBoard := Board sized: 4.
 	self
-		should: [ BigTalkGame playedBy: {} diceUsed: aDice playedOn: aBoard ]
+		should: [ BigTalkGame playedBy: {} usingDice: aDice playedOn: aBoard ]
 		raise: Error
 		withMessage: 'You need at least one player to play'
 ]
@@ -97,7 +97,7 @@ GameTest >> testCheckLeaderName [
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
 	self assert: aGame leaderName equals: 'Gaspar'
@@ -116,12 +116,12 @@ GameTest >> testCheckPlayerPositions [
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
-	self assert: (aGame positionOf: player2) equals: 4.
+	self assert: (aGame positionOf: player2) equals: 4
 ]
 
 { #category : #tests }
@@ -139,11 +139,10 @@ GameTest >> testCheckPlayerPositionsWithATie [
 			{player1.
 			player2.
 			player3}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	self assert: (aGame rankOf: player2) equals: 2.
-
+	self assert: (aGame rankOf: player2) equals: 2
 ]
 
 { #category : #tests }
@@ -161,9 +160,9 @@ GameTest >> testCheckPlayerTurn [
 			{player1.
 			player2.
 			player3}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
-	self assert: aGame currentTurnPlayerName equals: 'Gaspar'.
+	self assert: aGame currentTurnPlayerName equals: 'Gaspar'
 ]
 
 { #category : #tests }
@@ -181,10 +180,10 @@ GameTest >> testCheckPlayerTurnAfterMove [
 			{player1.
 			player2.
 			player3}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	self assert: aGame currentTurnPlayerName equals: 'Martin'.
+	self assert: aGame currentTurnPlayerName equals: 'Martin'
 ]
 
 { #category : #tests }
@@ -200,12 +199,12 @@ GameTest >> testCheckRankingPositions [
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
-	self assert: (aGame rankOf: player2) equals: 2.
+	self assert: (aGame rankOf: player2) equals: 2
 ]
 
 { #category : #tests }
@@ -221,7 +220,7 @@ GameTest >> testCreateAGameWithDefaultValues [
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
 	aLeader := aGame leaderPosition.
@@ -240,7 +239,7 @@ GameTest >> testCreateAGameWithScoreboard [
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	self assert: (aGame scoreOf: player1) equals: 0.
 	self assert: (aGame scoreOf: player2) equals: 0
@@ -263,9 +262,9 @@ GameTest >> testCreateAGameWithTwoPlayersAndTwoDiceAndABoard [
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
-	self assert: aGame boardSlotsAmount equals: 25.
+	self assert: aGame boardSlotsAmount equals: 25
 ]
 
 { #category : #tests }
@@ -283,12 +282,12 @@ GameTest >> testGameControlledMovement [
 			{player1.
 			player2.
 			player3}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
-	self assert: aGame currentTurnPlayerName equals: 'Gaspar'.
+	self assert: aGame currentTurnPlayerName equals: 'Gaspar'
 ]
 
 { #category : #tests }
@@ -306,7 +305,7 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 			{player1.
 			player2.
 			player3}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
@@ -315,7 +314,7 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 	self
 		should: [ aGame moveCurrentPlayer ]
 		raise: Error
-		withMessage: 'The game has finished'.
+		withMessage: 'The game has finished'
 ]
 
 { #category : #tests }
@@ -333,12 +332,11 @@ GameTest >> testGameFinishedWithWinner [
 			{player1.
 			player2.
 			player3}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
-	4  timesRepeat: [aGame moveCurrentPlayer].
+	4 timesRepeat: [ aGame moveCurrentPlayer ].
 	self assert: aGame hasFinished.
-	self assert: aGame leader  equals: player1.
-
+	self assert: aGame leader equals: player1
 ]
 
 { #category : #tests }
@@ -356,30 +354,38 @@ GameTest >> testGameNewLap [
 			{player1.
 			player2.
 			player3}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
-	10  timesRepeat: [aGame moveCurrentPlayer].
-	self assert: (aGame lapOf: player1 )equals: 1.
-	self assert: (aGame positionOf: player1 )equals: 1.
-
+	10 timesRepeat: [ aGame moveCurrentPlayer ].
+	self assert: (aGame lapOf: player1) equals: 1.
+	self assert: (aGame positionOf: player1) equals: 1
 ]
 
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInAtomicBomb [
 
-	| aDie aDice aBoard player1 player2 aGame |
+	| aDie aDice aBoard player1 player2 aGame aSeedGenerator effectsUsed |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 7.
+	aDie := LoadedDie rolling: 99.
 	aDice := Dice with: {aDie}.
-	aBoard := Board boardTestSized: 16.
+	effectsUsed := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalk.
+	BoardSlot withAtomicBomb}.
+	aSeedGenerator := SeedGenerator
+		distributing: effectsUsed
+		havingProbabilities: #(48 20 20 10 2).
+	aBoard := LoadedBoard seeding: aSeedGenerator.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
+	self assert: ((aBoard effectAt: 99) isKindOf: AtomicBomb).
 	self assert: (aGame positionOf: player1) equals: 0.
 	self assert: (aGame positionOf: player2) equals: 0
 ]
@@ -387,62 +393,87 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInMoonWalk [
 
-	| aDie aDice aBoard player1 player2 aGame |
+	| aDie aDice aBoard player1 player2 aGame effectsUsed aSeedGenerator |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 6.
+	aDie := LoadedDie rolling: 90.
 	aDice := Dice with: {aDie}.
-	aBoard := Board boardTestSized: 16.
+	effectsUsed := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalk.
+	BoardSlot withAtomicBomb}.
+	aSeedGenerator := SeedGenerator
+		distributing: effectsUsed
+		havingProbabilities: #(48 20 20 10 2).
+	aBoard := LoadedBoard seeding: aSeedGenerator.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	self assert: (aGame positionOf: player1) equals: 6.
+	self assert: ((aBoard effectAt: 98) isKindOf: Moonwalk).
+	self assert: (aGame positionOf: player1) equals: 90.
 	self assert: (aGame positionOf: player2) equals: -2
 ]
 
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInSpeedUp [
 
-	| aDie aDice aBoard player1 player2 aGame |
+	| aDie aDice aBoard player1 player2 aGame effectsUsed aSeedGenerator |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 4.
+	aDie := LoadedDie rolling: 70.
 	aDice := Dice with: {aDie}.
-	aBoard := Board boardTestSized: 16.
+	effectsUsed := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalk.
+	BoardSlot withAtomicBomb}.
+	aSeedGenerator := SeedGenerator
+		distributing: effectsUsed
+		havingProbabilities: #(48 20 20 10 2).
+	aBoard := LoadedBoard seeding: aSeedGenerator.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	aGame moveCurrentPlayer.
-	aGame moveCurrentPlayer.
-	self assert: (aGame positionOf: player1) equals: 12.
-	self assert: (aGame positionOf: player2) equals: 8
+	self assert: ((aBoard effectAt: 70) isKindOf: SpeedUp).
+	self assert: (aGame positionOf: player1) equals: 74.
+	self assert: (aGame positionOf: player2) equals: 0
 ]
 
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInWormhole [
 
-	| aDie aDice aBoard player1 player2 aGame |
+	| aDie aDice aBoard player1 player2 aGame effectsUsed aSeedGenerator |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 5.
+	aDie := LoadedDie rolling: 50.
 	aDice := Dice with: {aDie}.
-	aBoard := Board boardTestSized: 16.
+	effectsUsed := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalk.
+	BoardSlot withAtomicBomb}.
+	aSeedGenerator := SeedGenerator
+		distributing: effectsUsed
+		havingProbabilities: #(48 20 20 10 2).
+	aBoard := LoadedBoard seeding: aSeedGenerator.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
 			player2}
-		diceUsed: aDice
+		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	self assert: (aGame positionOf: player1) equals: 1
+	self assert: ((aBoard effectAt: 50) isKindOf: WormHole).
+	self assert: (aGame positionOf: player1) equals: 46
 ]
 
 { #category : #tests }
@@ -461,7 +492,7 @@ GameTest >> testGameWithTwoPlayersWithSameName [
 					{player1.
 					player2.
 					player3}
-				diceUsed: aDice
+				usingDice: aDice
 				playedOn: aBoard ]
 		raise: Error
 		withMessage: 'There can not be two players with the same name'

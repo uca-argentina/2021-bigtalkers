@@ -14,15 +14,15 @@ Scoreboard class >> competingPlayers: somePlayers [
 ]
 
 { #category : #initialize }
-Scoreboard >> currentLap: aPlayer [
+Scoreboard >> currentLapOf: aPlayer [
 
 	^ (scoreboard at: aPlayer) lap
 ]
 
 { #category : #initialize }
-Scoreboard >> currentPosition: aPlayer [
+Scoreboard >> currentPositionOf: aPlayer [
 
-	^ (scoreboard at: aPlayer) position.
+	^ (scoreboard at: aPlayer) position
 ]
 
 { #category : #initialize }
@@ -32,7 +32,7 @@ Scoreboard >> initializeWithPlayers: somePlayers [
 	somePlayers do: [ :player | scoreboard at: player put: Position startingPosition  ].
 ]
 
-{ #category : #acccessing }
+{ #category : #'testing - leader' }
 Scoreboard >> leader [
 
 	| topScore leader |
@@ -45,19 +45,19 @@ Scoreboard >> leader [
 	^ leader
 ]
 
-{ #category : #acccessing }
+{ #category : #'testing - leader' }
 Scoreboard >> leaderLap [
 
 	^ self leader value lap
 ]
 
-{ #category : #acccessing }
+{ #category : #'testing - leader' }
 Scoreboard >> leaderName [
 
 	^ self leader key playerName
 ]
 
-{ #category : #acccessing }
+{ #category : #'testing - leader' }
 Scoreboard >> leaderPosition [
 
 	^ self leader value position
@@ -78,7 +78,7 @@ Scoreboard >> positions [
 	^ scoreboard collect: [ :score | score value ]
 ]
 
-{ #category : #acccessing }
+{ #category : #'testing - leader' }
 Scoreboard >> rankOf: aPlayer [
 
 	| place playerPlaces |
@@ -92,7 +92,7 @@ Scoreboard >> rankOf: aPlayer [
 ]
 
 { #category : #private }
-Scoreboard >> updatePosition: aPlayer slots: aNumberOfSlots laps: aNumberOfLaps [
+Scoreboard >> updatePositionOf: aPlayer slots: aNumberOfSlots laps: aNumberOfLaps [
 
 	| currentPosition |
 	currentPosition := scoreboard at: aPlayer.
