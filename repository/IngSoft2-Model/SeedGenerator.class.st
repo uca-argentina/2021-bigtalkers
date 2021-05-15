@@ -9,6 +9,11 @@ Class {
 }
 
 { #category : #'instance creation' }
+SeedGenerator class >> distributing: arrayOfsomething havingProbabilities: someProbabilities [
+	^ self new initializeWith: arrayOfsomething withProbabilities: someProbabilities.
+]
+
+{ #category : #'instance creation' }
 SeedGenerator class >> withFiveProbabilities: someProbabilities [ 
 
 	^self new initializeWith: someProbabilities
@@ -37,4 +42,12 @@ SeedGenerator >> initializeWith: someProbabilities [
 	someProbabilities
 		doWithIndex:
 			[ :probability :index | 1 to: probability do: [ :iter | arrayWithSlots add: (effects at:  index) ] ]
+]
+
+{ #category : #initialize }
+SeedGenerator >> initializeWith: something withProbabilities: someProbabilities [
+	arrayWithSlots := OrderedCollection new.
+	someProbabilities
+		doWithIndex:
+			[ :probability :index | 1 to: probability do: [ :iter | arrayWithSlots add: (something at: index) ] ]
 ]

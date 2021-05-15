@@ -193,7 +193,7 @@ GameTest >> testCheckRankingPositions [
 	| aGame player1 player2 aDie aDice aBoard |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDie := Die withSides: 4.
+	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sized: 5.
 	aGame := BigTalkGame

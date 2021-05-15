@@ -1,6 +1,9 @@
 Class {
 	#name : #BoardTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'effects'
+	],
 	#category : #'IngSoft2-Tests'
 }
 
@@ -41,11 +44,19 @@ BoardTest >> testCreateBoardWithZeroSlots [
 
 { #category : #tests }
 BoardTest >> testCreateLoadedBoard [
-
-	| aBoard aSeed |
-	aSeed := SeedGenerator withFiveProbabilities: #(48 20 20 10 2).
+	| aBoard aSeed effectsUsed |
+	effectsUsed := {
+		BoardSlot withNoEffect.
+		BoardSlot withWormHole.
+		BoardSlot withSpeedUp.
+		BoardSlot withMoonwalk.
+		BoardSlot withAtomicBomb
+	}.
+	
+	aSeed := SeedGenerator distributing: effectsUsed havingProbabilities: #(48 20 20 10 2).
 	aBoard := LoadedBoard using: aSeed.
+	
 	self assert: ((aBoard effectAt: 20) isKindOf: NoEffect).
 	self assert: ((aBoard effectAt: 50) isKindOf: WormHole).
-	self assert: ((aBoard effectAt: 99) isKindOf: AtomicBomb).
+	self assert: ((aBoard effectAt: 99) isKindOf: AtomicBomb)
 ]
