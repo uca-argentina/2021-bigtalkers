@@ -1,9 +1,6 @@
 Class {
 	#name : #LoadedBoard,
 	#superclass : #Board,
-	#instVars : [
-		'seedGenerator'
-	],
 	#category : #'IngSoft2-Model'
 }
 
