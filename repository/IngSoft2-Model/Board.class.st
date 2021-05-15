@@ -2,7 +2,8 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'slots'
+		'slots',
+		'seed'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -42,10 +43,17 @@ Board >> initializeUsing: aNumberOfSlots [
 ]
 
 { #category : #'testing - initialization' }
+Board >> initializeUsingEffectTests2: aNumberOfSlots [
+
+	slots := OrderedCollection new.
+	1 to: aNumberOfSlots do: [ :iter | slots add: seed getRandomSlot  ].
+]
+
+{ #category : #'testing - initialization' }
 Board >> initializeUsingEffectTests: aNumberOfSlots [
 
 	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
+	1 to: aNumberOfSlots do: [ :iter | slots add: seed getSlot ].
 	slots at: 4 put: BoardSlot withSpeedUp.
 	slots at: 5 put: BoardSlot withWormHole.
 	slots at: 6 put: BoardSlot withMoonwalk.
