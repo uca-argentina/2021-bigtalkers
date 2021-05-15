@@ -22,6 +22,12 @@ Board class >> sized: aNumberOfSlots [
 	^ self new initializeUsing: aNumberOfSlots
 ]
 
+{ #category : #'instance creation' }
+Board class >> sized: aNumberOfSlots withSeed: aSeed [
+	self validateMinimumSlots: aNumberOfSlots.
+	^ self new initializeUsing: aNumberOfSlots withSeed: aSeed.
+]
+
 { #category : #validation }
 Board class >> validateMinimumSlots: aNumberOfSlots [
 
@@ -42,18 +48,18 @@ Board >> initializeUsing: aNumberOfSlots [
 	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ]
 ]
 
-{ #category : #'testing - initialization' }
-Board >> initializeUsingEffectTests2: aNumberOfSlots [
-
+{ #category : #initialize }
+Board >> initializeUsing: aNumberOfSlots withSeed: aSeed [
+	seed := aSeed.
 	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: seed getRandomSlot  ].
+	1 to: aNumberOfSlots do: [ :iter | slots add: seed getRandomSlot ].
 ]
 
 { #category : #'testing - initialization' }
 Board >> initializeUsingEffectTests: aNumberOfSlots [
 
 	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: seed getSlot ].
+	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect  ].
 	slots at: 4 put: BoardSlot withSpeedUp.
 	slots at: 5 put: BoardSlot withWormHole.
 	slots at: 6 put: BoardSlot withMoonwalk.

@@ -23,10 +23,29 @@ BoardTest >> testCreateBoard [
 ]
 
 { #category : #tests }
+BoardTest >> testCreateBoardWithSeed [
+	| aBoard aSeed |
+	aSeed := SeedGenerator withFiveProbabilities: #(48 20 20 10 2). 
+	aBoard := Board sized: 30 withSeed: aSeed.
+	self assert: aBoard slotsAmount equals: 30.
+]
+
+{ #category : #tests }
 BoardTest >> testCreateBoardWithZeroSlots [
 
 	self
 		should: [ Board sized: 0 ]
 		raise: Error
 		withMessage: 'Boards need at least one slot'
+]
+
+{ #category : #tests }
+BoardTest >> testCreateLoadedBoard [
+
+	| aBoard aSeed |
+	aSeed := SeedGenerator withFiveProbabilities: #(48 20 20 10 2).
+	aBoard := LoadedBoard using: aSeed.
+	self assert: ((aBoard effectAt: 20) isKindOf: NoEffect).
+	self assert: ((aBoard effectAt: 50) isKindOf: WormHole).
+	self assert: ((aBoard effectAt: 99) isKindOf: AtomicBomb).
 ]

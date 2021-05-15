@@ -17,7 +17,12 @@ SeedGenerator class >> withFiveProbabilities: someProbabilities [
 { #category : #accessing }
 SeedGenerator >> getRandomSlot [
 
-	^ arrayWithSlots at: (1 to:100 atRandom)
+	^ arrayWithSlots at: ((1 to:100) atRandom)
+]
+
+{ #category : #accessing }
+SeedGenerator >> getSlots [
+	^arrayWithSlots. 
 ]
 
 { #category : #initialize }
@@ -28,8 +33,8 @@ SeedGenerator >> initializeWith: someProbabilities [
 	BoardSlot withSpeedUp.
 	BoardSlot withMoonwalk.
 	BoardSlot withAtomicBomb}.
-	arrayWithSlots := Array new.
+	arrayWithSlots := OrderedCollection  new.
 	someProbabilities
-		do:
-			[ :probability | 1 to: probability do: [ arrayWithSlots add: (effects at: probability index) ] ]
+		doWithIndex:
+			[ :probability :index | 1 to: probability do: [ :iter | arrayWithSlots add: (effects at:  index) ] ]
 ]
