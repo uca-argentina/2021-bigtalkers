@@ -8,17 +8,17 @@ Class {
 }
 
 { #category : #validation }
-Dice class >> validateEmptyDiceCollection: aDiceCollection [
+Dice class >> validateEmptyDiceCollection: someDice [
 
-	aDiceCollection isEmpty
+	someDice isEmpty
 		ifTrue: [ Error signal: 'Dice need to have at least one Die' ]
 ]
 
 { #category : #'instance creation' }
-Dice class >> with: aDiceCollection [
+Dice class >> with: someDice [
 
-	self validateEmptyDiceCollection: aDiceCollection.
-	^ self new initializeUsing: aDiceCollection
+	self validateEmptyDiceCollection: someDice.
+	^ self new initializeUsing: someDice
 ]
 
 { #category : #initialize }
@@ -27,7 +27,7 @@ Dice >> initializeUsing: aDiceCollection [
 	dice := aDiceCollection
 ]
 
-{ #category : #action }
+{ #category : #rolling }
 Dice >> roll [
 
 	^ dice sum: [ :die | die roll ]

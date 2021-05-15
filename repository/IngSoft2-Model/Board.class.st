@@ -2,23 +2,24 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'slots'
+		'slots',
+		'seedGenerator'
 	],
 	#category : #'IngSoft2-Model'
 }
-
-{ #category : #'instance creation' }
-Board class >> boardTestSized: aNumberOfSlots [
-
-	self validateMinimumSlots: aNumberOfSlots.
-	^ self new initializeUsingEffectTests: aNumberOfSlots
-]
 
 { #category : #'instance creation' }
 Board class >> sized: aNumberOfSlots [
 
 	self validateMinimumSlots: aNumberOfSlots.
 	^ self new initializeUsing: aNumberOfSlots
+]
+
+{ #category : #'instance creation' }
+Board class >> sized: aNumberOfSlots seeding: aSeedGenerator [
+
+	self validateMinimumSlots: aNumberOfSlots.
+	^ self new initializeUsing: aNumberOfSlots and: aSeedGenerator
 ]
 
 { #category : #validation }
@@ -28,7 +29,7 @@ Board class >> validateMinimumSlots: aNumberOfSlots [
 		ifFalse: [ Error signal: 'Boards need at least one slot' ]
 ]
 
-{ #category : #accessing }
+{ #category : #'testing - slots' }
 Board >> effectAt: aPosition [
 
 	^ (self slotAt: aPosition) getEffect
@@ -41,24 +42,21 @@ Board >> initializeUsing: aNumberOfSlots [
 	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ]
 ]
 
-{ #category : #'testing - initialization' }
-Board >> initializeUsingEffectTests: aNumberOfSlots [
+{ #category : #initialize }
+Board >> initializeUsing: aNumberOfSlots and: aSeed [
 
+	seedGenerator := aSeed.
 	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
-	slots at: 4 put: BoardSlot withSpeedUp.
-	slots at: 5 put: BoardSlot withWormHole.
-	slots at: 6 put: BoardSlot withMoonwalk.
-	slots at: 7 put: BoardSlot withAtomicBomb
+	1 to: aNumberOfSlots do: [ :iter | slots add: seedGenerator getRandomSlot ]
 ]
 
-{ #category : #accessing }
+{ #category : #'testing - slots' }
 Board >> slotAt: aPosition [
 
 	^ slots at: aPosition
 ]
 
-{ #category : #'testing - variables' }
+{ #category : #'testing - slots' }
 Board >> slotsAmount [
 
 	^ slots size

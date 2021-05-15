@@ -30,7 +30,7 @@ Player >> initializeWithName: aName [
 	name := aName
 ]
 
-{ #category : #'testing - variables' }
+{ #category : #'testing - name' }
 Player >> playerName [
 
 	^ name

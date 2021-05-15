@@ -1,6 +1,9 @@
 Class {
 	#name : #BoardTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'effects'
+	],
 	#category : #'IngSoft2-Tests'
 }
 
@@ -23,10 +26,44 @@ BoardTest >> testCreateBoard [
 ]
 
 { #category : #tests }
+BoardTest >> testCreateBoardWithSeed [
+
+	| aBoard aSeedGenerator effectsUsed |
+	effectsUsed := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalk.
+	BoardSlot withAtomicBomb}.
+	aSeedGenerator := SeedGenerator
+		distributing: effectsUsed
+		havingProbabilities: #(48 20 20 10 2).
+	aBoard := Board sized: 30 seeding: aSeedGenerator.
+	self assert: aBoard slotsAmount equals: 30
+]
+
+{ #category : #tests }
 BoardTest >> testCreateBoardWithZeroSlots [
 
 	self
 		should: [ Board sized: 0 ]
 		raise: Error
 		withMessage: 'Boards need at least one slot'
+]
+
+{ #category : #tests }
+BoardTest >> testCreateLoadedBoard [
+
+	| aBoard aSeedGenerator effectsUsed |
+	effectsUsed := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalk.
+	BoardSlot withAtomicBomb}.
+	aSeedGenerator := SeedGenerator
+		distributing: effectsUsed
+		havingProbabilities: #(48 20 20 10 2).
+	aBoard := LoadedBoard seeding: aSeedGenerator.
+	self assert: ((aBoard effectAt: 20) isKindOf: NoEffect).
+	self assert: ((aBoard effectAt: 50) isKindOf: WormHole).
+	self assert: ((aBoard effectAt: 99) isKindOf: AtomicBomb)
 ]

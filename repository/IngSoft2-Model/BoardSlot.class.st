@@ -37,7 +37,7 @@ BoardSlot class >> withWormHole [
 	^ self new initializeWith: WormHole new
 ]
 
-{ #category : #acccessing }
+{ #category : #'testing - effect' }
 BoardSlot >> getEffect [
 
 	^ effect

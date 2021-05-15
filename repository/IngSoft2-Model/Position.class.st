@@ -69,13 +69,13 @@ Position >> initializeUsing: startingSlot [
 	lap := 0
 ]
 
-{ #category : #accessing }
+{ #category : #'testing - position' }
 Position >> lap [
 
 	^ lap
 ]
 
-{ #category : #accessing }
+{ #category : #'testing - position' }
 Position >> position [
 
 	^ slot

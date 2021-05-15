@@ -27,8 +27,8 @@ LoadedDie >> initializeUsing: anExpectedRoll [
 	rollValue := anExpectedRoll.
 ]
 
-{ #category : #action }
+{ #category : #rolling }
 LoadedDie >> roll [
 
-	^ rollValue.
+	^ rollValue
 ]

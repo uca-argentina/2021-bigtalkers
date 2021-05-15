@@ -27,7 +27,7 @@ Die >> initializeUsing: aNumberOfSides [
 	sides := aNumberOfSides
 ]
 
-{ #category : #action }
+{ #category : #rolling }
 Die >> roll [
 
 	^ (1 to: sides) atRandom

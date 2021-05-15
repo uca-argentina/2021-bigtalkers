@@ -7,14 +7,14 @@ Class {
 		'board',
 		'scoreboard',
 		'turn',
-		'currPlayer',
+		'currentPlayer',
 		'finishingLap'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-BigTalkGame class >> playedBy: somePlayers diceUsed: someDice playedOn: aBoard [
+BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard [
 
 	self validateDuplicatePlayers: somePlayers.
 	self validateNoPlayers: somePlayers.
@@ -27,10 +27,10 @@ BigTalkGame class >> playedBy: somePlayers diceUsed: someDice playedOn: aBoard [
 { #category : #validation }
 BigTalkGame class >> validateDuplicatePlayers: somePlayers [
 
-	| aSetOfPlayerNames |
-	aSetOfPlayerNames := Set
+	| somePlayersNames |
+	somePlayersNames := Set
 		withAll: (somePlayers collect: [ :player | player playerName ]).
-	somePlayers size ~= aSetOfPlayerNames size
+	somePlayers size ~= somePlayersNames size
 		ifTrue: [ Error signal: 'There can not be two players with the same name' ]
 ]
 
@@ -74,35 +74,35 @@ BigTalkGame >> applyWormHole [
 	self playerMove: self currentTurnPlayer slots: -4
 ]
 
-{ #category : #accessing }
+{ #category : #'testing - variables' }
 BigTalkGame >> boardSlotsAmount [
 
 	^ board slotsAmount
 ]
 
-{ #category : #'game-actions' }
+{ #category : #playing }
 BigTalkGame >> changeTurn [
 
-	turn nextPut: currPlayer.
-	currPlayer := turn next
+	turn nextPut: currentPlayer.
+	currentPlayer := turn next
 ]
 
-{ #category : #'accessing - player' }
+{ #category : #'testing - player' }
 BigTalkGame >> currentTurnPlayer [
 
-	^ currPlayer
+	^ currentPlayer
 ]
 
-{ #category : #'accessing - player' }
+{ #category : #'testing - player' }
 BigTalkGame >> currentTurnPlayerName [
 
 	^ self currentTurnPlayer playerName
 ]
 
-{ #category : #'accessing - player' }
+{ #category : #'testing - player' }
 BigTalkGame >> currentTurnPlayerPosition [
 
-	^ self positionOf: currPlayer
+	^ self positionOf: currentPlayer
 ]
 
 { #category : #'effect-application' }
@@ -111,7 +111,7 @@ BigTalkGame >> effectAt: aPosition [
 	^ board effectAt: aPosition
 ]
 
-{ #category : #accessing }
+{ #category : #'testing - variables' }
 BigTalkGame >> hasFinished [
 
 	^ self leaderLap >= finishingLap
@@ -127,40 +127,40 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	scoreboard := Scoreboard competingPlayers: players.
 	turn := SharedQueue new.
 	players do: [ :player | turn nextPut: player ].
-	currPlayer := turn next
+	currentPlayer := turn next
 ]
 
-{ #category : #'accessing - player' }
+{ #category : #'testing - player' }
 BigTalkGame >> lapOf: aPlayer [
 
-	^ scoreboard currentLap: aPlayer
+	^ scoreboard currentLapOf: aPlayer
 ]
 
-{ #category : #'accessing - leader' }
+{ #category : #'testing - leader' }
 BigTalkGame >> leader [
 
 	^ scoreboard leader key
 ]
 
-{ #category : #'accessing - leader' }
+{ #category : #'testing - leader' }
 BigTalkGame >> leaderLap [
 
 	^ scoreboard leaderLap
 ]
 
-{ #category : #'accessing - leader' }
+{ #category : #'testing - leader' }
 BigTalkGame >> leaderName [
 
 	^ scoreboard leaderName
 ]
 
-{ #category : #'accessing - leader' }
+{ #category : #'testing - leader' }
 BigTalkGame >> leaderPosition [
 
 	^ scoreboard leaderPosition
 ]
 
-{ #category : #'game-actions' }
+{ #category : #playing }
 BigTalkGame >> moveCurrentPlayer [
 
 	self hasFinished
@@ -174,14 +174,14 @@ BigTalkGame >> moveCurrentPlayer [
 BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 
 	| playerposition valueToMove laps newPosition |
-	playerposition := scoreboard currentPosition: aPlayer.
+	playerposition := scoreboard currentPositionOf: aPlayer.
 	valueToMove := aNumberOfSlots.
 	newPosition := valueToMove + playerposition.
 	newPosition > self boardSlotsAmount
 		ifTrue: [ laps := 1.
 			valueToMove := newPosition - self boardSlotsAmount ]
 		ifFalse: [ laps := 0 ].
-	scoreboard updatePosition: aPlayer slots: valueToMove laps: laps.
+	scoreboard updatePositionOf: aPlayer slots: valueToMove laps: laps.
 
 ]
 
@@ -189,14 +189,14 @@ BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 BigTalkGame >> playerMoveAfterRoll: aPlayer [
 
 	| playerposition rollvalue laps newPosition |
-	playerposition := scoreboard currentPosition: aPlayer.
+	playerposition := scoreboard currentPositionOf: aPlayer.
 	rollvalue := dice roll.
 	newPosition := rollvalue + playerposition.
 	newPosition > self boardSlotsAmount
 		ifTrue: [ laps := 1.
 			rollvalue := newPosition - self boardSlotsAmount ]
 		ifFalse: [ laps := 0 ].
-	scoreboard updatePosition: aPlayer slots: rollvalue laps: laps.
+	scoreboard updatePositionOf: aPlayer slots: rollvalue laps: laps.
 
 ]
 
@@ -206,20 +206,20 @@ BigTalkGame >> playerMoveToStart: aPlayer [
 	scoreboard moveToStart: aPlayer
 ]
 
-{ #category : #'accessing - player' }
+{ #category : #'testing - player' }
 BigTalkGame >> positionOf: aPlayer [
 
-	^ scoreboard currentPosition: aPlayer
+	^ scoreboard currentPositionOf: aPlayer
 ]
 
-{ #category : #'accessing - player' }
+{ #category : #'testing - player' }
 BigTalkGame >> rankOf: aPlayer [
 
 	^ scoreboard rankOf: aPlayer
 ]
 
-{ #category : #'accessing - player' }
+{ #category : #'testing - player' }
 BigTalkGame >> scoreOf: aPlayerName [
 
-	^ scoreboard currentPosition: aPlayerName.
+	^ scoreboard currentPositionOf: aPlayerName.
 ]
