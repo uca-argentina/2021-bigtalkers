@@ -15,18 +15,18 @@ PlayerTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedEr
 ]
 
 { #category : #test }
-PlayerTest >> testCreatePlayerWithName [
-
-	| aPlayer |
-	aPlayer := Player named: 'Martin'.
-	self assert: aPlayer playerName equals: 'Martin'
-]
-
-{ #category : #test }
-PlayerTest >> testPlayerCannotHaveAnEmptyName [
+PlayerTest >> testCannotCreateAPlayerWithoutName [
 
 	self
 		should: [Player named: '']
 		raise: Error 
 		withMessage: 'A player cannot have an empty name'.
+]
+
+{ #category : #test }
+PlayerTest >> testCreateAPlayerWithName [
+
+	| aPlayer |
+	aPlayer := Player named: 'Martin'.
+	self assert: aPlayer playerName equals: 'Martin'
 ]

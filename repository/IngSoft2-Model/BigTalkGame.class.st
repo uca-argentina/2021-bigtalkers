@@ -57,6 +57,7 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 
 { #category : #'effect-application' }
 BigTalkGame >> applyMoonWalk: N [
+
 	players do: [ :player | self playerMove: player slots: N * -1 ].
 	self playerMove: self currentTurnPlayer slots: N
 ]
@@ -118,6 +119,7 @@ BigTalkGame >> hasFinished [
 
 { #category : #initialize }
 BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard [
+
 	finishingLap := 2.
 	players := somePlayers.
 	dice := someDice.
@@ -160,6 +162,7 @@ BigTalkGame >> leaderPosition [
 
 { #category : #'game-actions' }
 BigTalkGame >> moveCurrentPlayer [
+
 	self hasFinished
 		ifFalse: [ self playerMoveAfterRoll: self currentTurnPlayer.
 			self applyEffectAt: self currentTurnPlayerPosition.
@@ -200,8 +203,7 @@ BigTalkGame >> playerMoveAfterRoll: aPlayer [
 { #category : #private }
 BigTalkGame >> playerMoveToStart: aPlayer [
 
-	scoreboard moveToStart: aPlayer.
-
+	scoreboard moveToStart: aPlayer
 ]
 
 { #category : #'accessing - player' }

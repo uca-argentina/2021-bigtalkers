@@ -11,7 +11,7 @@ Class {
 LoadedDie class >> rolling: anExpectedRoll [
 
 	self validateLoadedDieCannotHaveNegativeResult: anExpectedRoll.
-	^ self new initializeUsing: anExpectedRoll.
+	^ self new initializeUsing: anExpectedRoll
 ]
 
 { #category : #validation }

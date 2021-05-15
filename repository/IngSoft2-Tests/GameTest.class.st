@@ -15,44 +15,6 @@ GameTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErro
 ]
 
 { #category : #tests }
-GameTest >> testAGameWithDefaultValues [
-
-	| aGame aLeader player1 player2 aDie aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	aDie := Die withSides: 4.
-	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
-	aGame := BigTalkGame
-		playedBy:
-			{player1.
-			player2}
-		diceUsed: aDice
-		playedOn: aBoard.
-	aGame moveCurrentPlayer.
-	aLeader := aGame leaderPosition.
-	self assert: (aLeader between: 1 and: 4).
-]
-
-{ #category : #tests }
-GameTest >> testAGameWithScoreboard [
-
-	| aGame player1 player2 aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	aDice := Dice with: {(Die withSides: 4)}.
-	aBoard := Board sized: 2.
-	aGame := BigTalkGame
-		playedBy:
-			{player1.
-			player2}
-		diceUsed: aDice
-		playedOn: aBoard.
-	self assert: (aGame scoreOf: player1) equals: 0.
-	self assert: (aGame scoreOf: player2) equals: 0.
-]
-
-{ #category : #tests }
 GameTest >> testAGameWithScoreboardMovesForward [
 
 	| aGame player1 player2 aDie aDice aBoard |
@@ -107,6 +69,19 @@ GameTest >> testAGameWithTwoPlayersAndADieAndABoardHasNotFinished [
 		diceUsed: aDice
 		playedOn: aBoard.
 	self deny: aGame hasFinished.
+]
+
+{ #category : #tests }
+GameTest >> testCannotCreateAGameWithNoPlayers [
+
+	| aDie aDice aBoard |
+	aDie := LoadedDie rolling: 4.
+	aDice := Dice with: {aDie}.
+	aBoard := Board sized: 4.
+	self
+		should: [ BigTalkGame playedBy: {} diceUsed: aDice playedOn: aBoard ]
+		raise: Error
+		withMessage: 'You need at least one player to play'
 ]
 
 { #category : #tests }
@@ -234,6 +209,44 @@ GameTest >> testCheckRankingPositions [
 ]
 
 { #category : #tests }
+GameTest >> testCreateAGameWithDefaultValues [
+
+	| aGame aLeader player1 player2 aDie aDice aBoard |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	aDie := Die withSides: 4.
+	aDice := Dice with: {aDie}.
+	aBoard := Board sized: 4.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		diceUsed: aDice
+		playedOn: aBoard.
+	aGame moveCurrentPlayer.
+	aLeader := aGame leaderPosition.
+	self assert: (aLeader between: 1 and: 4)
+]
+
+{ #category : #tests }
+GameTest >> testCreateAGameWithScoreboard [
+
+	| aGame player1 player2 aDice aBoard |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	aDice := Dice with: {(Die withSides: 4)}.
+	aBoard := Board sized: 2.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		diceUsed: aDice
+		playedOn: aBoard.
+	self assert: (aGame scoreOf: player1) equals: 0.
+	self assert: (aGame scoreOf: player2) equals: 0
+]
+
+{ #category : #tests }
 GameTest >> testCreateAGameWithTwoPlayersAndTwoDiceAndABoard [
 
 	| aGame player1 player2 aDie anotherDie aDice aBoard |
@@ -353,6 +366,7 @@ GameTest >> testGameNewLap [
 
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInAtomicBomb [
+
 	| aDie aDice aBoard player1 player2 aGame |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
@@ -372,6 +386,7 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInMoonWalk [
+
 	| aDie aDice aBoard player1 player2 aGame |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
@@ -391,12 +406,13 @@ GameTest >> testGamePlayerOneFallsInMoonWalk [
 
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInSpeedUp [
+
 	| aDie aDice aBoard player1 player2 aGame |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board boardTestSized:  16.
+	aBoard := Board boardTestSized: 16.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -412,6 +428,7 @@ GameTest >> testGamePlayerOneFallsInSpeedUp [
 
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInWormhole [
+
 	| aDie aDice aBoard player1 player2 aGame |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
@@ -426,19 +443,6 @@ GameTest >> testGamePlayerOneFallsInWormhole [
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
 	self assert: (aGame positionOf: player1) equals: 1
-]
-
-{ #category : #tests }
-GameTest >> testGameWithNoPlayers [
-"commit"
-	| aDie aDice aBoard |
-	aDie := LoadedDie rolling: 4.
-	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
-	self
-		should: [ BigTalkGame playedBy: {} diceUsed: aDice playedOn: aBoard ]
-		raise: Error
-		withMessage: 'You need at least one player to play'.
 ]
 
 { #category : #tests }
@@ -460,5 +464,5 @@ GameTest >> testGameWithTwoPlayersWithSameName [
 				diceUsed: aDice
 				playedOn: aBoard ]
 		raise: Error
-		withMessage: 'There can not be two players with the same name'.
+		withMessage: 'There can not be two players with the same name'
 ]

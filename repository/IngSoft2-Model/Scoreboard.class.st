@@ -10,13 +10,13 @@ Class {
 { #category : #'instance creation' }
 Scoreboard class >> competingPlayers: somePlayers [
 
-	^ self new initializeWithPlayers: somePlayers.
+	^ self new initializeWithPlayers: somePlayers
 ]
 
 { #category : #initialize }
 Scoreboard >> currentLap: aPlayer [
 
-	^ (scoreboard at: aPlayer) lap.
+	^ (scoreboard at: aPlayer) lap
 ]
 
 { #category : #initialize }
@@ -36,28 +36,30 @@ Scoreboard >> initializeWithPlayers: somePlayers [
 Scoreboard >> leader [
 
 	| topScore leader |
-	topScore := Position startingPosition .
+	topScore := Position startingPosition.
 	scoreboard
 		associationsDo: [ :score | 
 			topScore <= score value
 				ifTrue: [ topScore := score value.
 					leader := score ] ].
-	^ leader.
+	^ leader
 ]
 
 { #category : #acccessing }
 Scoreboard >> leaderLap [
+
 	^ self leader value lap
 ]
 
 { #category : #acccessing }
 Scoreboard >> leaderName [
 
-	^ self leader key playerName.
+	^ self leader key playerName
 ]
 
 { #category : #acccessing }
 Scoreboard >> leaderPosition [
+
 	^ self leader value position
 ]
 
@@ -78,6 +80,7 @@ Scoreboard >> positions [
 
 { #category : #acccessing }
 Scoreboard >> rankOf: aPlayer [
+
 	| place playerPlaces |
 	playerPlaces := SortedCollection withAll: self positions.
 	place := 1.

@@ -4,17 +4,28 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #tests }
-DiceTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErrorMessage [  
-	self 
+{ #category : #asserting }
+DiceTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErrorMessage [
+
+	self
 		should: anErrorBlock
-		raise: exceptionClass 
-		withExceptionDo: 
-			[ :error | self assert: error messageText equals: expectedErrorMessage  ].
+		raise: exceptionClass
+		withExceptionDo:
+			[ :error | self assert: error messageText equals: expectedErrorMessage ]
+]
+
+{ #category : #tests }
+DiceTest >> testADieCannotHaveNegativeSides [
+
+	self
+		should: [ Die withSides: 2 ]
+		raise: Error
+		withMessage: 'Dice have to have at least 4 sides'
 ]
 
 { #category : #tests }
 DiceTest >> testEmptyDiceSetThrowsError [
+
 	self
 		should: [ Dice with: {} ]
 		raise: Error
@@ -41,15 +52,6 @@ DiceTest >> testLoadedDieCannotHaveNegativeResult [
 		should: [ LoadedDie rolling: -1 ]
 		raise: Error
 		withMessage: 'A loaded die cannot have a negative result'
-]
-
-{ #category : #tests }
-DiceTest >> testNonExistantDieThrowsError [
-
-	self
-		should: [ Die withSides: 2 ]
-		raise: Error
-		withMessage: 'Dice have to have at least 4 sides'
 ]
 
 { #category : #tests }
