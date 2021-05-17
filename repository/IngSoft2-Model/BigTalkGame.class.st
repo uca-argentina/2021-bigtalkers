@@ -204,7 +204,7 @@ BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 	newPosition > boardsize
 		ifTrue:  [ self updatePositionAddingLapsTo: aPlayer withValue: newPosition - boardsize ]
 		ifFalse: [ newPosition < 0
-				ifTrue:  [ self updatePositionRemovingLapsTo: aPlayer withValue: valueToMove ]
+				ifTrue:  [ self updatePositionRemovingLapsTo: aPlayer withValue: newPosition ]
 				ifFalse: [ self updatePositionAddingNoLapsTo: aPlayer withValue: valueToMove ] ]
 ]
 
@@ -258,7 +258,7 @@ BigTalkGame >> updatePositionAddingNoLapsTo: aPlayer withValue: valueToMove [
 { #category : #private }
 BigTalkGame >> updatePositionRemovingLapsTo: aPlayer withValue: newPosition [
 	| updatedPosition |
-	updatedPosition := self boardSlotsAmount + newPosition + (self positionOf: aPlayer).
+	updatedPosition := self boardSlotsAmount + newPosition .
 	scoreboard moveToStart: aPlayer.
 	scoreboard updatePositionOf: aPlayer slots: updatedPosition laps: -1
 	
