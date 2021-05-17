@@ -50,13 +50,6 @@ Position >> >= aPosition [
 ]
 
 { #category : #arithmetic }
-Position >> addLap [
-
-	lap := lap + 1.
-	slot := 0
-]
-
-{ #category : #arithmetic }
 Position >> addLaps: aNumberOfLaps [
 	aNumberOfLaps = 0
 		ifTrue: [ ^ self ].
