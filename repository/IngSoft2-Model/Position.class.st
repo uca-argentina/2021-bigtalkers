@@ -50,9 +50,10 @@ Position >> >= aPosition [
 ]
 
 { #category : #arithmetic }
-Position >> addLap [
-
-	lap := lap + 1.
+Position >> addLaps: aNumberOfLaps [
+	aNumberOfLaps = 0
+		ifTrue: [ ^ self ].
+	lap := lap + aNumberOfLaps.
 	slot := 0
 ]
 
@@ -79,4 +80,10 @@ Position >> lap [
 Position >> position [
 
 	^ slot
+]
+
+{ #category : #private }
+Position >> reset [
+	lap := 0.
+	slot := 0
 ]

@@ -22,6 +22,13 @@ Board class >> sized: aNumberOfSlots seeding: aSeedGenerator [
 	^ self new initializeUsing: aNumberOfSlots and: aSeedGenerator
 ]
 
+{ #category : #'tests - instance creation' }
+Board class >> sizedForTestingMoonWalk: aNumberOfSlots [
+
+	self validateMinimumSlots: aNumberOfSlots.
+	^ self new initializeUsingMoonWalkTestBoard: aNumberOfSlots
+]
+
 { #category : #validation }
 Board class >> validateMinimumSlots: aNumberOfSlots [
 
@@ -48,6 +55,14 @@ Board >> initializeUsing: aNumberOfSlots and: aSeed [
 	seedGenerator := aSeed.
 	slots := OrderedCollection new.
 	1 to: aNumberOfSlots do: [ :iter | slots add: seedGenerator getRandomSlot ]
+]
+
+{ #category : #'testing - initialization' }
+Board >> initializeUsingMoonWalkTestBoard: aNumberOfSlots [
+
+	slots := OrderedCollection new.
+	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
+	slots at: 4 put: BoardSlot withMoonwalk 
 ]
 
 { #category : #'testing - slots' }

@@ -24,6 +24,18 @@ BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard 
 		withBoard: aBoard
 ]
 
+{ #category : #'instance creation' }
+BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard finishingAtLap: aLapNumber [
+
+	self validateDuplicatePlayers: somePlayers.
+	self validateNoPlayers: somePlayers.
+	^ self new
+		initializeWithPlayers: somePlayers
+		withDice: someDice
+		withBoard: aBoard
+		finishingAtLap: aLapNumber
+]
+
 { #category : #validation }
 BigTalkGame class >> validateDuplicatePlayers: somePlayers [
 
@@ -57,9 +69,8 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 
 { #category : #'effect-application' }
 BigTalkGame >> applyMoonWalk: N [
-
-	players do: [ :player | self playerMove: player slots: N * -1 ].
-	self playerMove: self currentTurnPlayer slots: N
+	self playerMove: self currentTurnPlayer slots: N.
+	players do: [ :player | self playerMove: player slots: N * -1 ]
 ]
 
 { #category : #'effect-application' }
@@ -130,6 +141,19 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	currentPlayer := turn next
 ]
 
+{ #category : #initialize }
+BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard finishingAtLap: aLapNumber [
+
+	finishingLap := aLapNumber.
+	players := somePlayers.
+	dice := someDice.
+	board := aBoard.
+	scoreboard := Scoreboard competingPlayers: players.
+	turn := SharedQueue new.
+	players do: [ :player | turn nextPut: player ].
+	currentPlayer := turn next
+]
+
 { #category : #'testing - player' }
 BigTalkGame >> lapOf: aPlayer [
 
@@ -172,32 +196,28 @@ BigTalkGame >> moveCurrentPlayer [
 
 { #category : #private }
 BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
-
-	| playerposition valueToMove laps newPosition |
+	| playerposition valueToMove newPosition boardsize |
+	boardsize := self boardSlotsAmount.
 	playerposition := scoreboard currentPositionOf: aPlayer.
 	valueToMove := aNumberOfSlots.
 	newPosition := valueToMove + playerposition.
-	newPosition > self boardSlotsAmount
-		ifTrue: [ laps := 1.
-			valueToMove := newPosition - self boardSlotsAmount ]
-		ifFalse: [ laps := 0 ].
-	scoreboard updatePositionOf: aPlayer slots: valueToMove laps: laps.
-
+	newPosition > boardsize
+		ifTrue:  [ self updatePositionAddingLapsTo: aPlayer withValue: newPosition - boardsize ]
+		ifFalse: [ newPosition < 0
+				ifTrue:  [ self updatePositionRemovingLapsTo: aPlayer withValue: valueToMove ]
+				ifFalse: [ self updatePositionAddingNoLapsTo: aPlayer withValue: valueToMove ] ]
 ]
 
 { #category : #private }
 BigTalkGame >> playerMoveAfterRoll: aPlayer [
-
-	| playerposition rollvalue laps newPosition |
+	| playerposition rollvalue boardsize newPosition |
+	boardsize := self boardSlotsAmount.
 	playerposition := scoreboard currentPositionOf: aPlayer.
 	rollvalue := dice roll.
 	newPosition := rollvalue + playerposition.
-	newPosition > self boardSlotsAmount
-		ifTrue: [ laps := 1.
-			rollvalue := newPosition - self boardSlotsAmount ]
-		ifFalse: [ laps := 0 ].
-	scoreboard updatePositionOf: aPlayer slots: rollvalue laps: laps.
-
+	newPosition > boardsize
+		ifTrue:  [ self updatePositionAddingLapsTo: aPlayer withValue: newPosition - boardsize ]
+		ifFalse: [ self updatePositionAddingNoLapsTo: aPlayer withValue: rollvalue ]
 ]
 
 { #category : #private }
@@ -222,4 +242,24 @@ BigTalkGame >> rankOf: aPlayer [
 BigTalkGame >> scoreOf: aPlayerName [
 
 	^ scoreboard currentPositionOf: aPlayerName.
+]
+
+{ #category : #private }
+BigTalkGame >> updatePositionAddingLapsTo: aPlayer withValue: valueToMove [
+
+	scoreboard updatePositionOf: aPlayer slots: valueToMove laps: 1
+]
+
+{ #category : #private }
+BigTalkGame >> updatePositionAddingNoLapsTo: aPlayer withValue: valueToMove [
+	scoreboard updatePositionOf: aPlayer slots: valueToMove laps: 0
+]
+
+{ #category : #private }
+BigTalkGame >> updatePositionRemovingLapsTo: aPlayer withValue: newPosition [
+	| updatedPosition |
+	updatedPosition := self boardSlotsAmount + newPosition + (self positionOf: aPlayer).
+	scoreboard moveToStart: aPlayer.
+	scoreboard updatePositionOf: aPlayer slots: updatedPosition laps: -1
+	
 ]
