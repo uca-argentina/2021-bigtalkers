@@ -416,7 +416,7 @@ GameTest >> testGamePlayerOneFallsInMoonWalk [
 	aGame moveCurrentPlayer.
 	self assert: ((aBoard effectAt: 98) isKindOf: Moonwalk).
 	self assert: (aGame positionOf: player1) equals: 90.
-	self assert: (aGame positionOf: player2) equals: -2
+	self assert: (aGame positionOf: player2) equals: 0
 ]
 
 { #category : #tests }

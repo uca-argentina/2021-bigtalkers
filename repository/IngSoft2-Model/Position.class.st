@@ -56,6 +56,14 @@ Position >> addLap [
 	slot := 0
 ]
 
+{ #category : #arithmetic }
+Position >> addLaps: aNumberOfLaps [
+	aNumberOfLaps = 0
+		ifTrue: [ ^ self ].
+	lap := lap + aNumberOfLaps.
+	slot := 0
+]
+
 { #category : #private }
 Position >> backToStart [
 

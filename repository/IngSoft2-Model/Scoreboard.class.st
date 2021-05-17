@@ -93,9 +93,10 @@ Scoreboard >> rankOf: aPlayer [
 
 { #category : #private }
 Scoreboard >> updatePositionOf: aPlayer slots: aNumberOfSlots laps: aNumberOfLaps [
-
 	| currentPosition |
 	currentPosition := scoreboard at: aPlayer.
-	1 to: aNumberOfLaps do: [ :lap | currentPosition addLap ].
-	scoreboard at: aPlayer put: currentPosition + aNumberOfSlots
+	currentPosition addLaps: aNumberOfLaps.
+	scoreboard at: aPlayer put: currentPosition + aNumberOfSlots.
+	(self currentLapOf: aPlayer) < 0
+		ifTrue: [ self moveToStart: aPlayer ]
 ]
