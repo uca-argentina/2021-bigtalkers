@@ -62,7 +62,7 @@ BoardTest >> testCreateLoadedBoard [
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed
 		havingProbabilities: #(48 20 20 10 2).
-	aBoard := LoadedBoard seeding: aSeedGenerator.
+	aBoard := FixedBoard seeding: aSeedGenerator.
 	self assert: ((aBoard effectAt: 20) isKindOf: NoEffect).
 	self assert: ((aBoard effectAt: 50) isKindOf: WormHole).
 	self assert: ((aBoard effectAt: 99) isKindOf: AtomicBomb)

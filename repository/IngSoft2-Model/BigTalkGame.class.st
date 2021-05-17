@@ -24,6 +24,18 @@ BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard 
 		withBoard: aBoard
 ]
 
+{ #category : #'instance creation' }
+BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard finishingAtLap: aLapNumber [
+
+	self validateDuplicatePlayers: somePlayers.
+	self validateNoPlayers: somePlayers.
+	^ self new
+		initializeWithPlayers: somePlayers
+		withDice: someDice
+		withBoard: aBoard
+		finishingAtLap: aLapNumber
+]
+
 { #category : #validation }
 BigTalkGame class >> validateDuplicatePlayers: somePlayers [
 
@@ -57,9 +69,8 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 
 { #category : #'effect-application' }
 BigTalkGame >> applyMoonWalk: N [
-
-	players do: [ :player | self playerMove: player slots: N * -1 ].
-	self playerMove: self currentTurnPlayer slots: N
+	self playerMove: self currentTurnPlayer slots: N.
+	players do: [ :player | self playerMove: player slots: N * -1 ]
 ]
 
 { #category : #'effect-application' }
@@ -121,6 +132,19 @@ BigTalkGame >> hasFinished [
 BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard [
 
 	finishingLap := 2.
+	players := somePlayers.
+	dice := someDice.
+	board := aBoard.
+	scoreboard := Scoreboard competingPlayers: players.
+	turn := SharedQueue new.
+	players do: [ :player | turn nextPut: player ].
+	currentPlayer := turn next
+]
+
+{ #category : #initialize }
+BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard finishingAtLap: aLapNumber [
+
+	finishingLap := aLapNumber.
 	players := somePlayers.
 	dice := someDice.
 	board := aBoard.
@@ -234,7 +258,8 @@ BigTalkGame >> updatePositionAddingNoLapsTo: aPlayer withValue: valueToMove [
 { #category : #private }
 BigTalkGame >> updatePositionRemovingLapsTo: aPlayer withValue: newPosition [
 	| updatedPosition |
-	updatedPosition := self boardSlotsAmount + newPosition.
+	updatedPosition := self boardSlotsAmount + newPosition + (self positionOf: aPlayer).
 	scoreboard moveToStart: aPlayer.
 	scoreboard updatePositionOf: aPlayer slots: updatedPosition laps: -1
+	
 ]

@@ -1,17 +1,17 @@
 Class {
-	#name : #LoadedBoard,
+	#name : #FixedBoard,
 	#superclass : #Board,
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-LoadedBoard class >> seeding: aSeedGenerator [
+FixedBoard class >> seeding: aSeedGenerator [
 
 	^self new initializeWith: aSeedGenerator. 
 ]
 
 { #category : #initialization }
-LoadedBoard >> initializeWith: aSeedGenerator [
+FixedBoard >> initializeWith: aSeedGenerator [
 
 	seedGenerator := aSeedGenerator.
 	slots := seedGenerator getAllSlots

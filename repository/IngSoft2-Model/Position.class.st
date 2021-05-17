@@ -81,3 +81,9 @@ Position >> position [
 
 	^ slot
 ]
+
+{ #category : #private }
+Position >> reset [
+	lap := 0.
+	slot := 0
+]

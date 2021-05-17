@@ -377,7 +377,7 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed
 		havingProbabilities: #(48 20 20 10 2).
-	aBoard := LoadedBoard seeding: aSeedGenerator.
+	aBoard := FixedBoard seeding: aSeedGenerator.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -393,6 +393,33 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInMoonWalk [
 
+	| aDie aDice aBoard player1 player2 aGame  |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Carla'.
+	aDie := LoadedDie rolling: 4.
+	aDice := Dice with: {aDie}.
+	aBoard := Board sizedForTestingMoonWalk: 4.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 4.
+	self assert: ((aBoard effectAt: 4) isKindOf: Moonwalk).
+	aGame moveCurrentPlayer.
+	self assert: (aGame lapOf: player1) equals: 1.
+	aGame moveCurrentPlayer.
+	self assert: (aGame positionOf: player1) equals: 2.
+	self assert: (aGame positionOf: player2) equals: 0.
+	self assert: (aGame lapOf: player1) equals: 0.
+	self assert: (aGame lapOf: player2) equals: 1.
+
+]
+
+{ #category : #tests }
+GameTest >> testGamePlayerOneFallsInMoonWalkAndWouldHaveNegativeLaps [
+
 	| aDie aDice aBoard player1 player2 aGame effectsUsed aSeedGenerator |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
@@ -406,7 +433,7 @@ GameTest >> testGamePlayerOneFallsInMoonWalk [
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed
 		havingProbabilities: #(48 20 20 10 2).
-	aBoard := LoadedBoard seeding: aSeedGenerator.
+	aBoard := FixedBoard seeding: aSeedGenerator.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -435,13 +462,14 @@ GameTest >> testGamePlayerOneFallsInSpeedUp [
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed
 		havingProbabilities: #(48 20 20 10 2).
-	aBoard := LoadedBoard seeding: aSeedGenerator.
+	aBoard := FixedBoard seeding: aSeedGenerator.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
 			player2}
 		usingDice: aDice
-		playedOn: aBoard.
+		playedOn: aBoard
+		finishingAtLap: 3.
 	aGame moveCurrentPlayer.
 	self assert: ((aBoard effectAt: 70) isKindOf: SpeedUp).
 	self assert: (aGame positionOf: player1) equals: 74.
@@ -464,7 +492,7 @@ GameTest >> testGamePlayerOneFallsInWormhole [
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed
 		havingProbabilities: #(48 20 20 10 2).
-	aBoard := LoadedBoard seeding: aSeedGenerator.
+	aBoard := FixedBoard seeding: aSeedGenerator.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
