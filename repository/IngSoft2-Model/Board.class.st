@@ -22,7 +22,7 @@ Board class >> sized: aNumberOfSlots seeding: aSeedGenerator [
 	^ self new initializeUsing: aNumberOfSlots and: aSeedGenerator
 ]
 
-{ #category : #'tests - instance creation' }
+{ #category : #'fixed instance creation' }
 Board class >> sizedForTestingMoonWalk: aNumberOfSlots [
 
 	self validateMinimumSlots: aNumberOfSlots.

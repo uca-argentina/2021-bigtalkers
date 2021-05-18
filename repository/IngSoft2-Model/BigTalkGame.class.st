@@ -259,6 +259,7 @@ BigTalkGame >> updatePositionAddingLapsTo: aPlayer withValue: valueToMove [
 
 { #category : #private }
 BigTalkGame >> updatePositionAddingNoLapsTo: aPlayer withValue: valueToMove [
+
 	scoreboard updatePositionOf: aPlayer slots: valueToMove laps: 0
 ]
 

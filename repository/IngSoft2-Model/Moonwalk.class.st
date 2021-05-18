@@ -7,15 +7,16 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Moonwalk class >> withFixedValue: aNumber [
+
 	^ self new fixedN: aNumber
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 Moonwalk class >> withMaxValue: aNumber [
 
- ^self new setN: aNumber
+	^ self new setN: aNumber
 ]
 
 { #category : #'effect-application' }
@@ -28,6 +29,12 @@ Moonwalk >> applyTo: aGame [
 Moonwalk >> fixedN: aNumber [
 
 	N := aNumber
+]
+
+{ #category : #'accessing - N' }
+Moonwalk >> getN [
+
+	^N
 ]
 
 { #category : #initialization }
