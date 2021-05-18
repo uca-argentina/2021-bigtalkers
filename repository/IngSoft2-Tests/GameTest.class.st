@@ -100,11 +100,34 @@ GameTest >> testCheckLeaderName [
 		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	self assert: aGame leaderName equals: 'Gaspar'
+	self assert: aGame leaderName equals: 'Gaspar'.
+	self assert: aGame leader equals: player1.
 ]
 
 { #category : #tests }
-GameTest >> testCheckPlayerPositions [
+GameTest >> testCheckPlayerLapAndPositionAfterMoving [
+
+	| aGame aDie aDice aBoard player1 player2 player3 |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	player3 := Player named: 'Carla'.
+	aDie := LoadedDie rolling: 4.
+	aDice := Dice with: {aDie}.
+	aBoard := Board sized: 15.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2.
+			player3}
+		usingDice: aDice
+		playedOn: aBoard.
+	10 timesRepeat: [ aGame moveCurrentPlayer ].
+	self assert: (aGame lapOf: player1) equals: 1.
+	self assert: (aGame positionOf: player1) equals: 1
+]
+
+{ #category : #tests }
+GameTest >> testCheckPlayerPosition [
 
 	| aGame player1 player2 aDie aDice aBoard |
 	player1 := Player named: 'Gaspar'.
@@ -291,6 +314,40 @@ GameTest >> testGameControlledMovement [
 ]
 
 { #category : #tests }
+GameTest >> testGameCreatedUsingASeedGeneratorFinishedWithTwoLaps [
+
+	| aGame aDie aDice aBoard player1 player2 player3 effectsUsed aSeedGenerator |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	player3 := Player named: 'Carla'.
+	aDie := LoadedDie rolling: 84.
+	aDice := Dice with: {aDie}.
+	effectsUsed := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalk.
+	BoardSlot withAtomicBomb}.
+	aSeedGenerator := SeedGenerator
+		distributing: effectsUsed
+		havingProbabilities: #(48 20 20 10 2).
+	aBoard := FixedBoard seeding: aSeedGenerator.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2.
+			player3}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 2.
+	7 timesRepeat: [ aGame moveCurrentPlayer ].
+	self assert: aGame leader equals: player1.
+	self
+		should: [ aGame moveCurrentPlayer ]
+		raise: Error
+		withMessage: 'The game has finished'
+]
+
+{ #category : #tests }
 GameTest >> testGameFinishedAndStillMovePlayer [
 
 	| aGame aDie aDice aBoard player1 player2 player3 |
@@ -307,6 +364,34 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 			player3}
 		usingDice: aDice
 		playedOn: aBoard.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	self
+		should: [ aGame moveCurrentPlayer ]
+		raise: Error
+		withMessage: 'The game has finished'
+]
+
+{ #category : #tests }
+GameTest >> testGameFinishedWithTwoLaps [
+
+	| aGame aDie aDice aBoard player1 player2 player3 |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	player3 := Player named: 'Carla'.
+	aDie := LoadedDie rolling: 5.
+	aDice := Dice with: {aDie}.
+	aBoard := Board sized: 4.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2.
+			player3}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 2.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
@@ -337,28 +422,6 @@ GameTest >> testGameFinishedWithWinner [
 	4 timesRepeat: [ aGame moveCurrentPlayer ].
 	self assert: aGame hasFinished.
 	self assert: aGame leader equals: player1
-]
-
-{ #category : #tests }
-GameTest >> testGameNewLap [
-
-	| aGame aDie aDice aBoard player1 player2 player3 |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	player3 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 4.
-	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 15.
-	aGame := BigTalkGame
-		playedBy:
-			{player1.
-			player2.
-			player3}
-		usingDice: aDice
-		playedOn: aBoard.
-	10 timesRepeat: [ aGame moveCurrentPlayer ].
-	self assert: (aGame lapOf: player1) equals: 1.
-	self assert: (aGame positionOf: player1) equals: 1
 ]
 
 { #category : #tests }
@@ -393,7 +456,7 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInMoonWalk [
 
-	| aDie aDice aBoard player1 player2 aGame  |
+	| aDie aDice aBoard player1 player2 aGame |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 4.
@@ -413,8 +476,7 @@ GameTest >> testGamePlayerOneFallsInMoonWalk [
 	self assert: (aGame positionOf: player1) equals: 2.
 	self assert: (aGame positionOf: player2) equals: 0.
 	self assert: (aGame lapOf: player1) equals: 0.
-	self assert: (aGame lapOf: player2) equals: 1.
-
+	self assert: (aGame lapOf: player2) equals: 1
 ]
 
 { #category : #tests }

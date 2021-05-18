@@ -15,6 +15,7 @@ BoardSlot class >> withAtomicBomb [
 
 { #category : #'instance creation' }
 BoardSlot class >> withMoonwalk [
+
 	^ self new initializeWith: (Moonwalk withFixedValue: 2)
 ]
 
@@ -36,7 +37,7 @@ BoardSlot class >> withWormHole [
 	^ self new initializeWith: WormHole new
 ]
 
-{ #category : #'testing - effect' }
+{ #category : #'accessing - effect' }
 BoardSlot >> getEffect [
 
 	^ effect

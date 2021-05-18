@@ -36,7 +36,7 @@ Board class >> validateMinimumSlots: aNumberOfSlots [
 		ifFalse: [ Error signal: 'Boards need at least one slot' ]
 ]
 
-{ #category : #'testing - slots' }
+{ #category : #'accessing - slots' }
 Board >> effectAt: aPosition [
 
 	^ (self slotAt: aPosition) getEffect
@@ -57,7 +57,7 @@ Board >> initializeUsing: aNumberOfSlots and: aSeed [
 	1 to: aNumberOfSlots do: [ :iter | slots add: seedGenerator getRandomSlot ]
 ]
 
-{ #category : #'testing - initialization' }
+{ #category : #'accessing - initialization' }
 Board >> initializeUsingMoonWalkTestBoard: aNumberOfSlots [
 
 	slots := OrderedCollection new.
@@ -65,13 +65,13 @@ Board >> initializeUsingMoonWalkTestBoard: aNumberOfSlots [
 	slots at: 4 put: BoardSlot withMoonwalk 
 ]
 
-{ #category : #'testing - slots' }
+{ #category : #'accessing - slots' }
 Board >> slotAt: aPosition [
 
 	^ slots at: aPosition
 ]
 
-{ #category : #'testing - slots' }
+{ #category : #'accessing - slots' }
 Board >> slotsAmount [
 
 	^ slots size

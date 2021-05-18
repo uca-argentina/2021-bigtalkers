@@ -13,13 +13,13 @@ SeedGenerator class >> distributing: someEffects havingProbabilities: someProbab
 	^ self new initializeWith: someEffects havingProbabilities: someProbabilities.
 ]
 
-{ #category : #'testing - slots' }
+{ #category : #'accessing - slots' }
 SeedGenerator >> getAllSlots [
 
 	^ slots
 ]
 
-{ #category : #'testing - slots' }
+{ #category : #'accessing - slots' }
 SeedGenerator >> getRandomSlot [
 
 	^ slots at: (1 to: 100) atRandom
