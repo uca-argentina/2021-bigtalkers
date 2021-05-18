@@ -32,7 +32,7 @@ BoardTest >> testCreateBoardWithSeed [
 	effectsUsed := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalk.
+	BoardSlot withMoonwalkWithFixedValue.
 	BoardSlot withAtomicBomb}.
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed
@@ -57,7 +57,7 @@ BoardTest >> testCreateFixedBoard [
 	effectsUsed := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalk.
+	BoardSlot withMoonwalkWithFixedValue.
 	BoardSlot withAtomicBomb}.
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed

@@ -20,6 +20,18 @@ BoardSlot class >> withMoonwalk [
 ]
 
 { #category : #'instance creation' }
+BoardSlot class >> withMoonwalkWithFixedValue [
+
+	^ self new initializeWith: (Moonwalk withFixedValue: 2)
+]
+
+{ #category : #'instance creation' }
+BoardSlot class >> withMoonwalkWithRandomValue [
+
+	^ self new initializeWith: (Moonwalk withMaxValue: 5)
+]
+
+{ #category : #'instance creation' }
 BoardSlot class >> withNoEffect [
 
 	^ self new initializeWith: NoEffect new
@@ -41,6 +53,13 @@ BoardSlot class >> withWormHole [
 BoardSlot >> getEffect [
 
 	^ effect
+]
+
+{ #category : #'accessing - effect' }
+BoardSlot >> getN [
+ 
+	(effect isKindOf: Moonwalk)
+		ifTrue: [ ^ effect getN ]
 ]
 
 { #category : #initialization }

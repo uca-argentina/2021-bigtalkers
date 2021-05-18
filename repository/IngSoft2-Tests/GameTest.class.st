@@ -325,7 +325,7 @@ GameTest >> testGameCreatedUsingASeedGeneratorFinishedWithTwoLaps [
 	effectsUsed := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalk.
+	BoardSlot withMoonwalkWithFixedValue.
 	BoardSlot withAtomicBomb}.
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed
@@ -435,7 +435,7 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 	effectsUsed := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalk.
+	BoardSlot withMoonwalkWithFixedValue.
 	BoardSlot withAtomicBomb}.
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed
@@ -490,7 +490,7 @@ GameTest >> testGamePlayerOneFallsInMoonWalkAndWouldHaveNegativeLaps [
 	effectsUsed := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalk.
+	BoardSlot withMoonwalkWithFixedValue.
 	BoardSlot withAtomicBomb}.
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed
@@ -519,7 +519,7 @@ GameTest >> testGamePlayerOneFallsInSpeedUp [
 	effectsUsed := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalk.
+	BoardSlot withMoonwalkWithFixedValue.
 	BoardSlot withAtomicBomb}.
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed
@@ -549,7 +549,7 @@ GameTest >> testGamePlayerOneFallsInWormhole [
 	effectsUsed := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalk.
+	BoardSlot withMoonwalkWithFixedValue.
 	BoardSlot withAtomicBomb}.
 	aSeedGenerator := SeedGenerator
 		distributing: effectsUsed
