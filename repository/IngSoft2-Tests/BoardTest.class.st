@@ -51,7 +51,7 @@ BoardTest >> testCreateBoardWithZeroSlots [
 ]
 
 { #category : #tests }
-BoardTest >> testCreateLoadedBoard [
+BoardTest >> testCreateFixedBoard [
 
 	| aBoard aSeedGenerator effectsUsed |
 	effectsUsed := {BoardSlot withNoEffect.
