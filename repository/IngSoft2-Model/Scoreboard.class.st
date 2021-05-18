@@ -26,13 +26,14 @@ Scoreboard >> currentPositionOf: aPlayer [
 ]
 
 { #category : #initialize }
-Scoreboard >> initializeWithPlayers: somePlayers [ 
+Scoreboard >> initializeWithPlayers: somePlayers [
 
 	scoreboard := Dictionary new.
-	somePlayers do: [ :player | scoreboard at: player put: Position startingPosition  ].
+	somePlayers
+		do: [ :player | scoreboard at: player put: Position startingPosition ]
 ]
 
-{ #category : #'testing - leader' }
+{ #category : #'accessing - leader' }
 Scoreboard >> leader [
 
 	| topScore leader |
@@ -45,19 +46,19 @@ Scoreboard >> leader [
 	^ leader
 ]
 
-{ #category : #'testing - leader' }
+{ #category : #'accessing - leader' }
 Scoreboard >> leaderLap [
 
 	^ self leader value lap
 ]
 
-{ #category : #'testing - leader' }
+{ #category : #'accessing - leader' }
 Scoreboard >> leaderName [
 
 	^ self leader key playerName
 ]
 
-{ #category : #'testing - leader' }
+{ #category : #'accessing - leader' }
 Scoreboard >> leaderPosition [
 
 	^ self leader value position
@@ -78,7 +79,7 @@ Scoreboard >> positions [
 	^ scoreboard collect: [ :score | score value ]
 ]
 
-{ #category : #'testing - leader' }
+{ #category : #'accessing - leader' }
 Scoreboard >> rankOf: aPlayer [
 
 	| place playerPlaces |
@@ -102,6 +103,7 @@ Scoreboard >> reset: aPlayer [
 
 { #category : #private }
 Scoreboard >> updatePositionOf: aPlayer slots: aNumberOfSlots laps: aNumberOfLaps [
+
 	| currentPosition |
 	currentPosition := scoreboard at: aPlayer.
 	currentPosition addLaps: aNumberOfLaps.
