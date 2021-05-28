@@ -7,5 +7,4 @@ Class {
 { #category : #'effect-application' }
 NoEffect >> applyTo: aGame [
 
-	true
 ]

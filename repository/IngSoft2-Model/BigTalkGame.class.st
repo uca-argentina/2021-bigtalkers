@@ -14,17 +14,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard [
-
-	self validateDuplicatePlayers: somePlayers.
-	self validateNoPlayers: somePlayers.
-	^ self new
-		initializeWithPlayers: somePlayers
-		withDice: someDice
-		withBoard: aBoard
-]
-
-{ #category : #'instance creation' }
 BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard finishingAtLap: aLapNumber [
 
 	self validateDuplicatePlayers: somePlayers.
@@ -127,19 +116,6 @@ BigTalkGame >> effectAt: aPosition [
 BigTalkGame >> hasFinished [
 
 	^ self leaderLap >= finishingLap
-]
-
-{ #category : #initialize }
-BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard [
-
-	finishingLap := 2.
-	players := somePlayers.
-	dice := someDice.
-	board := aBoard.
-	scoreboard := Scoreboard competingPlayers: players.
-	turn := SharedQueue new.
-	players do: [ :player | turn nextPut: player ].
-	currentPlayer := turn next
 ]
 
 { #category : #initialize }

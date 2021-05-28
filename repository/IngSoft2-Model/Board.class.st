@@ -9,24 +9,22 @@ Class {
 }
 
 { #category : #'instance creation' }
-Board class >> sized: aNumberOfSlots [
-
+Board class >> sizedWithNoEffects: aNumberOfSlots [
+	| slots |
 	self validateMinimumSlots: aNumberOfSlots.
-	^ self new initializeUsing: aNumberOfSlots
+	slots := OrderedCollection new.
+	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect  ].
+	^ self new initializeUsingEffects: slots
 ]
 
 { #category : #'instance creation' }
-Board class >> sized: aNumberOfSlots seeding: aSeedGenerator [
+Board class >> sizedWithRandomEffects: aNumberOfSlots fromSeed: aSeed [
 
+	| slots |
 	self validateMinimumSlots: aNumberOfSlots.
-	^ self new initializeUsing: aNumberOfSlots and: aSeedGenerator
-]
-
-{ #category : #'fixed instance creation' }
-Board class >> sizedForTestingMoonWalk: aNumberOfSlots [
-
-	self validateMinimumSlots: aNumberOfSlots.
-	^ self new initializeUsingMoonWalkTestBoard: aNumberOfSlots
+	slots := OrderedCollection new.
+	1 to: aNumberOfSlots do: [ :iter | slots add:  aSeed randomSlot ].
+	^ self new initializeUsingEffects: slots
 ]
 
 { #category : #validation }
@@ -45,22 +43,7 @@ Board class >> withAll: aCollectionOfSlots [
 { #category : #'accessing - slots' }
 Board >> effectAt: aPosition [
 
-	^ (self slotAt: aPosition) getEffect
-]
-
-{ #category : #initialize }
-Board >> initializeUsing: aNumberOfSlots [
-
-	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ]
-]
-
-{ #category : #initialize }
-Board >> initializeUsing: aNumberOfSlots and: aSeed [
-
-	seedGenerator := aSeed.
-	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: seedGenerator getRandomSlot ]
+	^ (self slotAt: aPosition) effect
 ]
 
 { #category : #initialize }
@@ -68,14 +51,6 @@ Board >> initializeUsingEffects: aCollectionOfSlots [
 
 	slots := OrderedCollection new.
 	aCollectionOfSlots do: [ :slot | slots add: slot ]
-]
-
-{ #category : #'accessing - initialization' }
-Board >> initializeUsingMoonWalkTestBoard: aNumberOfSlots [
-
-	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
-	slots at: 4 put: BoardSlot withMoonwalk 
 ]
 
 { #category : #'accessing - slots' }

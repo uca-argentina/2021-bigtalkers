@@ -50,7 +50,7 @@ BoardSlot class >> withWormHole [
 ]
 
 { #category : #'accessing - effect' }
-BoardSlot >> getEffect [
+BoardSlot >> effect [
 
 	^ effect
 ]
