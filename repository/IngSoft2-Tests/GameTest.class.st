@@ -22,7 +22,7 @@ GameTest >> testAGameWithScoreboardGetLeaderUsingRoll [
 	player2 := Player named: 'Martin'.
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 2.
+	aBoard := Board sizedWithNoEffects: 2.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -42,7 +42,7 @@ GameTest >> testAGameWithScoreboardMovesForward [
 	player2 := Player named: 'Martin'.
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 2.
+	aBoard := Board sizedWithNoEffects: 2.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -61,7 +61,7 @@ GameTest >> testAGameWithTwoPlayersAndADieAndABoardHasNotFinished [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	aDice := Dice with: {(Die withSides: 4)}.
-	aBoard := Board sized: 4.
+	aBoard := Board sizedWithNoEffects: 4.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -77,7 +77,7 @@ GameTest >> testCannotCreateAGameWithNoPlayers [
 	| aDie aDice aBoard |
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
+	aBoard := Board sizedWithNoEffects: 4.
 	self
 		should: [ BigTalkGame playedBy: {} usingDice: aDice playedOn: aBoard ]
 		raise: Error
@@ -92,7 +92,7 @@ GameTest >> testCheckLeaderName [
 	player2 := Player named: 'Martin'.
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
+	aBoard := Board sizedWithNoEffects: 4.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -113,7 +113,7 @@ GameTest >> testCheckPlayerLapAndPositionAfterMoving [
 	player3 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 15.
+	aBoard := Board sizedWithNoEffects: 15.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -134,7 +134,7 @@ GameTest >> testCheckPlayerPosition [
 	player2 := Player named: 'Martin'.
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 20.
+	aBoard := Board sizedWithNoEffects: 20.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -156,7 +156,7 @@ GameTest >> testCheckPlayerPositionsWithATie [
 	player3 := Player named: 'Carla'.
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
+	aBoard := Board sizedWithNoEffects: 4.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -177,7 +177,7 @@ GameTest >> testCheckPlayerTurn [
 	player3 := Player named: 'Carla'.
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
+	aBoard := Board sizedWithNoEffects: 4.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -197,7 +197,7 @@ GameTest >> testCheckPlayerTurnAfterMove [
 	player3 := Player named: 'Carla'.
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
+	aBoard := Board sizedWithNoEffects: 4.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -217,7 +217,7 @@ GameTest >> testCheckRankingPositions [
 	player2 := Player named: 'Martin'.
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 5.
+	aBoard := Board sizedWithNoEffects: 5.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -238,7 +238,7 @@ GameTest >> testCreateAGameWithDefaultValues [
 	player2 := Player named: 'Martin'.
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
+	aBoard := Board sizedWithNoEffects: 4.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -257,7 +257,7 @@ GameTest >> testCreateAGameWithScoreboard [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	aDice := Dice with: {(Die withSides: 4)}.
-	aBoard := Board sized: 2.
+	aBoard := Board sizedWithNoEffects: 2.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -280,7 +280,7 @@ GameTest >> testCreateAGameWithTwoPlayersAndTwoDiceAndABoard [
 		with:
 			{aDie.
 			anotherDie}.
-	aBoard := Board sized: 25.
+	aBoard := Board sizedWithNoEffects: 25.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -299,7 +299,7 @@ GameTest >> testGameControlledMovement [
 	player3 := Player named: 'Carla'.
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 20.
+	aBoard := Board sizedWithNoEffects: 20.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -356,7 +356,7 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 	player3 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 5.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
+	aBoard := Board sizedWithNoEffects: 4.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -383,7 +383,7 @@ GameTest >> testGameFinishedWithTwoLaps [
 	player3 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 5.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
+	aBoard := Board sizedWithNoEffects: 4.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -411,7 +411,7 @@ GameTest >> testGameFinishedWithWinner [
 	player3 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 6.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 5.
+	aBoard := Board sizedWithNoEffects: 5.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -580,7 +580,7 @@ GameTest >> testGameWithTwoPlayersWithSameName [
 	player3 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sized: 4.
+	aBoard := Board sizedWithNoEffects: 4.
 	self
 		should: [ BigTalkGame
 				playedBy:

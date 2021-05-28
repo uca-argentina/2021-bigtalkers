@@ -21,7 +21,7 @@ BoardTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErr
 BoardTest >> testCreateBoard [
 
 	| aBoard |
-	aBoard := Board sized: 30.
+	aBoard := Board sizedWithNoEffects: 30.
 	self assert: aBoard slotsAmount equals: 30
 ]
 
@@ -45,7 +45,7 @@ BoardTest >> testCreateBoardWithSeed [
 BoardTest >> testCreateBoardWithZeroSlots [
 
 	self
-		should: [ Board sized: 0 ]
+		should: [ Board sizedWithNoEffects: 0 ]
 		raise: Error
 		withMessage: 'Boards need at least one slot'
 ]

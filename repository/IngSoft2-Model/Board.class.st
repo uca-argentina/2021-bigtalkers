@@ -9,15 +9,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-Board class >> sized: aNumberOfSlots [
-	| slots |
-	self validateMinimumSlots: aNumberOfSlots.
-	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect  ].
-	^ self new initializeUsingEffects: slots
-]
-
-{ #category : #'instance creation' }
 Board class >> sized: aNumberOfSlots seeding: aSeedGenerator [
 
 	self validateMinimumSlots: aNumberOfSlots.
@@ -29,6 +20,25 @@ Board class >> sizedForTestingMoonWalk: aNumberOfSlots [
 
 	self validateMinimumSlots: aNumberOfSlots.
 	^ self new initializeUsingMoonWalkTestBoard: aNumberOfSlots
+]
+
+{ #category : #'instance creation' }
+Board class >> sizedWithNoEffects: aNumberOfSlots [
+	| slots |
+	self validateMinimumSlots: aNumberOfSlots.
+	slots := OrderedCollection new.
+	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect  ].
+	^ self new initializeUsingEffects: slots
+]
+
+{ #category : #'instance creation' }
+Board class >> sizedWithRandomEffects: aNumberOfSlots fromSeed: aSeed [
+
+	| slots |
+	self validateMinimumSlots: aNumberOfSlots.
+	slots := OrderedCollection new.
+	1 to: aNumberOfSlots do: [ :iter | slots add:  aSeed getRandomSlot ].
+	^ self new initializeUsingEffects: slots
 ]
 
 { #category : #validation }
@@ -48,13 +58,6 @@ Board class >> withAll: aCollectionOfSlots [
 Board >> effectAt: aPosition [
 
 	^ (self slotAt: aPosition) getEffect
-]
-
-{ #category : #initialize }
-Board >> initializeUsing: aNumberOfSlots [
-
-	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ]
 ]
 
 { #category : #initialize }
