@@ -1,6 +1,6 @@
 Class {
 	#name : #LoadedDie,
-	#superclass : #Die,
+	#superclass : #Object,
 	#instVars : [
 		'rollValue'
 	],

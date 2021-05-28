@@ -128,8 +128,8 @@ GameTest >> testCheckPlayerLapAndPositionAfterMoving [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	10 timesRepeat: [ aGame moveCurrentPlayer ].
-	self assert: (aGame lapOf: player1) equals: 1.
-	self assert: (aGame positionOf: player1) equals: 1
+	self assert: (aGame currentLapOf: player1) equals: 1.
+	self assert: (aGame currentSlotOf: player1) equals: 1
 ]
 
 { #category : #tests }
@@ -151,7 +151,7 @@ GameTest >> testCheckPlayerPosition [
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
-	self assert: (aGame positionOf: player2) equals: 4
+	self assert: (aGame currentSlotOf: player2) equals: 4
 ]
 
 { #category : #tests }
@@ -462,8 +462,8 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	aGame moveCurrentPlayer.
-	self assert: (aGame positionOf: player1) equals: 0.
-	self assert: (aGame positionOf: player2) equals: 0
+	self assert: (aGame currentSlotOf: player1) equals: 0.
+	self assert: (aGame currentSlotOf: player2) equals: 0
 ]
 
 { #category : #tests }
@@ -490,12 +490,12 @@ GameTest >> testGamePlayerOneFallsInMoonWalk [
 		         finishingAtLap: 4.
 	self assert: ((aBoard effectAt: 4) isKindOf: Moonwalk).
 	aGame moveCurrentPlayer.
-	self assert: (aGame lapOf: player1) equals: 1.
+	self assert: (aGame currentLapOf: player1) equals: 1.
 	aGame moveCurrentPlayer.
-	self assert: (aGame positionOf: player1) equals: 2.
-	self assert: (aGame positionOf: player2) equals: 0.
-	self assert: (aGame lapOf: player1) equals: 0.
-	self assert: (aGame lapOf: player2) equals: 1
+	self assert: (aGame currentSlotOf: player1) equals: 2.
+	self assert: (aGame currentSlotOf: player2) equals: 0.
+	self assert: (aGame currentLapOf: player1) equals: 0.
+	self assert: (aGame currentLapOf: player2) equals: 1
 ]
 
 { #category : #tests }
@@ -523,8 +523,8 @@ GameTest >> testGamePlayerOneFallsInMoonWalkAndWouldHaveNegativeLaps [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	aGame moveCurrentPlayer.
-	self assert: (aGame positionOf: player1) equals: 4.
-	self assert: (aGame positionOf: player2) equals: 0
+	self assert: (aGame currentSlotOf: player1) equals: 4.
+	self assert: (aGame currentSlotOf: player2) equals: 0
 ]
 
 { #category : #tests }
@@ -552,9 +552,9 @@ GameTest >> testGamePlayerOneFallsInSpeedUp [
 		playedOn: aBoard
 		finishingAtLap: 3.
 	aGame moveCurrentPlayer.
-	self assert: (aGame positionOf: player1) equals: 1.
-	self assert: (aGame lapOf: player1) equals: 1.
-	self assert: (aGame positionOf: player2) equals: 0
+	self assert: (aGame currentSlotOf: player1) equals: 1.
+	self assert: (aGame currentLapOf: player1) equals: 1.
+	self assert: (aGame currentSlotOf: player2) equals: 0
 ]
 
 { #category : #tests }
@@ -582,7 +582,7 @@ GameTest >> testGamePlayerOneFallsInWormhole [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	aGame moveCurrentPlayer.
-	self assert: (aGame positionOf: player1) equals: 2.
+	self assert: (aGame currentSlotOf: player1) equals: 2.
 ]
 
 { #category : #tests }

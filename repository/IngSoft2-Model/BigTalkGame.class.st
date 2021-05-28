@@ -89,6 +89,18 @@ BigTalkGame >> changeTurn [
 ]
 
 { #category : #'accesing - player' }
+BigTalkGame >> currentLapOf: aPlayer [
+
+	^ scoreboard currentLapOf: aPlayer
+]
+
+{ #category : #'accesing - player' }
+BigTalkGame >> currentSlotOf: aPlayer [
+
+	^ scoreboard currentSlotOf: aPlayer
+]
+
+{ #category : #'accesing - player' }
 BigTalkGame >> currentTurnPlayer [
 
 	^ currentPlayer
@@ -103,7 +115,7 @@ BigTalkGame >> currentTurnPlayerName [
 { #category : #'accesing - player' }
 BigTalkGame >> currentTurnPlayerPosition [
 
-	^ self positionOf: currentPlayer
+	^ self currentSlotOf: currentPlayer
 ]
 
 { #category : #'effect-application' }
@@ -129,12 +141,6 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	turn := SharedQueue new.
 	turn nextPutAll: players.
 	currentPlayer := turn next
-]
-
-{ #category : #'accesing - player' }
-BigTalkGame >> lapOf: aPlayer [
-
-	^ scoreboard currentLapOf: aPlayer
 ]
 
 { #category : #'accessing - leader' }
@@ -176,7 +182,7 @@ BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 
 	| playerposition valueToMove newPosition boardsize |
 	boardsize := self boardSlotsAmount.
-	playerposition := scoreboard currentPositionOf: aPlayer.
+	playerposition := scoreboard currentSlotOf: aPlayer.
 	valueToMove := aNumberOfSlots.
 	newPosition := valueToMove + playerposition.
 	newPosition > boardsize
@@ -193,7 +199,7 @@ BigTalkGame >> playerMoveAfterRoll: aPlayer [
 
 	| playerposition rollvalue boardsize newPosition |
 	boardsize := self boardSlotsAmount.
-	playerposition := scoreboard currentPositionOf: aPlayer.
+	playerposition := scoreboard currentSlotOf: aPlayer.
 	rollvalue := dice roll.
 	newPosition := rollvalue + playerposition.
 	newPosition > boardsize
@@ -210,12 +216,6 @@ BigTalkGame >> playerMoveToStart: aPlayer [
 ]
 
 { #category : #'accesing - player' }
-BigTalkGame >> positionOf: aPlayer [
-
-	^ scoreboard currentPositionOf: aPlayer
-]
-
-{ #category : #'accesing - player' }
 BigTalkGame >> rankOf: aPlayer [
 
 	^ scoreboard rankOf: aPlayer
@@ -224,7 +224,7 @@ BigTalkGame >> rankOf: aPlayer [
 { #category : #'accesing - player' }
 BigTalkGame >> scoreOf: aPlayerName [
 
-	^ scoreboard currentPositionOf: aPlayerName.
+	^ scoreboard currentSlotOf: aPlayerName.
 ]
 
 { #category : #private }

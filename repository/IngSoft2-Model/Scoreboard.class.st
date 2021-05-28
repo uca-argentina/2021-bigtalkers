@@ -16,13 +16,13 @@ Scoreboard class >> competingPlayers: somePlayers [
 { #category : #initialize }
 Scoreboard >> currentLapOf: aPlayer [
 
-	^ (scoreboard at: aPlayer) lap
+	^ (scoreboard at: aPlayer) currentLap
 ]
 
 { #category : #initialize }
-Scoreboard >> currentPositionOf: aPlayer [
+Scoreboard >> currentSlotOf: aPlayer [
 
-	^ (scoreboard at: aPlayer) position
+	^ (scoreboard at: aPlayer) currentSlot
 ]
 
 { #category : #initialize }
@@ -49,7 +49,7 @@ Scoreboard >> leader [
 { #category : #'accessing - leader' }
 Scoreboard >> leaderLap [
 
-	^ self leader value lap
+	^ self leader value currentLap
 ]
 
 { #category : #'accessing - leader' }
@@ -61,7 +61,7 @@ Scoreboard >> leaderName [
 { #category : #'accessing - leader' }
 Scoreboard >> leaderPosition [
 
-	^ self leader value position
+	^ self leader value currentSlot
 ]
 
 { #category : #private }
