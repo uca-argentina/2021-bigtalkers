@@ -456,19 +456,25 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInMoonWalk [
 
-	| aDie aDice aBoard player1 player2 aGame |
+	| aDie aDice aBoard player1 player2 aGame slots |
+	slots := { 
+		         BoardSlot withNoEffect.
+		         BoardSlot withNoEffect.
+		         BoardSlot withNoEffect.
+		         BoardSlot withMoonwalk 
+				}.
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 4.
-	aDice := Dice with: {aDie}.
-	aBoard := Board sizedForTestingMoonWalk: 4.
+	aDice := Dice with: { aDie }.
+	aBoard := Board withAll: slots.
 	aGame := BigTalkGame
-		playedBy:
-			{player1.
-			player2}
-		usingDice: aDice
-		playedOn: aBoard
-		finishingAtLap: 4.
+		         playedBy: { 
+				         player1.
+				         player2 }
+		         usingDice: aDice
+		         playedOn: aBoard
+		         finishingAtLap: 4.
 	self assert: ((aBoard effectAt: 4) isKindOf: Moonwalk).
 	aGame moveCurrentPlayer.
 	self assert: (aGame lapOf: player1) equals: 1.
@@ -503,7 +509,6 @@ GameTest >> testGamePlayerOneFallsInMoonWalkAndWouldHaveNegativeLaps [
 		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	self assert: ((aBoard effectAt: 98) isKindOf: Moonwalk).
 	self assert: (aGame positionOf: player1) equals: 90.
 	self assert: (aGame positionOf: player2) equals: 0
 ]

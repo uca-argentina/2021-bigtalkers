@@ -36,6 +36,12 @@ Board class >> validateMinimumSlots: aNumberOfSlots [
 		ifFalse: [ Error signal: 'Boards need at least one slot' ]
 ]
 
+{ #category : #'instance creation' }
+Board class >> withAll: aCollectionOfSlots [
+
+	^ self new initializeUsingEffects: aCollectionOfSlots
+]
+
 { #category : #'accessing - slots' }
 Board >> effectAt: aPosition [
 
@@ -55,6 +61,13 @@ Board >> initializeUsing: aNumberOfSlots and: aSeed [
 	seedGenerator := aSeed.
 	slots := OrderedCollection new.
 	1 to: aNumberOfSlots do: [ :iter | slots add: seedGenerator getRandomSlot ]
+]
+
+{ #category : #initialize }
+Board >> initializeUsingEffects: aCollectionOfSlots [
+
+	slots := OrderedCollection new.
+	aCollectionOfSlots do: [ :slot | slots add: slot ]
 ]
 
 { #category : #'accessing - initialization' }
