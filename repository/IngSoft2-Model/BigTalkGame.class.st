@@ -127,7 +127,7 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	board := aBoard.
 	scoreboard := Scoreboard competingPlayers: players.
 	turn := SharedQueue new.
-	players do: [ :player | turn nextPut: player ].
+	turn nextPutAll: players.
 	currentPlayer := turn next
 ]
 
