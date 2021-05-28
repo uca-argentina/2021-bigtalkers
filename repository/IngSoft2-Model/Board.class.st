@@ -23,7 +23,7 @@ Board class >> sizedWithRandomEffects: aNumberOfSlots fromSeed: aSeed [
 	| slots |
 	self validateMinimumSlots: aNumberOfSlots.
 	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add:  aSeed getRandomSlot ].
+	1 to: aNumberOfSlots do: [ :iter | slots add:  aSeed randomSlot ].
 	^ self new initializeUsingEffects: slots
 ]
 
