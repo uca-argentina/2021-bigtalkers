@@ -10,9 +10,11 @@ Class {
 
 { #category : #'instance creation' }
 Board class >> sized: aNumberOfSlots [
-
+	| slots |
 	self validateMinimumSlots: aNumberOfSlots.
-	^ self new initializeUsing: aNumberOfSlots
+	slots := OrderedCollection new.
+	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect  ].
+	^ self new initializeUsingEffects: slots
 ]
 
 { #category : #'instance creation' }
@@ -68,14 +70,6 @@ Board >> initializeUsingEffects: aCollectionOfSlots [
 
 	slots := OrderedCollection new.
 	aCollectionOfSlots do: [ :slot | slots add: slot ]
-]
-
-{ #category : #'accessing - initialization' }
-Board >> initializeUsingMoonWalkTestBoard: aNumberOfSlots [
-
-	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
-	slots at: 4 put: BoardSlot withMoonwalk 
 ]
 
 { #category : #'accessing - slots' }
