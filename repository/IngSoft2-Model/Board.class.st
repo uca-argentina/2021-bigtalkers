@@ -43,15 +43,7 @@ Board class >> withAll: aCollectionOfSlots [
 { #category : #'accessing - slots' }
 Board >> effectAt: aPosition [
 
-	^ (self slotAt: aPosition) getEffect
-]
-
-{ #category : #initialize }
-Board >> initializeUsing: aNumberOfSlots and: aSeed [
-
-	seedGenerator := aSeed.
-	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: seedGenerator getRandomSlot ]
+	^ (self slotAt: aPosition) effect
 ]
 
 { #category : #initialize }

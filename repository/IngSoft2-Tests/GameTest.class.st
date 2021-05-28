@@ -363,9 +363,7 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	aGame moveCurrentPlayer.
-	aGame moveCurrentPlayer.
-	aGame moveCurrentPlayer.
+
 	self
 		should: [ aGame moveCurrentPlayer ]
 		raise: Error
@@ -417,7 +415,7 @@ GameTest >> testGameFinishedWithWinner [
 			player3}
 		usingDice: aDice
 		playedOn: aBoard.
-	4 timesRepeat: [ aGame moveCurrentPlayer ].
+	aGame moveCurrentPlayer .
 	self assert: aGame hasFinished.
 	self assert: aGame leader equals: player1
 ]

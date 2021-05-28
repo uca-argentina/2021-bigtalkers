@@ -22,6 +22,7 @@ BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard 
 		initializeWithPlayers: somePlayers
 		withDice: someDice
 		withBoard: aBoard
+		finishingAtLap: 1
 ]
 
 { #category : #'instance creation' }
