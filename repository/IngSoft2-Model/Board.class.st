@@ -9,20 +9,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-Board class >> sized: aNumberOfSlots seeding: aSeedGenerator [
-
-	self validateMinimumSlots: aNumberOfSlots.
-	^ self new initializeUsing: aNumberOfSlots and: aSeedGenerator
-]
-
-{ #category : #'fixed instance creation' }
-Board class >> sizedForTestingMoonWalk: aNumberOfSlots [
-
-	self validateMinimumSlots: aNumberOfSlots.
-	^ self new initializeUsingMoonWalkTestBoard: aNumberOfSlots
-]
-
-{ #category : #'instance creation' }
 Board class >> sizedWithNoEffects: aNumberOfSlots [
 	| slots |
 	self validateMinimumSlots: aNumberOfSlots.

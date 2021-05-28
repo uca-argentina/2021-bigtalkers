@@ -316,21 +316,19 @@ GameTest >> testGameControlledMovement [
 { #category : #tests }
 GameTest >> testGameCreatedUsingASeedGeneratorFinishedWithTwoLaps [
 
-	| aGame aDie aDice aBoard player1 player2 player3 effectsUsed aSeedGenerator |
+	| aGame aDie aDice aBoard player1 player2 player3 slots |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	player3 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 84.
+	aDie := LoadedDie rolling: 6.
 	aDice := Dice with: {aDie}.
-	effectsUsed := {BoardSlot withNoEffect.
+	slots := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
 	BoardSlot withMoonwalkWithFixedValue.
-	BoardSlot withAtomicBomb}.
-	aSeedGenerator := SeedGenerator
-		distributing: effectsUsed
-		havingProbabilities: #(48 20 20 10 2).
-	aBoard := FixedBoard seeding: aSeedGenerator.
+	BoardSlot withAtomicBomb.
+	BoardSlot withNoEffect}.
+	aBoard := Board withAll: slots.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -427,20 +425,20 @@ GameTest >> testGameFinishedWithWinner [
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInAtomicBomb [
 
-	| aDie aDice aBoard player1 player2 aGame aSeedGenerator effectsUsed |
+	| aDie aDice aBoard player1 player2 aGame slots |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 99.
+	aDie := LoadedDie rolling: 5.
 	aDice := Dice with: {aDie}.
-	effectsUsed := {BoardSlot withNoEffect.
-	BoardSlot withWormHole.
-	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
-	BoardSlot withAtomicBomb}.
-	aSeedGenerator := SeedGenerator
-		distributing: effectsUsed
-		havingProbabilities: #(48 20 20 10 2).
-	aBoard := FixedBoard seeding: aSeedGenerator.
+	slots := {
+					BoardSlot withNoEffect.
+					BoardSlot withWormHole.
+					BoardSlot withSpeedUp.
+					BoardSlot withMoonwalkWithFixedValue.
+					BoardSlot withAtomicBomb.
+					BoardSlot withNoEffect
+				}.
+	aBoard := Board withAll: slots.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -448,7 +446,6 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	self assert: ((aBoard effectAt: 99) isKindOf: AtomicBomb).
 	self assert: (aGame positionOf: player1) equals: 0.
 	self assert: (aGame positionOf: player2) equals: 0
 ]
@@ -463,11 +460,11 @@ GameTest >> testGamePlayerOneFallsInMoonWalk [
 		         BoardSlot withNoEffect.
 		         BoardSlot withMoonwalk 
 				}.
+	aBoard := Board withAll: slots.
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: { aDie }.
-	aBoard := Board withAll: slots.
 	aGame := BigTalkGame
 		         playedBy: { 
 				         player1.
@@ -488,20 +485,20 @@ GameTest >> testGamePlayerOneFallsInMoonWalk [
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInMoonWalkAndWouldHaveNegativeLaps [
 
-	| aDie aDice aBoard player1 player2 aGame effectsUsed aSeedGenerator |
+	| aDie aDice aBoard player1 player2 aGame slots |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 90.
+	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
-	effectsUsed := {BoardSlot withNoEffect.
-	BoardSlot withWormHole.
-	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
-	BoardSlot withAtomicBomb}.
-	aSeedGenerator := SeedGenerator
-		distributing: effectsUsed
-		havingProbabilities: #(48 20 20 10 2).
-	aBoard := FixedBoard seeding: aSeedGenerator.
+	slots := {
+					BoardSlot withNoEffect.
+					BoardSlot withWormHole.
+					BoardSlot withSpeedUp.
+					BoardSlot withMoonwalkWithFixedValue.
+					BoardSlot withAtomicBomb.
+					BoardSlot withNoEffect
+				}.
+	aBoard := Board withAll: slots.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -509,27 +506,27 @@ GameTest >> testGamePlayerOneFallsInMoonWalkAndWouldHaveNegativeLaps [
 		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	self assert: (aGame positionOf: player1) equals: 90.
+	self assert: (aGame positionOf: player1) equals: 4.
 	self assert: (aGame positionOf: player2) equals: 0
 ]
 
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInSpeedUp [
 
-	| aDie aDice aBoard player1 player2 aGame effectsUsed aSeedGenerator |
+	| aDie aDice aBoard player1 player2 aGame slots |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 70.
+	aDie := LoadedDie rolling: 3.
 	aDice := Dice with: {aDie}.
-	effectsUsed := {BoardSlot withNoEffect.
-	BoardSlot withWormHole.
-	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
-	BoardSlot withAtomicBomb}.
-	aSeedGenerator := SeedGenerator
-		distributing: effectsUsed
-		havingProbabilities: #(48 20 20 10 2).
-	aBoard := FixedBoard seeding: aSeedGenerator.
+	slots := {
+					BoardSlot withNoEffect.
+					BoardSlot withWormHole.
+					BoardSlot withSpeedUp.
+					BoardSlot withMoonwalkWithFixedValue.
+					BoardSlot withAtomicBomb.
+					BoardSlot withNoEffect
+				}.
+	aBoard := Board withAll: slots.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -538,28 +535,28 @@ GameTest >> testGamePlayerOneFallsInSpeedUp [
 		playedOn: aBoard
 		finishingAtLap: 3.
 	aGame moveCurrentPlayer.
-	self assert: ((aBoard effectAt: 70) isKindOf: SpeedUp).
-	self assert: (aGame positionOf: player1) equals: 74.
+	self assert: (aGame positionOf: player1) equals: 1.
+	self assert: (aGame lapOf: player1) equals: 1.
 	self assert: (aGame positionOf: player2) equals: 0
 ]
 
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInWormhole [
 
-	| aDie aDice aBoard player1 player2 aGame effectsUsed aSeedGenerator |
+	| aDie aDice aBoard player1 player2 aGame slots |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
-	aDie := LoadedDie rolling: 50.
+	aDie := LoadedDie rolling: 6.
 	aDice := Dice with: {aDie}.
-	effectsUsed := {BoardSlot withNoEffect.
-	BoardSlot withWormHole.
-	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
-	BoardSlot withAtomicBomb}.
-	aSeedGenerator := SeedGenerator
-		distributing: effectsUsed
-		havingProbabilities: #(48 20 20 10 2).
-	aBoard := FixedBoard seeding: aSeedGenerator.
+	slots := {
+					BoardSlot withNoEffect.
+					BoardSlot withWormHole.
+					BoardSlot withSpeedUp.
+					BoardSlot withMoonwalkWithFixedValue.
+					BoardSlot withAtomicBomb.
+					BoardSlot withWormHole.
+				}.
+	aBoard := Board withAll: slots.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
@@ -567,8 +564,7 @@ GameTest >> testGamePlayerOneFallsInWormhole [
 		usingDice: aDice
 		playedOn: aBoard.
 	aGame moveCurrentPlayer.
-	self assert: ((aBoard effectAt: 50) isKindOf: WormHole).
-	self assert: (aGame positionOf: player1) equals: 46
+	self assert: (aGame positionOf: player1) equals: 2.
 ]
 
 { #category : #tests }
