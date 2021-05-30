@@ -9,16 +9,15 @@ Class {
 }
 
 { #category : #'instance creation' }
-Position class >> startingPosition [
+Position class >> atSlot: slot andLap: lap [
 
-	^ self new initializeUsing: 0
+	^ self new initializeUsing: slot andLap: lap
 ]
 
-{ #category : #arithmetic }
-Position >> + aNumberOfSlots [
+{ #category : #'instance creation' }
+Position class >> startingPosition [
 
-	slot := slot + aNumberOfSlots.
-
+	^ self new initializeUsing: 0 andLap: 0
 ]
 
 { #category : #arithmetic }
@@ -43,15 +42,6 @@ Position >> >= aPosition [
 		ifFalse: [ ^ self currentLap > aPosition currentLap ]
 ]
 
-{ #category : #arithmetic }
-Position >> addLaps: aNumberOfLaps [
-
-	aNumberOfLaps = 0
-		ifTrue: [ ^ self ].
-	lap := lap + aNumberOfLaps.
-	slot := 0
-]
-
 { #category : #private }
 Position >> backToStart [
 
@@ -71,10 +61,10 @@ Position >> currentSlot [
 ]
 
 { #category : #initialization }
-Position >> initializeUsing: startingSlot [
+Position >> initializeUsing: aSlot andLap: aLap [
 
-	slot := startingSlot.
-	lap := 0
+	slot := aSlot.
+	lap := aLap
 ]
 
 { #category : #private }
