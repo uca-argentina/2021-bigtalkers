@@ -18,50 +18,10 @@ BoardTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErr
 ]
 
 { #category : #tests }
-BoardTest >> testCreateBoard [
-
-	| aBoard |
-	aBoard := Board sizedWithNoEffects: 30.
-	self assert: aBoard slotsAmount equals: 30
-]
-
-{ #category : #tests }
-BoardTest >> testCreateBoardWithSeed [
-
-	| aBoard aSeedGenerator effectsUsed |
-	effectsUsed := {BoardSlot withNoEffect.
-	BoardSlot withWormHole.
-	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
-	BoardSlot withAtomicBomb}.
-	aSeedGenerator := SeedGenerator
-		distributing: effectsUsed
-		havingProbabilities: #(48 20 20 10 2).
-	aBoard := Board sizedWithRandomEffects: 30 fromSeed: aSeedGenerator.
-	self assert: aBoard slotsAmount equals: 30
-]
-
-{ #category : #tests }
-BoardTest >> testCreateBoardWithZeroSlots [
+BoardTest >> testBoardCannotBeCreatedWithZeroSlots [
 
 	self
 		should: [ Board sizedWithNoEffects: 0 ]
 		raise: Error
 		withMessage: 'Boards need at least one slot'
-]
-
-{ #category : #tests }
-BoardTest >> testCreateFixedBoard [
-
-	| aBoard slots |
-	slots := {BoardSlot withNoEffect.
-	BoardSlot withWormHole.
-	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
-	BoardSlot withAtomicBomb}.
-	aBoard := Board withAll: slots.
-	self assert: ((aBoard effectAt: 1) isKindOf: NoEffect).
-	self assert: ((aBoard effectAt: 2) isKindOf: WormHole).
-	self assert: ((aBoard effectAt: 4) isKindOf: Moonwalk ).
-	self assert: ((aBoard effectAt: 5) isKindOf: AtomicBomb)
 ]

@@ -24,23 +24,23 @@ Position >> + aNumberOfSlots [
 { #category : #arithmetic }
 Position >> <= aPosition [
 
-	self lap = aPosition lap
-		ifTrue: [ ^ self position <= aPosition position ]
-		ifFalse: [ ^ self lap < aPosition lap ]
+	self currentLap = aPosition currentLap
+		ifTrue: [ ^ self currentSlot <= aPosition currentSlot ]
+		ifFalse: [ ^ self currentLap < aPosition currentLap ]
 ]
 
 { #category : #arithmetic }
 Position >> > aPosition [
 
-	^ self position > aPosition position
+	^ self currentSlot > aPosition currentSlot
 ]
 
 { #category : #arithmetic }
 Position >> >= aPosition [
 
-	self lap = aPosition lap
-		ifTrue: [ ^ self position >= aPosition position ]
-		ifFalse: [ ^ self lap > aPosition lap ]
+	self currentLap = aPosition currentLap
+		ifTrue: [ ^ self currentSlot >= aPosition currentSlot ]
+		ifFalse: [ ^ self currentLap > aPosition currentLap ]
 ]
 
 { #category : #arithmetic }
@@ -58,23 +58,23 @@ Position >> backToStart [
 	slot := 0
 ]
 
-{ #category : #initialization }
-Position >> initializeUsing: startingSlot [
-
-	slot := startingSlot.
-	lap := 0
-]
-
 { #category : #'accessing - position' }
-Position >> lap [
+Position >> currentLap [
 
 	^ lap
 ]
 
 { #category : #'accessing - position' }
-Position >> position [
+Position >> currentSlot [
 
 	^ slot
+]
+
+{ #category : #initialization }
+Position >> initializeUsing: startingSlot [
+
+	slot := startingSlot.
+	lap := 0
 ]
 
 { #category : #private }
