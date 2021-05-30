@@ -14,18 +14,6 @@ Scoreboard class >> competingPlayers: somePlayers [
 ]
 
 { #category : #initialize }
-Scoreboard >> currentLapOf: aPlayer [
-
-	^ (scoreboard at: aPlayer) currentLap
-]
-
-{ #category : #initialize }
-Scoreboard >> currentSlotOf: aPlayer [
-
-	^ (scoreboard at: aPlayer) currentSlot
-]
-
-{ #category : #initialize }
 Scoreboard >> initializeWithPlayers: somePlayers [
 
 	scoreboard := Dictionary new.
@@ -65,15 +53,6 @@ Scoreboard >> leaderPosition [
 ]
 
 { #category : #private }
-Scoreboard >> moveToStart: aPlayer [
-
-	| currentPosition |
-	currentPosition := scoreboard at: aPlayer.
-	currentPosition backToStart.
-	scoreboard at: aPlayer put: currentPosition
-]
-
-{ #category : #private }
 Scoreboard >> positions [
 
 	^ scoreboard collect: [ :score | score value ]
@@ -93,21 +72,7 @@ Scoreboard >> rankOf: aPlayer [
 ]
 
 { #category : #private }
-Scoreboard >> reset: aPlayer [
+Scoreboard >> update: playerPositions [
 
-	| currentPosition |
-	currentPosition := scoreboard at: aPlayer.
-	currentPosition reset.
-	scoreboard at: aPlayer put: currentPosition
-]
-
-{ #category : #private }
-Scoreboard >> updatePositionOf: aPlayer slots: aNumberOfSlots laps: aNumberOfLaps [
-
-	| currentPosition |
-	currentPosition := scoreboard at: aPlayer.
-	currentPosition addLaps: aNumberOfLaps.
-	scoreboard at: aPlayer put: currentPosition + aNumberOfSlots.
-	(self currentLapOf: aPlayer) < 0
-		ifTrue: [ self reset: aPlayer ]
+	scoreboard := playerPositions
 ]

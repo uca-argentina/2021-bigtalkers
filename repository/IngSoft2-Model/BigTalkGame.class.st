@@ -91,13 +91,13 @@ BigTalkGame >> changeTurn [
 { #category : #'accesing - player' }
 BigTalkGame >> currentLapOf: aPlayer [
 
-	^ scoreboard currentLapOf: aPlayer
+	^ board currentLapOf: aPlayer
 ]
 
 { #category : #'accesing - player' }
 BigTalkGame >> currentSlotOf: aPlayer [
 
-	^ scoreboard currentSlotOf: aPlayer
+	^ board currentSlotOf: aPlayer
 ]
 
 { #category : #'accesing - player' }
@@ -137,7 +137,9 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	players := somePlayers.
 	dice := someDice.
 	board := aBoard.
-	scoreboard := Scoreboard competingPlayers: players.
+	board addPlayers: somePlayers.
+	scoreboard := Scoreboard competingPlayers: somePlayers .
+	scoreboard update: board playerPositions.
 	turn := SharedQueue new.
 	turn nextPutAll: players.
 	currentPlayer := turn next
@@ -171,79 +173,36 @@ BigTalkGame >> leaderPosition [
 BigTalkGame >> moveCurrentPlayer [
 
 	self hasFinished
-		ifFalse: [ self playerMoveAfterRoll: self currentTurnPlayer.
+		ifFalse: [ 
+			self playerMoveAfterRoll: self currentTurnPlayer.
 			self applyEffectAt: self currentTurnPlayerPosition.
-			self changeTurn ]
+			self changeTurn.
+			scoreboard update: board playerPositions ]
 		ifTrue: [ Error signal: 'The game has finished' ]
 ]
 
 { #category : #private }
 BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 
-	| playerposition valueToMove newPosition boardsize |
-	boardsize := self boardSlotsAmount.
-	playerposition := scoreboard currentSlotOf: aPlayer.
-	valueToMove := aNumberOfSlots.
-	newPosition := valueToMove + playerposition.
-	newPosition > boardsize
-		ifTrue: [ self
-				updatePositionAddingLapsTo: aPlayer
-				withValue: newPosition - boardsize ]
-		ifFalse: [ newPosition < 0
-				ifTrue: [ self updatePositionRemovingLapsTo: aPlayer withValue: newPosition ]
-				ifFalse: [ self updatePositionAddingNoLapsTo: aPlayer withValue: valueToMove ] ]
+	board movePlayer: aPlayer to: aNumberOfSlots
 ]
 
 { #category : #private }
 BigTalkGame >> playerMoveAfterRoll: aPlayer [
 
-	| playerposition rollvalue boardsize newPosition |
-	boardsize := self boardSlotsAmount.
-	playerposition := scoreboard currentSlotOf: aPlayer.
+	|  rollvalue |
 	rollvalue := dice roll.
-	newPosition := rollvalue + playerposition.
-	newPosition > boardsize
-		ifTrue: [ self
-				updatePositionAddingLapsTo: aPlayer
-				withValue: newPosition - boardsize ]
-		ifFalse: [ self updatePositionAddingNoLapsTo: aPlayer withValue: rollvalue ]
+	board movePlayer: aPlayer to: rollvalue
 ]
 
 { #category : #private }
 BigTalkGame >> playerMoveToStart: aPlayer [
 
-	scoreboard moveToStart: aPlayer
+	board moveToStart: aPlayer
 ]
 
 { #category : #'accesing - player' }
 BigTalkGame >> rankOf: aPlayer [
 
 	^ scoreboard rankOf: aPlayer
-]
-
-{ #category : #'accesing - player' }
-BigTalkGame >> scoreOf: aPlayerName [
-
-	^ scoreboard currentSlotOf: aPlayerName.
-]
-
-{ #category : #private }
-BigTalkGame >> updatePositionAddingLapsTo: aPlayer withValue: valueToMove [
-
-	scoreboard updatePositionOf: aPlayer slots: valueToMove laps: 1
-]
-
-{ #category : #private }
-BigTalkGame >> updatePositionAddingNoLapsTo: aPlayer withValue: valueToMove [
-
-	scoreboard updatePositionOf: aPlayer slots: valueToMove laps: 0
-]
-
-{ #category : #private }
-BigTalkGame >> updatePositionRemovingLapsTo: aPlayer withValue: newPosition [
-
-	| updatedPosition |
-	updatedPosition := self boardSlotsAmount + newPosition.
-	scoreboard moveToStart: aPlayer.
-	scoreboard updatePositionOf: aPlayer slots: updatedPosition laps: -1
 ]

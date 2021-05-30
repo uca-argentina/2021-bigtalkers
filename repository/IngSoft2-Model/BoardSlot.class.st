@@ -55,13 +55,6 @@ BoardSlot >> effect [
 	^ effect
 ]
 
-{ #category : #'accessing - effect' }
-BoardSlot >> getN [
- 
-	(effect isKindOf: Moonwalk)
-		ifTrue: [ ^ effect getN ]
-]
-
 { #category : #initialization }
 BoardSlot >> initializeWith: anEffect [
 

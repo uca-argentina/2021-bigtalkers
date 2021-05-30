@@ -52,8 +52,8 @@ GameTest >> testAGameWithScoreboardMovesForward [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	aGame moveCurrentPlayer.
-	self assert: ((aGame scoreOf: player1) between: 1 and: 4).
-	self assert: (aGame scoreOf: player2) equals: 0
+	self assert: ((aGame currentSlotOf:  player1) between: 1 and: 4).
+	self assert: (aGame currentSlotOf:  player2) equals: 0
 ]
 
 { #category : #tests }
@@ -277,8 +277,8 @@ GameTest >> testCreateAGameWithScoreboard [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	self assert: (aGame scoreOf: player1) equals: 0.
-	self assert: (aGame scoreOf: player2) equals: 0
+	self assert: (aGame currentSlotOf:  player1) equals: 0.
+	self assert: (aGame currentSlotOf:  player2) equals: 0
 ]
 
 { #category : #tests }
