@@ -18,16 +18,6 @@ Board class >> sizedWithNoEffects: aNumberOfSlots [
 	^ self new initializeUsingEffects: slots
 ]
 
-{ #category : #'instance creation' }
-Board class >> sizedWithRandomEffects: aNumberOfSlots fromSeed: aSeed [
-
-	| slots |
-	self validateMinimumSlots: aNumberOfSlots.
-	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add:  aSeed randomSlot ].
-	^ self new initializeUsingEffects: slots
-]
-
 { #category : #validation }
 Board class >> validateMinimumSlots: aNumberOfSlots [
 
@@ -104,12 +94,6 @@ Board >> moveToStart: aPlayer [
 Board >> playerPositions [
 
 	^ playerPositions
-]
-
-{ #category : #'accessing - positions' }
-Board >> positions [
-
-	^ playerPositions collect: [ :score | score value ]
 ]
 
 { #category : #private }

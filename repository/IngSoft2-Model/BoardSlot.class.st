@@ -26,12 +26,6 @@ BoardSlot class >> withMoonwalkWithFixedValue [
 ]
 
 { #category : #'instance creation' }
-BoardSlot class >> withMoonwalkWithRandomValue [
-
-	^ self new initializeWith: (Moonwalk withMaxValue: 5)
-]
-
-{ #category : #'instance creation' }
 BoardSlot class >> withNoEffect [
 
 	^ self new initializeWith: NoEffect new
