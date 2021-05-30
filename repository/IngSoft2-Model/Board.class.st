@@ -67,18 +67,17 @@ Board >> initializeUsingEffects: aCollectionOfSlots [
 { #category : #private }
 Board >> movePlayer: aPlayer to: valueToMove [
 
-	| playerPosition newPosition boardsize|
+	| playerPosition newPosition boardsize |
 	playerPosition := self currentSlotOf: aPlayer.
 	boardsize := slots size.
 	newPosition := valueToMove + playerPosition.
 	newPosition > boardsize
-		ifTrue: [ self
-				updatePositionAddingLapsTo: aPlayer
-				withValue: newPosition - boardsize ]
-		ifFalse: [ newPosition < 0
-				ifTrue: [ self updatePositionRemovingLapsTo: aPlayer withValue: newPosition ]
-				ifFalse: [ self updatePositionAddingNoLapsTo: aPlayer withValue: valueToMove ] ]
-	
+		ifTrue: [self updatePlayerPosition: aPlayer toSlot: newPosition - boardsize addingLaps: 1 ]
+		ifFalse: [ 
+			 newPosition < 0
+			 ifTrue:  [self updatePlayerPosition: aPlayer toSlot: boardsize + newPosition addingLaps: -1 ]
+			 ifFalse: [self updatePlayerPosition: aPlayer toSlot: valueToMove + playerPosition addingLaps: 0 ] 
+			]
 ]
 
 { #category : #private }
@@ -118,32 +117,11 @@ Board >> slotsAmount [
 ]
 
 { #category : #private }
-Board >> updatePositionAddingLapsTo: aPlayer withValue: valueToMove [
+Board >> updatePlayerPosition: aPlayer toSlot: aSlot addingLaps: aLap [
 
-	self updatePositionOf: aPlayer slots: valueToMove laps: 1
-]
-
-{ #category : #private }
-Board >> updatePositionAddingNoLapsTo: aPlayer withValue: valueToMove [
-
-	self updatePositionOf: aPlayer slots: valueToMove laps: 0
-]
-
-{ #category : #private }
-Board >> updatePositionOf: aPlayer slots: aNumberOfSlots laps: aNumberOfLaps [
-
-	| currentPosition |
-	currentPosition := playerPositions at: aPlayer.
-	currentPosition addLaps: aNumberOfLaps.
-	playerPositions at: aPlayer put: currentPosition + aNumberOfSlots.
+|newLap newPosition|
+	newLap := (self currentLapOf: aPlayer) + aLap.
+	newPosition := Position atSlot: aSlot andLap: newLap.
+	playerPositions at: aPlayer put: newPosition.
 	(self currentLapOf: aPlayer) < 0 ifTrue: [ self reset: aPlayer ]
-]
-
-{ #category : #private }
-Board >> updatePositionRemovingLapsTo: aPlayer withValue: newPosition [
-
-	| updatedPosition |
-	updatedPosition := (slots size) + newPosition.
-	self  moveToStart: aPlayer.
-	self  updatePositionOf: aPlayer slots: updatedPosition laps: -1
 ]
