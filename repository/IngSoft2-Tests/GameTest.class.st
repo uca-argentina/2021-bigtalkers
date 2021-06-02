@@ -22,7 +22,7 @@ GameTest >> testAGameWithScoreboardGetLeaderUsingRoll [
 	player2 := Player named: 'Martin'.
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
-	aBoard := Board sizedWithNoEffects: 2.
+	aBoard := Board sizedWithNoEffects: 6.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.

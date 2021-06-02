@@ -2,7 +2,9 @@ Class {
 	#name : #Player,
 	#superclass : #Object,
 	#instVars : [
-		'name'
+		'name',
+		'cardsAffecting',
+		'hand'
 	],
 	#classInstVars : [
 		'position'
@@ -26,7 +28,7 @@ Player class >> validatePlayersNameCannotBeEmpty: aName [
 
 { #category : #initialize }
 Player >> initializeWithName: aName [
-
+	cardsAffecting  := OrderedCollection new.
 	name := aName
 ]
 

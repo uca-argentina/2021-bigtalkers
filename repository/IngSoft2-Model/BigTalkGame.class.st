@@ -8,7 +8,9 @@ Class {
 		'scoreboard',
 		'turn',
 		'currentPlayer',
-		'finishingLap'
+		'finishingLap',
+		'activeCards',
+		'lastCardUsed'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -40,6 +42,13 @@ BigTalkGame class >> validateNoPlayers: somePlayers [
 
 	somePlayers isEmpty
 		ifTrue: [ Error signal: 'You need at least one player to play' ]
+]
+
+{ #category : #private }
+BigTalkGame >> addActiveCard: aCard [
+
+	activeCards add: aCard.
+	lastCardUsed := aCard
 ]
 
 { #category : #'effect-application' }
@@ -138,8 +147,11 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	dice := someDice.
 	board := aBoard.
 	board addPlayers: somePlayers.
-	scoreboard := Scoreboard competingPlayers: somePlayers .
+	activeCards := PermanentCardsOnPlayers forPlayers: somePlayers.
+
+	scoreboard := Scoreboard competingPlayers: somePlayers.
 	scoreboard update: board playerPositions.
+
 	turn := SharedQueue new.
 	turn nextPutAll: players.
 	currentPlayer := turn next
@@ -182,6 +194,13 @@ BigTalkGame >> moveCurrentPlayer [
 ]
 
 { #category : #private }
+BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
+ affected isCollection 
+		ifTrue:  [ affected do: [ :player | activeCards add: aCard to: player ] ] 
+		ifFalse: [ activeCards add: aCard to: affected  ]
+]
+
+{ #category : #private }
 BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 
 	board movePlayer: aPlayer to: aNumberOfSlots
@@ -190,8 +209,9 @@ BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 { #category : #private }
 BigTalkGame >> playerMoveAfterRoll: aPlayer [
 
-	|  rollvalue |
-	rollvalue := dice roll.
+	|  rollvalue modifier|
+	modifier := activeCards playerRollModifier: aPlayer.
+	rollvalue := dice roll + modifier.
 	board movePlayer: aPlayer to: rollvalue
 ]
 
