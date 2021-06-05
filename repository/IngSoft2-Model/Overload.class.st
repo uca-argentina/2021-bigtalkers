@@ -7,7 +7,7 @@ Class {
 { #category : #'card - effect applications' }
 Overload >> applyOn: aGame to: affected [
 	aGame addActiveCard: self.
-	affected addAffectingCard: self.
+	
 ]
 
 { #category : #'accessing - effect' }
