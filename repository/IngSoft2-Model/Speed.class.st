@@ -12,5 +12,6 @@ Speed >> applyOn: aGame to: affected [
 
 { #category : #'accessing - effect' }
 Speed >> effect [
+
 	^1 
 ]

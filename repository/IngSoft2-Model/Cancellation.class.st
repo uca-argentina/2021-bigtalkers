@@ -6,6 +6,6 @@ Class {
 
 { #category : #'card - effect applications' }
 Cancellation >> applyOn: aGame to: affected [
-	aGame removeActiveCard: affected.
 
+	aGame removeActiveCard: affected
 ]

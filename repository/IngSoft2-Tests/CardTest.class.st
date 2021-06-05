@@ -33,15 +33,15 @@ CardTest >> testAGameWithAnAccelerationCard [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
 	aDie := LoadedDie rolling: 4.
-	aDice := Dice with: { aDie }.
+	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 6.
 	aGame := BigTalkGame
-		         playedBy: { 
-				         player1.
-				         player2 }
-		         usingDice: aDice
-		         playedOn: aBoard
-		         finishingAtLap: 1.
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 1.
 	aGame player: player2 usesCard: Speed new on: player1.
 	aGame moveCurrentPlayer.
 	aLeader := aGame leaderPosition.
@@ -49,33 +49,140 @@ CardTest >> testAGameWithAnAccelerationCard [
 ]
 
 { #category : #tests }
-CardTest >> testAGameWithAnInstantRepeatCard [
+CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectAtomicBomb [
 
-	| aGame player1 player2 aDie aBoard aDice aLeaderPosition someSlots|
+	| aGame player1 player2 aDie aBoard aDice aLeaderPosition someSlots player3 |
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDie := LoadedDie rolling: 2.
-	aDice := Dice with: { aDie }.
+	player3 := Player named: 'Carla'.
+	aDie := LoadedDie rolling: 8.
+	aDice := Dice with: {aDie}.
 	someSlots := {BoardSlot withNoEffect.
-	BoardSlot withWormHole.
-	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
-	BoardSlot withAtomicBomb.
-	BoardSlot withNoEffect}.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withAtomicBomb}.
 	aBoard := Board withAll: someSlots.
 	aGame := BigTalkGame
 		playedBy:
 			{player1.
-			player2.}
+			player2.
+			player3}
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 2.
 	aGame moveCurrentPlayer.
 	aGame player: player2 usesInstantCard: Repeat new on: player1.
-	aGame moveCurrentPlayer.
 	aLeaderPosition := aGame leaderPosition.
-	self assert: aLeaderPosition equals: 0.
-	
+	self assert: aLeaderPosition equals: 0
+]
+
+{ #category : #tests }
+CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectMoonwalk [
+
+	| aGame player1 player2 aDie aBoard aDice someSlots |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	aDie := LoadedDie rolling: 4.
+	aDice := Dice with: {aDie}.
+	someSlots := {BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withNoEffect}.
+	aBoard := Board withAll: someSlots.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 2.
+	"3 timesRepeat: [aGame moveCurrentPlayer]."
+	aGame moveCurrentPlayer.
+	self assert: (aGame currentSlotOf: player1) equals: 4.
+	self assert: (aGame currentSlotOf: player2) equals: 0.
+	aGame moveCurrentPlayer.
+	self assert: (aGame currentSlotOf: player1) equals: 4.
+	self assert: (aGame currentSlotOf: player2) equals: 4.
+	aGame moveCurrentPlayer.
+	self assert: (aGame currentSlotOf: player1) equals: 8.
+	self assert: (aGame currentSlotOf: player2) equals: 2.
+	aGame player: player2 usesInstantCard: Repeat new on: player1.
+	self assert: (aGame currentSlotOf: player1) equals: 8.
+	self assert: (aGame currentSlotOf: player2) equals: 0
+]
+
+{ #category : #tests }
+CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectSpeedUp [
+
+	| aGame player1 player2 aDie aBoard aDice aLeaderPosition someSlots |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	aDie := LoadedDie rolling: 3.
+	aDice := Dice with: {aDie}.
+	someSlots := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withAtomicBomb.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect}.
+	aBoard := Board withAll: someSlots.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 2.
+	aGame moveCurrentPlayer.
+	aGame player: player2 usesInstantCard: Repeat new on: player1.
+	aLeaderPosition := aGame leaderPosition.
+	self assert: aLeaderPosition equals: 11
+]
+
+{ #category : #tests }
+CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectWormHole [
+
+	| aGame player1 player2 aDie aBoard aDice aLeaderPosition someSlots |
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	aDie := LoadedDie rolling: 4.
+	aDice := Dice with: {aDie}.
+	someSlots := {BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withWormHole}.
+	aBoard := Board withAll: someSlots.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 2.
+	3 timesRepeat: [ aGame moveCurrentPlayer ].
+	aGame player: player2 usesInstantCard: Repeat new on: player1.
+	aLeaderPosition := aGame leaderPosition.
+	self assert: aLeaderPosition equals: 4.
+	self assert: (aGame currentSlotOf: player1) equals: 0
 ]
 
 { #category : #tests }
@@ -98,6 +205,6 @@ CardTest >> testAGameWithAnOverloadCard [
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aLeader := aGame leaderPosition.
-	self assert: (aGame currentSlotOf: player1) equals:  2.
-	self assert: (aGame currentSlotOf: player2) equals:  4
+	self assert: (aGame currentSlotOf: player1) equals: 2.
+	self assert: (aGame currentSlotOf: player2) equals: 4
 ]

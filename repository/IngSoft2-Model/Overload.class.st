@@ -12,5 +12,6 @@ Overload >> applyOn: aGame to: affected [
 
 { #category : #'accessing - effect' }
 Overload >> effect [
+
 	^ -2
 ]

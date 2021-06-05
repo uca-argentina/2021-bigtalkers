@@ -7,5 +7,5 @@ Class {
 { #category : #'card - effect applications' }
 Repeat >> applyOn: aGame to: aPlayer [
 
-	aGame applyLastEffectTo: aPlayer.
+	aGame applyLastEffectTo: aPlayer
 ]

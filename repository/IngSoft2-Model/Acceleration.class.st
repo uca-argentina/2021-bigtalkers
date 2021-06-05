@@ -6,5 +6,6 @@ Class {
 
 { #category : #'accessing - effect' }
 Acceleration >> effect [
+
 	^ 1
 ]

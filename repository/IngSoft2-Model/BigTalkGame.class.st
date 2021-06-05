@@ -63,20 +63,20 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 
 	| effect |
 	effect := self effectAt: aPlayerPosition.
-	effect applyTo: self  toPlayer: self currentTurnPlayer.
-	^effect
+	effect applyTo: self toPlayer: self currentTurnPlayer.
+	^ effect
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyLastEffectTo: aPlayer [ 
+BigTalkGame >> applyLastEffectTo: affected [
 
-	lastEffect applyTo: self toPlayer: aPlayer.
+	lastEffect applyTo: self toPlayer: affected
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyMoonWalk: N toPlayer: aPlayer [
+BigTalkGame >> applyMoonWalk: N toPlayer: affected [ 
 
-	self playerMove: aPlayer slots: N.
+	self playerMove: affected slots: N.
 	players do: [ :player | self playerMove: player slots: N * -1 ]
 ]
 
@@ -159,7 +159,6 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	lastEffect := NoEffect new.
 	scoreboard := Scoreboard competingPlayers: somePlayers.
 	scoreboard update: board playerPositions.
-
 	turn := SharedQueue new.
 	turn nextPutAll: players.
 	currentPlayer := turn next
@@ -191,13 +190,10 @@ BigTalkGame >> leaderPosition [
 
 { #category : #playing }
 BigTalkGame >> moveCurrentPlayer [
-	
-	
-	
+
 	self hasFinished
-		ifFalse: [ 
-			self playerMoveAfterRoll: self currentTurnPlayer.
-			lastEffect := self applyEffectAt: self currentTurnPlayerPosition .
+		ifFalse: [ self playerMoveAfterRoll: self currentTurnPlayer.
+			lastEffect := self applyEffectAt: self currentTurnPlayerPosition.
 			self changeTurn.
 			scoreboard update: board playerPositions ]
 		ifTrue: [ Error signal: 'The game has finished' ]
@@ -205,14 +201,16 @@ BigTalkGame >> moveCurrentPlayer [
 
 { #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
- affected isCollection 
-		ifTrue:  [ affected do: [ :player | activeCards add: aCard to: player ] ] 
-		ifFalse: [ activeCards add: aCard to: affected  ]
+
+	affected isCollection
+		ifTrue: [ affected do: [ :player | activeCards add: aCard to: player ] ]
+		ifFalse: [ activeCards add: aCard to: affected ]
 ]
 
 { #category : #private }
 BigTalkGame >> player: aPlayer usesInstantCard: anInstantCard on: anotherPlayer [
-	anInstantCard applyOn: self to: anotherPlayer .
+
+	anInstantCard applyOn: self to: anotherPlayer
 ]
 
 { #category : #private }
@@ -224,7 +222,7 @@ BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 { #category : #private }
 BigTalkGame >> playerMoveAfterRoll: aPlayer [
 
-	|  rollvalue modifier|
+	| rollvalue modifier |
 	modifier := activeCards playerRollModifier: aPlayer.
 	rollvalue := dice roll + modifier.
 	board movePlayer: aPlayer to: rollvalue

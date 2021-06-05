@@ -31,7 +31,7 @@ PermanentCardsOnPlayers >> cardsAffecting: aPlayer [
 { #category : #initialization }
 PermanentCardsOnPlayers >> initializeWithPlayers: somePlayers [
 
-	cardregistry  := Dictionary new.
+	cardregistry := Dictionary new.
 	somePlayers
 		do: [ :player | cardregistry at: player put: OrderedCollection new ]
 ]
@@ -41,5 +41,5 @@ PermanentCardsOnPlayers >> playerRollModifier: aPlayer [
 
 	| currCards |
 	currCards := cardregistry at: aPlayer.
-	^ currCards inject: 0 into: [ :prev :curr | prev+ (curr effect) ]
+	^ currCards inject: 0 into: [ :prev :curr | prev + curr effect ]
 ]
