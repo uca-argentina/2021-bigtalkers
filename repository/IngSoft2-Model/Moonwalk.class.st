@@ -14,12 +14,6 @@ Moonwalk class >> withFixedValue: aNumber [
 ]
 
 { #category : #'effect-application' }
-Moonwalk >> applyTo: aGame [
-
-	aGame applyMoonWalk: N
-]
-
-{ #category : #'effect-application' }
 Moonwalk >> applyTo: aGame toPlayer: aPlayer [
 
 	aGame applyMoonWalk: N toPlayer: aPlayer. 

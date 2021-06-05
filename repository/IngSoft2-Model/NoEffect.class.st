@@ -5,11 +5,6 @@ Class {
 }
 
 { #category : #'effect-application' }
-NoEffect >> applyTo: aGame [
-
-]
-
-{ #category : #'effect-application' }
 NoEffect >> applyTo: aGame toPlayer: aPlayer [
 
 ]
