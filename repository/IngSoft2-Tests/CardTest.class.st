@@ -49,6 +49,35 @@ CardTest >> testAGameWithAnAccelerationCard [
 ]
 
 { #category : #tests }
+CardTest >> testAGameWithAnInstantRepeatCard [
+
+	| aGame player1 player2 aDie aBoard aDice aLeaderPosition someSlots|
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	aDie := LoadedDie rolling: 4.
+	aDice := Dice with: { aDie }.
+	someSlots := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withAtomicBomb.
+	BoardSlot withNoEffect}.
+	aBoard := Board withAll: someSlots.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2.}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 2.
+	aGame player: player2 usesInstantCard: Repeat new on: player1.
+	aGame moveCurrentPlayer.
+	aLeaderPosition := aGame leaderPosition.
+	self assert: aLeaderPosition equals: 5.
+	
+]
+
+{ #category : #tests }
 CardTest >> testAGameWithAnOverloadCard [
 
 	| aGame player1 player2 aDie aBoard aDice aLeader |

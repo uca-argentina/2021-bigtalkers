@@ -68,6 +68,12 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 ]
 
 { #category : #'effect-application' }
+BigTalkGame >> applyLastEffectTo: aPlayer [ 
+
+	lastEffect applyTo: aPlayer.
+]
+
+{ #category : #'effect-application' }
 BigTalkGame >> applyMoonWalk: N [
 
 	self playerMove: self currentTurnPlayer slots: N.
@@ -202,6 +208,11 @@ BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
  affected isCollection 
 		ifTrue:  [ affected do: [ :player | activeCards add: aCard to: player ] ] 
 		ifFalse: [ activeCards add: aCard to: affected  ]
+]
+
+{ #category : #private }
+BigTalkGame >> player: aPlayer usesInstantCard: anInstantCard on: anotherPlayer [
+	anInstantCard applyOn: self to: anotherPlayer .
 ]
 
 { #category : #private }

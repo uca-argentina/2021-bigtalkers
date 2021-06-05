@@ -3,9 +3,3 @@ Class {
 	#superclass : #Card,
 	#category : #'IngSoft2-Model'
 }
-
-{ #category : #'card - effect applications' }
-Instant >> applyOn: aGame to: affected [
-
-	^ self subclassResponsibility
-]
