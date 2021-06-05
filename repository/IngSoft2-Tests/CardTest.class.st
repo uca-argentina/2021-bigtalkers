@@ -54,7 +54,7 @@ CardTest >> testAGameWithAnInstantRepeatCard [
 	| aGame player1 player2 aDie aBoard aDice aLeaderPosition someSlots|
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	aDie := LoadedDie rolling: 4.
+	aDie := LoadedDie rolling: 2.
 	aDice := Dice with: { aDie }.
 	someSlots := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
@@ -70,10 +70,11 @@ CardTest >> testAGameWithAnInstantRepeatCard [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 2.
+	aGame moveCurrentPlayer.
 	aGame player: player2 usesInstantCard: Repeat new on: player1.
 	aGame moveCurrentPlayer.
 	aLeaderPosition := aGame leaderPosition.
-	self assert: aLeaderPosition equals: 5.
+	self assert: aLeaderPosition equals: 0.
 	
 ]
 

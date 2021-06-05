@@ -19,6 +19,12 @@ Moonwalk >> applyTo: aGame [
 	aGame applyMoonWalk: N
 ]
 
+{ #category : #'effect-application' }
+Moonwalk >> applyTo: aGame toPlayer: aPlayer [
+
+	aGame applyMoonWalk: N toPlayer: aPlayer. 
+]
+
 { #category : #initialization }
 Moonwalk >> initializeWithN: aNumber [
 
