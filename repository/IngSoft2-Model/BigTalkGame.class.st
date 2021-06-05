@@ -10,7 +10,8 @@ Class {
 		'currentPlayer',
 		'finishingLap',
 		'activeCards',
-		'lastCardUsed'
+		'lastCardUsed',
+		'lastEffect'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -62,7 +63,8 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 
 	| effect |
 	effect := self effectAt: aPlayerPosition.
-	effect applyTo: self
+	effect applyTo: self.
+	^effect
 ]
 
 { #category : #'effect-application' }
@@ -148,7 +150,7 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	board := aBoard.
 	board addPlayers: somePlayers.
 	activeCards := PermanentCardsOnPlayers forPlayers: somePlayers.
-
+	lastEffect := NoEffect new.
 	scoreboard := Scoreboard competingPlayers: somePlayers.
 	scoreboard update: board playerPositions.
 
@@ -183,11 +185,13 @@ BigTalkGame >> leaderPosition [
 
 { #category : #playing }
 BigTalkGame >> moveCurrentPlayer [
-
+	
+	
+	
 	self hasFinished
 		ifFalse: [ 
 			self playerMoveAfterRoll: self currentTurnPlayer.
-			self applyEffectAt: self currentTurnPlayerPosition.
+			lastEffect := self applyEffectAt: self currentTurnPlayerPosition .
 			self changeTurn.
 			scoreboard update: board playerPositions ]
 		ifTrue: [ Error signal: 'The game has finished' ]
