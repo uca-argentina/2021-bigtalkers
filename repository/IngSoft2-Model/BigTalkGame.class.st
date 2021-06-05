@@ -53,12 +53,6 @@ BigTalkGame >> addActiveCard: aCard [
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyAtomicBomb [
-
-	players do: [ :player | self playerMoveToStart: player ]
-]
-
-{ #category : #'effect-application' }
 BigTalkGame >> applyAtomicBombTo: aPlayer [
 
 	players do: [ :player | self playerMoveToStart: player ]
@@ -80,13 +74,6 @@ BigTalkGame >> applyLastEffectTo: aPlayer [
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyMoonWalk: N [
-
-	self playerMove: self currentTurnPlayer slots: N.
-	players do: [ :player | self playerMove: player slots: N * -1 ]
-]
-
-{ #category : #'effect-application' }
 BigTalkGame >> applyMoonWalk: N toPlayer: aPlayer [
 
 	self playerMove: aPlayer slots: N.
@@ -94,21 +81,9 @@ BigTalkGame >> applyMoonWalk: N toPlayer: aPlayer [
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applySpeedUp [
-
-	self playerMove: self currentTurnPlayer slots: 4
-]
-
-{ #category : #'effect-application' }
 BigTalkGame >> applySpeedUpTo: aPlayer [
 
 	self playerMove: aPlayer slots: 4
-]
-
-{ #category : #'effect-application' }
-BigTalkGame >> applyWormHole [
-
-	self playerMove: self currentTurnPlayer slots: -4
 ]
 
 { #category : #'effect-application' }
