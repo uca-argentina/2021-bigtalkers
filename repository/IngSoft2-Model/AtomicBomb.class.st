@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'effect-application' }
-AtomicBomb >> applyTo: aGame [
+AtomicBomb >> applyTo: aGame toPlayer: aPlayer [
 
-	aGame applyAtomicBomb
+	aGame applyAtomicBombTo: aPlayer. 
 ]

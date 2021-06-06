@@ -52,8 +52,8 @@ GameTest >> testAGameWithScoreboardMovesForward [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	aGame moveCurrentPlayer.
-	self assert: ((aGame currentSlotOf:  player1) between: 1 and: 4).
-	self assert: (aGame currentSlotOf:  player2) equals: 0
+	self assert: ((aGame currentSlotOf: player1) between: 1 and: 4).
+	self assert: (aGame currentSlotOf: player2) equals: 0
 ]
 
 { #category : #tests }
@@ -82,8 +82,11 @@ GameTest >> testCannotCreateAGameWithNoPlayers [
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 4.
 	self
-		should: [ BigTalkGame playedBy: {} usingDice: aDice playedOn: aBoard 
-		finishingAtLap: 1]
+		should: [ BigTalkGame
+				playedBy: {}
+				usingDice: aDice
+				playedOn: aBoard
+				finishingAtLap: 1 ]
 		raise: Error
 		withMessage: 'You need at least one player to play'
 ]
@@ -106,7 +109,7 @@ GameTest >> testCheckLeaderName [
 		finishingAtLap: 1.
 	aGame moveCurrentPlayer.
 	self assert: aGame leaderName equals: 'Gaspar'.
-	self assert: aGame leader equals: player1.
+	self assert: aGame leader equals: player1
 ]
 
 { #category : #tests }
@@ -445,14 +448,12 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 	player2 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 5.
 	aDice := Dice with: {aDie}.
-	slots := {
-					BoardSlot withNoEffect.
-					BoardSlot withWormHole.
-					BoardSlot withSpeedUp.
-					BoardSlot withMoonwalkWithFixedValue.
-					BoardSlot withAtomicBomb.
-					BoardSlot withNoEffect
-				}.
+	slots := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withAtomicBomb.
+	BoardSlot withNoEffect}.
 	aBoard := Board withAll: slots.
 	aGame := BigTalkGame
 		playedBy:
@@ -470,25 +471,22 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 GameTest >> testGamePlayerOneFallsInMoonWalk [
 
 	| aDie aDice aBoard player1 player2 aGame slots |
-	slots := { 
-		         BoardSlot withNoEffect.
-		         BoardSlot withNoEffect.
-		         BoardSlot withNoEffect.
-		         BoardSlot withMoonwalk 
-				}.
+	slots := {BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withMoonwalk}.
 	aBoard := Board withAll: slots.
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 4.
-	aDice := Dice with: { aDie }.
+	aDice := Dice with: {aDie}.
 	aGame := BigTalkGame
-		         playedBy: { 
-				         player1.
-				         player2 }
-		         usingDice: aDice
-		         playedOn: aBoard
-		         finishingAtLap: 4.
-	self assert: ((aBoard effectAt: 4) isKindOf: Moonwalk).
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 4.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentLapOf: player1) equals: 1.
 	aGame moveCurrentPlayer.
@@ -506,14 +504,12 @@ GameTest >> testGamePlayerOneFallsInMoonWalkAndWouldHaveNegativeLaps [
 	player2 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
-	slots := {
-					BoardSlot withNoEffect.
-					BoardSlot withWormHole.
-					BoardSlot withSpeedUp.
-					BoardSlot withMoonwalkWithFixedValue.
-					BoardSlot withAtomicBomb.
-					BoardSlot withNoEffect
-				}.
+	slots := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withAtomicBomb.
+	BoardSlot withNoEffect}.
 	aBoard := Board withAll: slots.
 	aGame := BigTalkGame
 		playedBy:
@@ -535,14 +531,12 @@ GameTest >> testGamePlayerOneFallsInSpeedUp [
 	player2 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 3.
 	aDice := Dice with: {aDie}.
-	slots := {
-					BoardSlot withNoEffect.
-					BoardSlot withWormHole.
-					BoardSlot withSpeedUp.
-					BoardSlot withMoonwalkWithFixedValue.
-					BoardSlot withAtomicBomb.
-					BoardSlot withNoEffect
-				}.
+	slots := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withAtomicBomb.
+	BoardSlot withNoEffect}.
 	aBoard := Board withAll: slots.
 	aGame := BigTalkGame
 		playedBy:
@@ -565,14 +559,12 @@ GameTest >> testGamePlayerOneFallsInWormhole [
 	player2 := Player named: 'Carla'.
 	aDie := LoadedDie rolling: 6.
 	aDice := Dice with: {aDie}.
-	slots := {
-					BoardSlot withNoEffect.
-					BoardSlot withWormHole.
-					BoardSlot withSpeedUp.
-					BoardSlot withMoonwalkWithFixedValue.
-					BoardSlot withAtomicBomb.
-					BoardSlot withWormHole.
-				}.
+	slots := {BoardSlot withNoEffect.
+	BoardSlot withWormHole.
+	BoardSlot withSpeedUp.
+	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withAtomicBomb.
+	BoardSlot withWormHole}.
 	aBoard := Board withAll: slots.
 	aGame := BigTalkGame
 		playedBy:
@@ -582,7 +574,7 @@ GameTest >> testGamePlayerOneFallsInWormhole [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	aGame moveCurrentPlayer.
-	self assert: (aGame currentSlotOf: player1) equals: 2.
+	self assert: (aGame currentSlotOf: player1) equals: 2
 ]
 
 { #category : #tests }

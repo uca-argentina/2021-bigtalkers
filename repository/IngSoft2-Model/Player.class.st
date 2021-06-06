@@ -28,7 +28,8 @@ Player class >> validatePlayersNameCannotBeEmpty: aName [
 
 { #category : #initialize }
 Player >> initializeWithName: aName [
-	cardsAffecting  := OrderedCollection new.
+
+	cardsAffecting := OrderedCollection new.
 	name := aName
 ]
 

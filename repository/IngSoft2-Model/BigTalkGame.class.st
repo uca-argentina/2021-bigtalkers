@@ -46,14 +46,14 @@ BigTalkGame class >> validateNoPlayers: somePlayers [
 ]
 
 { #category : #private }
-BigTalkGame >> addActiveCard: aCard [
-
-	activeCards add: aCard.
-	lastCardUsed := aCard
+BigTalkGame >> addActiveCard: aCard on: affected [
+	affected isCollection
+		ifTrue: [ affected do: [ :player | activeCards add: aCard to: player ] ]
+		ifFalse: [ activeCards add: aCard to: affected ]
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyAtomicBomb [
+BigTalkGame >> applyAtomicBombTo: aPlayer [
 
 	players do: [ :player | self playerMoveToStart: player ]
 ]
@@ -63,27 +63,39 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 
 	| effect |
 	effect := self effectAt: aPlayerPosition.
-	effect applyTo: self.
-	^effect
+	effect applyTo: self toPlayer: self currentTurnPlayer.
+	^ effect
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyMoonWalk: N [
+BigTalkGame >> applyLastCardTo: affected [
 
-	self playerMove: self currentTurnPlayer slots: N.
+	lastCardUsed  applyOn: self to: affected
+]
+
+{ #category : #'effect-application' }
+BigTalkGame >> applyLastEffectTo: affected [
+
+	lastEffect applyTo: self toPlayer: affected
+]
+
+{ #category : #'effect-application' }
+BigTalkGame >> applyMoonWalk: N toPlayer: affected [ 
+
+	self playerMove: affected slots: N.
 	players do: [ :player | self playerMove: player slots: N * -1 ]
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applySpeedUp [
+BigTalkGame >> applySpeedUpTo: aPlayer [
 
-	self playerMove: self currentTurnPlayer slots: 4
+	self playerMove: aPlayer slots: 4
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyWormHole [
+BigTalkGame >> applyWormHoleTo: aPlayer [
 
-	self playerMove: self currentTurnPlayer slots: -4
+	self playerMove: aPlayer slots: -4
 ]
 
 { #category : #'accessing - variables' }
@@ -153,7 +165,6 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	lastEffect := NoEffect new.
 	scoreboard := Scoreboard competingPlayers: somePlayers.
 	scoreboard update: board playerPositions.
-
 	turn := SharedQueue new.
 	turn nextPutAll: players.
 	currentPlayer := turn next
@@ -185,13 +196,10 @@ BigTalkGame >> leaderPosition [
 
 { #category : #playing }
 BigTalkGame >> moveCurrentPlayer [
-	
-	
-	
+
 	self hasFinished
-		ifFalse: [ 
-			self playerMoveAfterRoll: self currentTurnPlayer.
-			lastEffect := self applyEffectAt: self currentTurnPlayerPosition .
+		ifFalse: [ self playerMoveAfterRoll: self currentTurnPlayer.
+			lastEffect := self applyEffectAt: self currentTurnPlayerPosition.
 			self changeTurn.
 			scoreboard update: board playerPositions ]
 		ifTrue: [ Error signal: 'The game has finished' ]
@@ -199,9 +207,9 @@ BigTalkGame >> moveCurrentPlayer [
 
 { #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
- affected isCollection 
-		ifTrue:  [ affected do: [ :player | activeCards add: aCard to: player ] ] 
-		ifFalse: [ activeCards add: aCard to: affected  ]
+	aCard applyOn: self to: affected.
+	(aCard isKindOf: Redo)
+		ifFalse: [ lastCardUsed := aCard ]
 ]
 
 { #category : #private }
@@ -213,7 +221,7 @@ BigTalkGame >> playerMove: aPlayer slots: aNumberOfSlots [
 { #category : #private }
 BigTalkGame >> playerMoveAfterRoll: aPlayer [
 
-	|  rollvalue modifier|
+	| rollvalue modifier |
 	modifier := activeCards playerRollModifier: aPlayer.
 	rollvalue := dice roll + modifier.
 	board movePlayer: aPlayer to: rollvalue

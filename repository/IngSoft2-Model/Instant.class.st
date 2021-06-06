@@ -7,5 +7,5 @@ Class {
 { #category : #'card - effect applications' }
 Instant >> applyOn: aGame to: affected [
 
-	^ self subclassResponsibility
+	^self subclassResponsibility
 ]

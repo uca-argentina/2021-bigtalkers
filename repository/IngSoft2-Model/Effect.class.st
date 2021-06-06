@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'effect-application' }
-Effect >> applyTo: aGame [
+Effect >> applyTo: aGame toPlayer: aPlayer [
 
 	^ self subclassResponsibility
 ]

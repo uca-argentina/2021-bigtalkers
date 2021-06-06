@@ -9,10 +9,13 @@ Class {
 
 { #category : #'card - effect applications' }
 Permanent >> applyOn: aGame to: affected [
-	^ self subclassResponsibility
+	
+	aGame addActiveCard: self on: affected 
+	
 ]
 
 { #category : #'accessing - effect' }
 Permanent >> effect [
+
 	^ self subclassResponsibility
 ]

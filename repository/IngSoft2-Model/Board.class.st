@@ -11,10 +11,11 @@ Class {
 
 { #category : #'instance creation' }
 Board class >> sizedWithNoEffects: aNumberOfSlots [
+
 	| slots |
 	self validateMinimumSlots: aNumberOfSlots.
 	slots := OrderedCollection new.
-	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect  ].
+	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
 	^ self new initializeUsingEffects: slots
 ]
 
@@ -34,8 +35,9 @@ Board class >> withAll: aCollectionOfSlots [
 { #category : #adding }
 Board >> addPlayers: somePlayers [
 
-	somePlayers do: [ :player | 
-		playerPositions at: player put: Position startingPosition ]
+	somePlayers
+		do:
+			[ :player | playerPositions at: player put: Position startingPosition ]
 ]
 
 { #category : #'accessing - positions' }
@@ -72,12 +74,19 @@ Board >> movePlayer: aPlayer to: valueToMove [
 	boardsize := slots size.
 	newPosition := valueToMove + playerPosition.
 	newPosition > boardsize
-		ifTrue: [self updatePlayerPosition: aPlayer toSlot: newPosition - boardsize addingLaps: 1 ]
-		ifFalse: [ 
-			 newPosition < 0
-			 ifTrue:  [self updatePlayerPosition: aPlayer toSlot: boardsize + newPosition addingLaps: -1 ]
-			 ifFalse: [self updatePlayerPosition: aPlayer toSlot: valueToMove + playerPosition addingLaps: 0 ] 
-			]
+		ifTrue: [ self
+				updatePlayerPosition: aPlayer
+				toSlot: newPosition - boardsize
+				addingLaps: 1 ]
+		ifFalse: [ newPosition < 0
+				ifTrue: [ self
+						updatePlayerPosition: aPlayer
+						toSlot: boardsize + newPosition
+						addingLaps: -1 ]
+				ifFalse: [ self
+						updatePlayerPosition: aPlayer
+						toSlot: valueToMove + playerPosition
+						addingLaps: 0 ] ]
 ]
 
 { #category : #private }
@@ -119,9 +128,10 @@ Board >> slotsAmount [
 { #category : #private }
 Board >> updatePlayerPosition: aPlayer toSlot: aSlot addingLaps: aLap [
 
-|newLap newPosition|
+	| newLap newPosition |
 	newLap := (self currentLapOf: aPlayer) + aLap.
 	newPosition := Position atSlot: aSlot andLap: newLap.
 	playerPositions at: aPlayer put: newPosition.
-	(self currentLapOf: aPlayer) < 0 ifTrue: [ self reset: aPlayer ]
+	(self currentLapOf: aPlayer) < 0
+		ifTrue: [ self reset: aPlayer ]
 ]

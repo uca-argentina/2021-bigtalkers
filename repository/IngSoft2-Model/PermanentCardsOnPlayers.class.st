@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 PermanentCardsOnPlayers class >> forPlayers: somePlayers [
 	
 	^self new initializeWithPlayers: somePlayers
@@ -23,15 +23,9 @@ PermanentCardsOnPlayers >> add: aCard to: aPlayer [
 ]
 
 { #category : #initialization }
-PermanentCardsOnPlayers >> cardsAffecting: aPlayer [
-
-	^ cardregistry at: aPlayer
-]
-
-{ #category : #initialization }
 PermanentCardsOnPlayers >> initializeWithPlayers: somePlayers [
 
-	cardregistry  := Dictionary new.
+	cardregistry := Dictionary new.
 	somePlayers
 		do: [ :player | cardregistry at: player put: OrderedCollection new ]
 ]
@@ -41,5 +35,5 @@ PermanentCardsOnPlayers >> playerRollModifier: aPlayer [
 
 	| currCards |
 	currCards := cardregistry at: aPlayer.
-	^ currCards inject: 0 into: [ :prev :curr | prev+ (curr effect) ]
+	^ currCards inject: 0 into: [ :prev :curr | prev + curr effect ]
 ]
