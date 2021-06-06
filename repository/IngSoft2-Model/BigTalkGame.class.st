@@ -207,8 +207,9 @@ BigTalkGame >> moveCurrentPlayer [
 
 { #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
+	aPlayer useCardFromHand: aCard.
 	aCard applyOn: self to: affected.
-	(aCard isKindOf: Redo)
+	(aCard = Redo new)
 		ifFalse: [ lastCardUsed := aCard ]
 ]
 

@@ -1,8 +1,20 @@
 Class {
 	#name : #GameTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'player1',
+		'player2',
+		'player3'
+	],
 	#category : #'IngSoft2-Tests'
 }
+
+{ #category : #running }
+GameTest >> setUp [
+	player1 := Player named: 'Gaspar'.
+	player2 := Player named: 'Martin'.
+	player3 := Player named: 'Carla'
+]
 
 { #category : #asserting }
 GameTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErrorMessage [
@@ -16,10 +28,7 @@ GameTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErro
 
 { #category : #tests }
 GameTest >> testAGameWithScoreboardGetLeaderUsingRoll [
-
-	| aGame player1 player2 aDie aBoard aDice aLeader |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
+	| aGame aDie aBoard aDice aLeader |
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 6.
@@ -38,9 +47,8 @@ GameTest >> testAGameWithScoreboardGetLeaderUsingRoll [
 { #category : #tests }
 GameTest >> testAGameWithScoreboardMovesForward [
 
-	| aGame player1 player2 aDie aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
+	| aGame aDie aDice aBoard |
+
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 2.
@@ -59,9 +67,8 @@ GameTest >> testAGameWithScoreboardMovesForward [
 { #category : #tests }
 GameTest >> testAGameWithTwoPlayersAndADieAndABoardHasNotFinished [
 
-	| aGame player1 player2 aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
+	| aGame aDice aBoard |
+
 	aDice := Dice with: {(Die withSides: 4)}.
 	aBoard := Board sizedWithNoEffects: 4.
 	aGame := BigTalkGame
@@ -94,9 +101,8 @@ GameTest >> testCannotCreateAGameWithNoPlayers [
 { #category : #tests }
 GameTest >> testCheckLeaderName [
 
-	| aGame player1 player2 aDie aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
+	| aGame aDie aDice aBoard |
+
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 4.
@@ -115,10 +121,8 @@ GameTest >> testCheckLeaderName [
 { #category : #tests }
 GameTest >> testCheckPlayerLapAndPositionAfterMoving [
 
-	| aGame aDie aDice aBoard player1 player2 player3 |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	player3 := Player named: 'Carla'.
+	| aGame aDie aDice aBoard |
+
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 15.
@@ -138,9 +142,8 @@ GameTest >> testCheckPlayerLapAndPositionAfterMoving [
 { #category : #tests }
 GameTest >> testCheckPlayerPosition [
 
-	| aGame player1 player2 aDie aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
+	| aGame aDie aDice aBoard |
+
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 20.
@@ -160,10 +163,8 @@ GameTest >> testCheckPlayerPosition [
 { #category : #tests }
 GameTest >> testCheckPlayerPositionsWithATie [
 
-	| aGame player1 player2 player3 aDie aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	player3 := Player named: 'Carla'.
+	| aGame aDie aDice aBoard |
+
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 4.
@@ -182,10 +183,8 @@ GameTest >> testCheckPlayerPositionsWithATie [
 { #category : #tests }
 GameTest >> testCheckPlayerTurn [
 
-	| aGame player1 player2 player3 aDie aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	player3 := Player named: 'Carla'.
+	| aGame aDie aDice aBoard |
+
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 4.
@@ -203,10 +202,8 @@ GameTest >> testCheckPlayerTurn [
 { #category : #tests }
 GameTest >> testCheckPlayerTurnAfterMove [
 
-	| aGame player1 player2 player3 aDie aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	player3 := Player named: 'Carla'.
+	| aGame aDie aDice aBoard |
+
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 4.
@@ -225,9 +222,8 @@ GameTest >> testCheckPlayerTurnAfterMove [
 { #category : #tests }
 GameTest >> testCheckRankingPositions [
 
-	| aGame player1 player2 aDie aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
+	| aGame aDie aDice aBoard |
+
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 5.
@@ -247,9 +243,8 @@ GameTest >> testCheckRankingPositions [
 { #category : #tests }
 GameTest >> testCreateAGameWithDefaultValues [
 
-	| aGame aLeader player1 player2 aDie aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
+	| aGame aLeader aDie aDice aBoard |
+
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 4.
@@ -268,9 +263,8 @@ GameTest >> testCreateAGameWithDefaultValues [
 { #category : #tests }
 GameTest >> testCreateAGameWithScoreboard [
 
-	| aGame player1 player2 aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
+	| aGame aDice aBoard |
+
 	aDice := Dice with: {(Die withSides: 4)}.
 	aBoard := Board sizedWithNoEffects: 2.
 	aGame := BigTalkGame
@@ -287,9 +281,8 @@ GameTest >> testCreateAGameWithScoreboard [
 { #category : #tests }
 GameTest >> testCreateAGameWithTwoPlayersAndTwoDiceAndABoard [
 
-	| aGame player1 player2 aDie anotherDie aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
+	| aGame aDie anotherDie aDice aBoard |
+
 	aDie := Die withSides: 4.
 	anotherDie := Die withSides: 4.
 	aDice := Dice
@@ -310,10 +303,8 @@ GameTest >> testCreateAGameWithTwoPlayersAndTwoDiceAndABoard [
 { #category : #tests }
 GameTest >> testGameControlledMovement [
 
-	| aGame player1 player2 player3 aDie aDice aBoard |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	player3 := Player named: 'Carla'.
+	| aGame aDie aDice aBoard |
+
 	aDie := Die withSides: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 20.
@@ -334,10 +325,8 @@ GameTest >> testGameControlledMovement [
 { #category : #tests }
 GameTest >> testGameCreatedUsingASeedGeneratorFinishedWithTwoLaps [
 
-	| aGame aDie aDice aBoard player1 player2 player3 slots |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	player3 := Player named: 'Carla'.
+	| aGame aDie aDice aBoard slots |
+
 	aDie := LoadedDie rolling: 6.
 	aDice := Dice with: {aDie}.
 	slots := {BoardSlot withNoEffect.
@@ -366,10 +355,8 @@ GameTest >> testGameCreatedUsingASeedGeneratorFinishedWithTwoLaps [
 { #category : #tests }
 GameTest >> testGameFinishedAndStillMovePlayer [
 
-	| aGame aDie aDice aBoard player1 player2 player3 |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	player3 := Player named: 'Carla'.
+	| aGame aDie aDice aBoard |
+
 	aDie := LoadedDie rolling: 5.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 4.
@@ -392,10 +379,8 @@ GameTest >> testGameFinishedAndStillMovePlayer [
 { #category : #tests }
 GameTest >> testGameFinishedWithTwoLaps [
 
-	| aGame aDie aDice aBoard player1 player2 player3 |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	player3 := Player named: 'Carla'.
+	| aGame aDie aDice aBoard |
+
 	aDie := LoadedDie rolling: 5.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 4.
@@ -420,10 +405,8 @@ GameTest >> testGameFinishedWithTwoLaps [
 { #category : #tests }
 GameTest >> testGameFinishedWithWinner [
 
-	| aGame aDie aDice aBoard player1 player2 player3 |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Martin'.
-	player3 := Player named: 'Carla'.
+	| aGame aDie aDice aBoard |
+
 	aDie := LoadedDie rolling: 6.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 5.
@@ -443,9 +426,8 @@ GameTest >> testGameFinishedWithWinner [
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInAtomicBomb [
 
-	| aDie aDice aBoard player1 player2 aGame slots |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Carla'.
+	| aDie aDice aBoard aGame slots |
+
 	aDie := LoadedDie rolling: 5.
 	aDice := Dice with: {aDie}.
 	slots := {BoardSlot withNoEffect.
@@ -470,14 +452,13 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInMoonWalk [
 
-	| aDie aDice aBoard player1 player2 aGame slots |
+	| aDie aDice aBoard aGame slots |
 	slots := {BoardSlot withNoEffect.
 	BoardSlot withNoEffect.
 	BoardSlot withNoEffect.
 	BoardSlot withMoonwalk}.
 	aBoard := Board withAll: slots.
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Carla'.
+
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	aGame := BigTalkGame
@@ -499,9 +480,8 @@ GameTest >> testGamePlayerOneFallsInMoonWalk [
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInMoonWalkAndWouldHaveNegativeLaps [
 
-	| aDie aDice aBoard player1 player2 aGame slots |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Carla'.
+	| aDie aDice aBoard  aGame slots |
+
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	slots := {BoardSlot withNoEffect.
@@ -554,9 +534,8 @@ GameTest >> testGamePlayerOneFallsInSpeedUp [
 { #category : #tests }
 GameTest >> testGamePlayerOneFallsInWormhole [
 
-	| aDie aDice aBoard player1 player2 aGame slots |
-	player1 := Player named: 'Gaspar'.
-	player2 := Player named: 'Carla'.
+	| aDie aDice aBoard aGame slots |
+
 	aDie := LoadedDie rolling: 6.
 	aDice := Dice with: {aDie}.
 	slots := {BoardSlot withNoEffect.
@@ -580,10 +559,10 @@ GameTest >> testGamePlayerOneFallsInWormhole [
 { #category : #tests }
 GameTest >> testGameWithTwoPlayersWithSameName [
 
-	| aDie aDice aBoard player1 player2 player3 |
-	player1 := Player named: 'Gaspar'.
+	| aDie aDice aBoard|
+
 	player2 := Player named: 'Carla'.
-	player3 := Player named: 'Carla'.
+
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 4.

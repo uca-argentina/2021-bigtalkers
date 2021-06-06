@@ -3,7 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'name',
-		'cardsAffecting',
 		'hand'
 	],
 	#classInstVars : [
@@ -27,9 +26,16 @@ Player class >> validatePlayersNameCannotBeEmpty: aName [
 ]
 
 { #category : #initialize }
-Player >> initializeWithName: aName [
+Player >> drawCardFrom: aDeck [
+	| newCard |
+	newCard := aDeck draw.
+	hand add: newCard
+]
 
-	cardsAffecting := OrderedCollection new.
+{ #category : #initialize }
+Player >> initializeWithName: aName [
+	
+	hand := OrderedCollection new.
 	name := aName
 ]
 
@@ -37,4 +43,17 @@ Player >> initializeWithName: aName [
 Player >> playerName [
 
 	^ name
+]
+
+{ #category : #'private - testing' }
+Player >> testingAddCard: aCard [
+	hand add: aCard
+]
+
+{ #category : #initialize }
+Player >> useCardFromHand: aCard [
+	| index |
+	index := hand indexOf: aCard ifAbsent: [ Error signal: 'The player does not have that card'  ] .
+	hand removeAt: index.
+	^ index >= 0
 ]
