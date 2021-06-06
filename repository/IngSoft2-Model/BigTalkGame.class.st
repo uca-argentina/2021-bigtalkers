@@ -239,3 +239,9 @@ BigTalkGame >> rankOf: aPlayer [
 
 	^ scoreboard rankOf: aPlayer
 ]
+
+{ #category : #'effect-application' }
+BigTalkGame >> removeActiveCard: aCard for: affected [ 
+
+	activeCards remove: aCard for: affected 
+]

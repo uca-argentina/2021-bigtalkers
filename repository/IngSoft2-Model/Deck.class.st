@@ -26,6 +26,11 @@ Deck class >> onlyAccelerationCards [
 ]
 
 { #category : #'instance creation' }
+Deck class >> onlyCancellationCards [
+	^ self new initializeUsing: {Cancellation  new}
+]
+
+{ #category : #'instance creation' }
 Deck class >> onlyOverloadCards [
 	^ self new initializeUsing: {Overload new}
 ]

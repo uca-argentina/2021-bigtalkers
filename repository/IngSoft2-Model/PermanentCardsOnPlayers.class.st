@@ -37,3 +37,13 @@ PermanentCardsOnPlayers >> playerRollModifier: aPlayer [
 	currCards := cardregistry at: aPlayer.
 	^ currCards inject: 0 into: [ :prev :curr | prev + curr effect ]
 ]
+
+{ #category : #initialization }
+PermanentCardsOnPlayers >> remove: aCard for: aPlayer [
+	| currCards index |
+	currCards := cardregistry at: aPlayer.
+	index := currCards
+		indexOf: aCard
+		ifAbsent: [ Error signal: 'The player does not have that card' ].
+	currCards removeAt: index
+]

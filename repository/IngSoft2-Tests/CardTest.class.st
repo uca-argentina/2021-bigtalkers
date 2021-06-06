@@ -9,7 +9,14 @@ Class {
 		'speedDeck',
 		'overloadDeck',
 		'repeatDeck',
-		'accelerationDeck'
+		'accelerationDeck',
+		'cancellationDeck',
+		'speedCard',
+		'overloadCard',
+		'accelerationCard',
+		'repeatCard',
+		'redoCard',
+		'cancellationCard'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -25,7 +32,15 @@ CardTest >> setUp [
 	speedDeck        := Deck onlySpeedCards.
 	overloadDeck     := Deck onlyOverloadCards.
 	repeatDeck       := Deck onlyRepeatCards.
-	accelerationDeck := Deck onlyAccelerationCards
+	accelerationDeck := Deck onlyAccelerationCards.
+	cancellationDeck := Deck onlyCancellationCards.
+	
+	speedCard := Speed new.
+	overloadCard := Overload new.
+	accelerationCard := Acceleration new.
+	repeatCard := Repeat new.
+	redoCard := Redo new.
+	cancellationCard := Cancellation new.
 ]
 
 { #category : #asserting }
@@ -50,7 +65,7 @@ CardTest >> testAGamePlayerPlaysCardNotInHand [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	self
-		should: [ aGame player: player2 usesCard: Overload on: player1 ]
+		should: [ aGame player: player2 usesCard: overloadCard on: player1 ]
 		raise: Error
 		withMessage: 'The player does not have that card'
 ]
@@ -69,10 +84,32 @@ CardTest >> testAGameWithASpeedCard [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: Speed new on: player1.
+	aGame player: player2 usesCard: speedCard on: player1.
 	aGame moveCurrentPlayer.
 	aLeader := aGame leaderPosition.
 	self assert: aLeader equals: 5
+]
+
+{ #category : #tests }
+CardTest >> testAGameWithASpeedCardAndCancellation [
+	| aGame aDie aBoard aDice aLeader |
+	player2 drawCardFrom: speedDeck .
+	player2 drawCardFrom: cancellationDeck .
+	aDie   := LoadedDie rolling: 4.
+	aDice  := Dice with: {aDie}.
+	aBoard := Board sizedWithNoEffects: 6.
+	aGame  := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 1.
+	aGame player: player2 usesCard: speedCard on: player1.
+	aGame player: player2 usesCard: cancellationCard on: {speedCard.player1}.
+	aGame moveCurrentPlayer.
+	aLeader := aGame leaderPosition.
+	self assert: aLeader equals: 4
 ]
 
 { #category : #tests }
@@ -89,7 +126,7 @@ CardTest >> testAGameWithAnAccelerationCard [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: Acceleration new on: allPlayers.
+	aGame player: player2 usesCard: accelerationCard on: allPlayers.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player2) equals: 5
@@ -121,7 +158,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectAtomicBomb [
 		playedOn: aBoard
 		finishingAtLap: 2.
 	aGame moveCurrentPlayer.
-	aGame player: player2 usesCard: Repeat new on: player1.
+	aGame player: player2 usesCard: repeatCard on: player1.
 	aLeaderPosition := aGame leaderPosition.
 	self assert: aLeaderPosition equals: 0
 ]
@@ -160,7 +197,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectMoonwalk [
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 8.
 	self assert: (aGame currentSlotOf: player2) equals: 2.
-	aGame player: player2 usesCard: Repeat new on: player1.
+	aGame player: player2 usesCard: repeatCard  on: player1.
 	self assert: (aGame currentSlotOf: player1) equals: 8.
 	self assert: (aGame currentSlotOf: player2) equals: 0
 ]
@@ -192,7 +229,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectSpeedUp [
 		playedOn: aBoard
 		finishingAtLap: 2.
 	aGame moveCurrentPlayer.
-	aGame player: player2 usesCard: Repeat new on: player1.
+	aGame player: player2 usesCard: repeatCard  on: player1.
 	aLeaderPosition := aGame leaderPosition.
 	self assert: aLeaderPosition equals: 11
 ]
@@ -220,7 +257,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectWormHole [
 		playedOn: aBoard
 		finishingAtLap: 2.
 	3 timesRepeat: [ aGame moveCurrentPlayer ].
-	aGame player: player2 usesCard: Repeat new on: player1.
+	aGame player: player2 usesCard: repeatCard  on: player1.
 	aLeaderPosition := aGame leaderPosition.
 	self assert: aLeaderPosition equals: 4.
 	self assert: (aGame currentSlotOf: player1) equals: 0
@@ -240,7 +277,7 @@ CardTest >> testAGameWithAnOverloadCard [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: Overload new on: player1.
+	aGame player: player2 usesCard: overloadCard  on: player1.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 2.
@@ -263,9 +300,9 @@ CardTest >> testAGameWithDoubleRedoAnAcceleration [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: Acceleration new on: allPlayers.
-	aGame player: player1 usesCard: Redo new on: allPlayers.
-	aGame player: player1 usesCard: Redo new on: allPlayers.
+	aGame player: player2 usesCard: accelerationCard  on: allPlayers.
+	aGame player: player1 usesCard: redoCard  on: allPlayers.
+	aGame player: player1 usesCard: redoCard  on: allPlayers.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 7.
@@ -287,8 +324,8 @@ CardTest >> testAGameWithRedoAnAcceleration [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: Acceleration new on: allPlayers.
-	aGame player: player1 usesCard: Redo new on: allPlayers.
+	aGame player: player2 usesCard: accelerationCard  on: allPlayers.
+	aGame player: player1 usesCard: redoCard  on: allPlayers.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 6.
@@ -311,8 +348,8 @@ CardTest >> testAGameWithRedoAnOverload [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: Overload new on: player1.
-	aGame player: player1 usesCard: Redo new on: player2.
+	aGame player: player2 usesCard: overloadCard  on: player1.
+	aGame player: player1 usesCard: redoCard  on: player2.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 2.
