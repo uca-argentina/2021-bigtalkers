@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 PermanentCardsOnPlayers class >> forPlayers: somePlayers [
 	
 	^self new initializeWithPlayers: somePlayers
@@ -20,12 +20,6 @@ PermanentCardsOnPlayers >> add: aCard to: aPlayer [
 	currCards := cardregistry at: aPlayer.
 	currCards add: aCard.
 	cardregistry at: aPlayer put: currCards
-]
-
-{ #category : #initialization }
-PermanentCardsOnPlayers >> cardsAffecting: aPlayer [
-
-	^ cardregistry at: aPlayer
 ]
 
 { #category : #initialization }
