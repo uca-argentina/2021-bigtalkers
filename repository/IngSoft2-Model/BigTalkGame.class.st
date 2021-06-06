@@ -46,10 +46,10 @@ BigTalkGame class >> validateNoPlayers: somePlayers [
 ]
 
 { #category : #private }
-BigTalkGame >> addActiveCard: aCard [
-
-	activeCards add: aCard.
-	lastCardUsed := aCard
+BigTalkGame >> addActiveCard: aCard on: affected [
+	affected isCollection
+		ifTrue: [ affected do: [ :player | activeCards add: aCard to: player ] ]
+		ifFalse: [ activeCards add: aCard to: affected ]
 ]
 
 { #category : #'effect-application' }
@@ -65,6 +65,12 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 	effect := self effectAt: aPlayerPosition.
 	effect applyTo: self toPlayer: self currentTurnPlayer.
 	^ effect
+]
+
+{ #category : #'effect-application' }
+BigTalkGame >> applyLastCardTo: affected [
+
+	lastCardUsed  applyOn: self to: affected
 ]
 
 { #category : #'effect-application' }
@@ -201,16 +207,9 @@ BigTalkGame >> moveCurrentPlayer [
 
 { #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
-
-	affected isCollection
-		ifTrue: [ affected do: [ :player | activeCards add: aCard to: player ] ]
-		ifFalse: [ activeCards add: aCard to: affected ]
-]
-
-{ #category : #private }
-BigTalkGame >> player: aPlayer usesInstantCard: anInstantCard on: anotherPlayer [
-
-	anInstantCard applyOn: self to: anotherPlayer
+	aCard applyOn: self to: affected.
+	(aCard isKindOf: Redo)
+		ifFalse: [ lastCardUsed := aCard ]
 ]
 
 { #category : #private }
