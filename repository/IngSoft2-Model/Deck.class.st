@@ -8,6 +8,19 @@ Class {
 }
 
 { #category : #'instance creation' }
+Deck class >> default [
+	^ self new
+		initializeUsing: {
+			Speed new.
+			Acceleration new.
+			Redo new.
+			Repeat new.
+			Overload new.
+			Cancellation new.
+			}
+]
+
+{ #category : #'instance creation' }
 Deck class >> onlyAccelerationCards [
 	^ self new initializeUsing: {Acceleration new}
 ]
