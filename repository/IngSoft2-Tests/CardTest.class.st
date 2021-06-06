@@ -4,7 +4,12 @@ Class {
 	#instVars : [
 		'player1',
 		'player2',
-		'player3'
+		'player3',
+		'redoDeck',
+		'speedDeck',
+		'overloadDeck',
+		'repeatDeck',
+		'accelerationDeck'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -13,7 +18,14 @@ Class {
 CardTest >> setUp [
 	player1 := Player named: 'Gaspar'.
 	player2 := Player named: 'Martin'.
-	player3 := Player named: 'Carla'
+	player3 := Player named: 'Carla'.
+	
+	
+	redoDeck         := Deck onlyRedoCards.
+	speedDeck        := Deck onlySpeedCards.
+	overloadDeck     := Deck onlyOverloadCards.
+	repeatDeck       := Deck onlyRepeatCards.
+	accelerationDeck := Deck onlyAccelerationCards
 ]
 
 { #category : #asserting }
@@ -46,7 +58,7 @@ CardTest >> testAGamePlayerPlaysCardNotInHand [
 { #category : #tests }
 CardTest >> testAGameWithASpeedCard [
 	| aGame aDie aBoard aDice aLeader |
-	player2 testingAddCard: Speed new.
+	player2 drawCardFrom: speedDeck .
 	aDie   := LoadedDie rolling: 4.
 	aDice  := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 6.
@@ -66,7 +78,7 @@ CardTest >> testAGameWithASpeedCard [
 { #category : #tests }
 CardTest >> testAGameWithAnAccelerationCard [
 	| aGame aDie aBoard aDice allPlayers |
-	player2 testingAddCard: Acceleration new.
+	player2 drawCardFrom: accelerationDeck .
 	allPlayers := {player1.
 	player2}.
 	aDie := LoadedDie rolling: 4.
@@ -88,7 +100,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectAtomicBomb [
 
 	| aGame aDie aBoard aDice aLeaderPosition someSlots |
 
-	player2 testingAddCard: Repeat new .
+	player2 drawCardFrom: repeatDeck .
 	aDie := LoadedDie rolling: 8.
 	aDice := Dice with: {aDie}.
 	someSlots := {BoardSlot withNoEffect.
@@ -118,7 +130,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectAtomicBomb [
 CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectMoonwalk [
 
 	| aGame aDie aBoard aDice someSlots |
-	player2 testingAddCard: Repeat new .
+	player2 drawCardFrom: repeatDeck .
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	someSlots := {BoardSlot withNoEffect.
@@ -156,7 +168,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectMoonwalk [
 { #category : #tests }
 CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectSpeedUp [
 	| aGame aDie aBoard aDice aLeaderPosition someSlots |
-	player2 testingAddCard: Repeat new.
+	player2 drawCardFrom: repeatDeck .
 	aDie := LoadedDie rolling: 3.
 	aDice := Dice with: {aDie}.
 	someSlots := {BoardSlot withNoEffect.
@@ -188,7 +200,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectSpeedUp [
 { #category : #tests }
 CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectWormHole [
 	| aGame aDie aBoard aDice aLeaderPosition someSlots |
-	player2 testingAddCard: Repeat new.
+	player2 drawCardFrom: repeatDeck .
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	someSlots := {BoardSlot withNoEffect.
@@ -217,7 +229,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectWormHole [
 { #category : #tests }
 CardTest >> testAGameWithAnOverloadCard [
 	| aGame aDie aBoard aDice |
-	player2 testingAddCard: Overload new.
+	player2 drawCardFrom: overloadDeck  .
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 6.
@@ -238,9 +250,9 @@ CardTest >> testAGameWithAnOverloadCard [
 { #category : #tests }
 CardTest >> testAGameWithDoubleRedoAnAcceleration [
 	| aGame aDie aBoard aDice allPlayers |
-	player2 testingAddCard: Acceleration  new .
-	player1 testingAddCard: Redo new .
-	player1 testingAddCard: Redo new .
+	player2 drawCardFrom: accelerationDeck  .
+	player1 drawCardFrom: redoDeck .
+	player1 drawCardFrom: redoDeck .
 	allPlayers := {player1.
 	player2}.
 	aDie := LoadedDie rolling: 4.
@@ -263,8 +275,8 @@ CardTest >> testAGameWithDoubleRedoAnAcceleration [
 { #category : #tests }
 CardTest >> testAGameWithRedoAnAcceleration [
 	| aGame aDie aBoard aDice allPlayers |
-	player2 testingAddCard: Acceleration new.
-	player1 testingAddCard: Redo new.
+	player2 drawCardFrom: accelerationDeck   .
+	player1 drawCardFrom: redoDeck .
 	allPlayers := {player1.
 	player2}.
 	aDie := LoadedDie rolling: 4.
@@ -287,8 +299,8 @@ CardTest >> testAGameWithRedoAnAcceleration [
 CardTest >> testAGameWithRedoAnOverload [
 
 	| aGame aDie aBoard aDice |
-	player2 testingAddCard: Overload new .
-	player1 testingAddCard: Redo new .
+	player2 drawCardFrom: overloadDeck  .
+	player1 drawCardFrom: redoDeck .
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 6.

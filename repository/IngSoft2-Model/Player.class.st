@@ -45,11 +45,6 @@ Player >> playerName [
 	^ name
 ]
 
-{ #category : #'private - testing' }
-Player >> testingAddCard: aCard [
-	hand add: aCard
-]
-
 { #category : #initialize }
 Player >> useCardFromHand: aCard [
 	| index |
