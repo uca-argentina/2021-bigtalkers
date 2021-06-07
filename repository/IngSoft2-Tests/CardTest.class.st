@@ -71,6 +71,35 @@ CardTest >> testAGamePlayerPlaysCardNotInHand [
 ]
 
 { #category : #tests }
+CardTest >> testAGameWithACancellationAndNoActiveCards [
+	| aGame aDie aBoard aDice aLeader |
+	player1 drawCardFrom: speedDeck.
+	player1 drawCardFrom: cancellationDeck.
+	aDie := LoadedDie rolling: 4.
+	aDice := Dice with: {aDie}.
+	aBoard := Board sizedWithNoEffects: 6.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 1.
+	self
+		should: [ aGame
+				player: player1
+				usesCard: cancellationCard
+				on:
+					{speedCard.
+					player1} ]
+		raise: Error
+		withMessage: 'Cant play cancellation with no active cards in game'.
+	aGame moveCurrentPlayer.
+	aLeader := aGame leaderPosition.
+	self assert: aLeader equals: 4
+]
+
+{ #category : #tests }
 CardTest >> testAGameWithASpeedCard [
 	| aGame aDie aBoard aDice aLeader |
 	player1 drawCardFrom: speedDeck .

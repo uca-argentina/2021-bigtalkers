@@ -1,5 +1,5 @@
 Class {
-	#name : #PermanentCardsOnPlayers,
+	#name : #ActiveCardController,
 	#superclass : #Object,
 	#instVars : [
 		'cardregistry'
@@ -8,13 +8,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-PermanentCardsOnPlayers class >> forPlayers: somePlayers [
+ActiveCardController class >> forPlayers: somePlayers [
 	
 	^self new initializeWithPlayers: somePlayers
 ]
 
 { #category : #initialization }
-PermanentCardsOnPlayers >> add: aCard to: aPlayer [
+ActiveCardController >> add: aCard to: aPlayer [
 
 	| currCards |
 	currCards := cardregistry at: aPlayer.
@@ -23,7 +23,7 @@ PermanentCardsOnPlayers >> add: aCard to: aPlayer [
 ]
 
 { #category : #initialization }
-PermanentCardsOnPlayers >> initializeWithPlayers: somePlayers [
+ActiveCardController >> initializeWithPlayers: somePlayers [
 
 	cardregistry := Dictionary new.
 	somePlayers
@@ -31,7 +31,15 @@ PermanentCardsOnPlayers >> initializeWithPlayers: somePlayers [
 ]
 
 { #category : #initialization }
-PermanentCardsOnPlayers >> playerRollModifier: aPlayer [
+ActiveCardController >> isEmpty [ 
+| activeCards |
+
+	activeCards := cardregistry inject: 0 into: [ :prev :curr | prev + (curr size) ].
+	^ activeCards < 1
+]
+
+{ #category : #initialization }
+ActiveCardController >> playerRollModifier: aPlayer [
 
 	| currCards |
 	currCards := cardregistry at: aPlayer.
@@ -39,7 +47,7 @@ PermanentCardsOnPlayers >> playerRollModifier: aPlayer [
 ]
 
 { #category : #initialization }
-PermanentCardsOnPlayers >> remove: aCard for: aPlayer [
+ActiveCardController >> remove: aCard for: aPlayer [
 	| currCards index |
 	currCards := cardregistry at: aPlayer.
 	index := currCards

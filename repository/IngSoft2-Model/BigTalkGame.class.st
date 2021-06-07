@@ -183,7 +183,7 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	board := aBoard.
 	board addPlayers: somePlayers.
 	deck := aDeck.
-	activeCards := PermanentCardsOnPlayers forPlayers: somePlayers.
+	activeCards := ActiveCardController forPlayers: somePlayers.
 	lastEffect := NoEffect new.
 	scoreboard := Scoreboard competingPlayers: somePlayers.
 	scoreboard update: board playerPositions.
@@ -229,8 +229,8 @@ BigTalkGame >> moveCurrentPlayer [
 
 { #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
-
-	( aCard isPermanent and: currentPlayer ~= aPlayer ) ifTrue: [ Error signal: 'Players can only play permanent cards during their turn'  ] .
+	
+	self validatePlayabilityOn: aCard usedBy: aPlayer usedOn: affected.
 	aPlayer useCardFromHand: aCard.
 	aCard applyOn: self to: affected.
 	(aCard = Redo new)
@@ -268,4 +268,14 @@ BigTalkGame >> rankOf: aPlayer [
 BigTalkGame >> removeActiveCard: aCard for: affected [ 
 
 	activeCards remove: aCard for: affected 
+]
+
+{ #category : #private }
+BigTalkGame >> validatePlayabilityOn: aCard usedBy: aPlayer usedOn: affected [
+
+( aCard isPermanent and: currentPlayer ~= aPlayer ) 
+	ifTrue: [ Error signal: 'Players can only play permanent cards during their turn'  ] .
+
+( aCard className = 'Cancellation' and: activeCards isEmpty )
+	ifTrue: [ Error signal: 'Cant play cancellation with no active cards in game'  ] .
 ]
