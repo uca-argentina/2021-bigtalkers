@@ -14,6 +14,12 @@ BoardSlot class >> withAtomicBomb [
 ]
 
 { #category : #'instance creation' }
+BoardSlot class >> withGrabCard [
+
+	^ self new initializeWith: GrabCard new
+]
+
+{ #category : #'instance creation' }
 BoardSlot class >> withMoonwalk [
 
 	^ self new initializeWith: (Moonwalk withFixedValue: 2)

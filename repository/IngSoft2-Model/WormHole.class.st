@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'effect-application' }
-WormHole >> applyTo: aGame [
+WormHole >> applyTo: aGame toPlayer: aPlayer [
 
-	aGame applyWormHole
+	aGame applyWormHoleTo: aPlayer
 ]
