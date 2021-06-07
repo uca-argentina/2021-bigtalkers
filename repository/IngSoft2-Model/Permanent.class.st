@@ -19,3 +19,9 @@ Permanent >> effect [
 
 	^ self subclassResponsibility
 ]
+
+{ #category : #'card - effect applications' }
+Permanent >> isPermanent [
+
+	^ true
+]

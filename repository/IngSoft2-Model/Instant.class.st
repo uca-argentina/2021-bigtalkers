@@ -9,3 +9,9 @@ Instant >> applyOn: aGame to: affected [
 
 	^self subclassResponsibility
 ]
+
+{ #category : #'card - effect applications' }
+Instant >> isPermanent [
+
+	^false
+]

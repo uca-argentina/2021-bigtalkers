@@ -9,3 +9,9 @@ Redo >> applyOn: aGame to: affected [
 
 	aGame applyLastCardTo: affected
 ]
+
+{ #category : #'card - effect applications' }
+Redo >> isPermanent [
+
+	^ false
+]

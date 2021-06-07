@@ -65,7 +65,7 @@ CardTest >> testAGamePlayerPlaysCardNotInHand [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	self
-		should: [ aGame player: player2 usesCard: overloadCard on: player1 ]
+		should: [ aGame player: player1 usesCard: overloadCard on: player1 ]
 		raise: Error
 		withMessage: 'The player does not have that card'
 ]
@@ -73,7 +73,7 @@ CardTest >> testAGamePlayerPlaysCardNotInHand [
 { #category : #tests }
 CardTest >> testAGameWithASpeedCard [
 	| aGame aDie aBoard aDice aLeader |
-	player2 drawCardFrom: speedDeck .
+	player1 drawCardFrom: speedDeck .
 	aDie   := LoadedDie rolling: 4.
 	aDice  := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 6.
@@ -84,7 +84,7 @@ CardTest >> testAGameWithASpeedCard [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: speedCard on: player1.
+	aGame player: player1 usesCard: speedCard on: player1.
 	aGame moveCurrentPlayer.
 	aLeader := aGame leaderPosition.
 	self assert: aLeader equals: 5
@@ -93,8 +93,8 @@ CardTest >> testAGameWithASpeedCard [
 { #category : #tests }
 CardTest >> testAGameWithASpeedCardAndCancellation [
 	| aGame aDie aBoard aDice aLeader |
-	player2 drawCardFrom: speedDeck .
-	player2 drawCardFrom: cancellationDeck .
+	player1 drawCardFrom: speedDeck .
+	player1 drawCardFrom: cancellationDeck .
 	aDie   := LoadedDie rolling: 4.
 	aDice  := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 6.
@@ -105,8 +105,8 @@ CardTest >> testAGameWithASpeedCardAndCancellation [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: speedCard on: player1.
-	aGame player: player2 usesCard: cancellationCard on: {speedCard.player1}.
+	aGame player: player1 usesCard: speedCard on: player1.
+	aGame player: player1 usesCard: cancellationCard on: {speedCard.player1}.
 	aGame moveCurrentPlayer.
 	aLeader := aGame leaderPosition.
 	self assert: aLeader equals: 4
@@ -115,7 +115,7 @@ CardTest >> testAGameWithASpeedCardAndCancellation [
 { #category : #tests }
 CardTest >> testAGameWithAnAccelerationCard [
 	| aGame aDie aBoard aDice allPlayers |
-	player2 drawCardFrom: accelerationDeck .
+	player1 drawCardFrom: accelerationDeck .
 	allPlayers := {player1.
 	player2}.
 	aDie := LoadedDie rolling: 4.
@@ -126,7 +126,7 @@ CardTest >> testAGameWithAnAccelerationCard [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: accelerationCard on: allPlayers.
+	aGame player: player1 usesCard: accelerationCard on: allPlayers.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player2) equals: 5
@@ -266,7 +266,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectWormHole [
 { #category : #tests }
 CardTest >> testAGameWithAnOverloadCard [
 	| aGame aDie aBoard aDice |
-	player2 drawCardFrom: overloadDeck  .
+	player1 drawCardFrom: overloadDeck  .
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
 	aBoard := Board sizedWithNoEffects: 6.
@@ -277,7 +277,7 @@ CardTest >> testAGameWithAnOverloadCard [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: overloadCard  on: player1.
+	aGame player: player1 usesCard: overloadCard  on: player1.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 2.
@@ -287,7 +287,7 @@ CardTest >> testAGameWithAnOverloadCard [
 { #category : #tests }
 CardTest >> testAGameWithDoubleRedoAnAcceleration [
 	| aGame aDie aBoard aDice allPlayers |
-	player2 drawCardFrom: accelerationDeck  .
+	player1 drawCardFrom: accelerationDeck  .
 	player1 drawCardFrom: redoDeck .
 	player1 drawCardFrom: redoDeck .
 	allPlayers := {player1.
@@ -300,7 +300,7 @@ CardTest >> testAGameWithDoubleRedoAnAcceleration [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: accelerationCard  on: allPlayers.
+	aGame player: player1 usesCard: accelerationCard  on: allPlayers.
 	aGame player: player1 usesCard: redoCard  on: allPlayers.
 	aGame player: player1 usesCard: redoCard  on: allPlayers.
 	aGame moveCurrentPlayer.
@@ -312,7 +312,7 @@ CardTest >> testAGameWithDoubleRedoAnAcceleration [
 { #category : #tests }
 CardTest >> testAGameWithRedoAnAcceleration [
 	| aGame aDie aBoard aDice allPlayers |
-	player2 drawCardFrom: accelerationDeck   .
+	player1 drawCardFrom: accelerationDeck   .
 	player1 drawCardFrom: redoDeck .
 	allPlayers := {player1.
 	player2}.
@@ -324,7 +324,7 @@ CardTest >> testAGameWithRedoAnAcceleration [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: accelerationCard  on: allPlayers.
+	aGame player: player1 usesCard: accelerationCard  on: allPlayers.
 	aGame player: player1 usesCard: redoCard  on: allPlayers.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
@@ -336,7 +336,7 @@ CardTest >> testAGameWithRedoAnAcceleration [
 CardTest >> testAGameWithRedoAnOverload [
 
 	| aGame aDie aBoard aDice |
-	player2 drawCardFrom: overloadDeck  .
+	player1 drawCardFrom: overloadDeck  .
 	player1 drawCardFrom: redoDeck .
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
@@ -348,10 +348,52 @@ CardTest >> testAGameWithRedoAnOverload [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player2 usesCard: overloadCard  on: player1.
+	aGame player: player1 usesCard: overloadCard  on: player1.
 	aGame player: player1 usesCard: redoCard  on: player2.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 2.
 	self assert: (aGame currentSlotOf: player2) equals: 2
+]
+
+{ #category : #tests }
+CardTest >> testPlayerFallsOnGrabCardGrabsSpeed [
+	| aGame aDie aBoard aDice slots |
+	aDie := LoadedDie rolling: 2.
+	aDice := Dice with: {aDie}.
+	slots := {BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withGrabCard.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect.
+	BoardSlot withNoEffect}.
+	aBoard := Board withAll: slots.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 1
+		usingDeck: Deck onlySpeedCards.
+	
+	self
+		should: [ aGame player: player1 usesCard: speedCard on: player2 ]
+		raise: Error
+		withMessage: 'The player does not have that card'.	
+	aGame moveCurrentPlayer.
+	self
+		should: [ aGame player: player1 usesCard: speedCard on: player2 ]
+		raise: Error
+		withMessage: 'Players can only play permanent cards during their turn'.	
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	aGame player: player1 usesCard: speedCard on: player2.
+	aGame moveCurrentPlayer.
+	aGame moveCurrentPlayer.
+	self assert: (aGame currentSlotOf: player1) equals: 6.
+	self assert: (aGame currentSlotOf: player2) equals: 7
 ]

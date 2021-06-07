@@ -11,7 +11,8 @@ Class {
 		'finishingLap',
 		'activeCards',
 		'lastCardUsed',
-		'lastEffect'
+		'lastEffect',
+		'deck'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -26,6 +27,20 @@ BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard 
 		withDice: someDice
 		withBoard: aBoard
 		finishingAtLap: aLapNumber
+		withDeck: Deck onlyOverloadCards 
+]
+
+{ #category : #'instance creation' }
+BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard finishingAtLap: aLapNumber usingDeck: aDeck [
+
+	self validateDuplicatePlayers: somePlayers.
+	self validateNoPlayers: somePlayers.
+	^ self new
+		initializeWithPlayers: somePlayers
+		withDice: someDice
+		withBoard: aBoard
+		finishingAtLap: aLapNumber
+		withDeck: aDeck
 ]
 
 { #category : #validation }
@@ -141,6 +156,12 @@ BigTalkGame >> currentTurnPlayerPosition [
 	^ self currentSlotOf: currentPlayer
 ]
 
+{ #category : #'accessing - variables' }
+BigTalkGame >> drawFromDeck: aPlayer [
+
+	aPlayer drawCardFrom: deck
+]
+
 { #category : #'effect-application' }
 BigTalkGame >> effectAt: aPosition [
 
@@ -154,13 +175,14 @@ BigTalkGame >> hasFinished [
 ]
 
 { #category : #initialize }
-BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard finishingAtLap: aLapNumber [
+BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard finishingAtLap: aLapNumber withDeck: aDeck [
 
 	finishingLap := aLapNumber.
 	players := somePlayers.
 	dice := someDice.
 	board := aBoard.
 	board addPlayers: somePlayers.
+	deck := aDeck.
 	activeCards := PermanentCardsOnPlayers forPlayers: somePlayers.
 	lastEffect := NoEffect new.
 	scoreboard := Scoreboard competingPlayers: somePlayers.
@@ -207,6 +229,8 @@ BigTalkGame >> moveCurrentPlayer [
 
 { #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
+
+	( aCard isPermanent and: currentPlayer ~= aPlayer ) ifTrue: [ Error signal: 'Players can only play permanent cards during their turn'  ] .
 	aPlayer useCardFromHand: aCard.
 	aCard applyOn: self to: affected.
 	(aCard = Redo new)

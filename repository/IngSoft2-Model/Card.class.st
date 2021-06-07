@@ -14,3 +14,9 @@ Card >> applyOn: aGame to: affected [
 
 	^ self subclassResponsibility
 ]
+
+{ #category : #'card - effect applications' }
+Card >> isPermanent [
+
+	^ self subclassResponsibility
+]

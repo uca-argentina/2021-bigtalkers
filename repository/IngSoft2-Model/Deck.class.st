@@ -20,32 +20,32 @@ Deck class >> default [
 			}
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'testing - instance creation' }
 Deck class >> onlyAccelerationCards [
 	^ self new initializeUsing: {Acceleration new}
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'testing - instance creation' }
 Deck class >> onlyCancellationCards [
 	^ self new initializeUsing: {Cancellation  new}
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'testing - instance creation' }
 Deck class >> onlyOverloadCards [
 	^ self new initializeUsing: {Overload new}
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'testing - instance creation' }
 Deck class >> onlyRedoCards [
 	^ self new initializeUsing: {Redo new}
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'testing - instance creation' }
 Deck class >> onlyRepeatCards [
 	^ self new initializeUsing: {Repeat new}
 ]
 
-{ #category : #'instance creation' }
+{ #category : #'testing - instance creation' }
 Deck class >> onlySpeedCards [
 	^ self new initializeUsing: {Speed new}
 ]
