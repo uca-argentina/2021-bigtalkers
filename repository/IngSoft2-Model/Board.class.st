@@ -19,6 +19,19 @@ Board class >> sizedWithNoEffects: aNumberOfSlots [
 	^ self new initializeUsingEffects: slots
 ]
 
+{ #category : #'instance creation' }
+Board class >> using: aBoardSlotGenerator withAmount: aNumberOfSlots [
+
+	| slots |
+	self validateMinimumSlots: aNumberOfSlots.
+	slots := OrderedCollection new.
+	slots := aBoardSlotGenerator generates: aNumberOfSlots.
+	^ self new initializeUsingEffects: slots
+
+
+
+]
+
 { #category : #validation }
 Board class >> validateMinimumSlots: aNumberOfSlots [
 
@@ -59,11 +72,19 @@ Board >> effectAt: aPosition [
 ]
 
 { #category : #initialize }
-Board >> initializeUsingEffects: aCollectionOfSlots [
+Board >> initializeUsingEffects2: aCollectionOfSlots [
 
 	slots := OrderedCollection new.
 	playerPositions := Dictionary new.
 	aCollectionOfSlots do: [ :slot | slots add: slot ]
+]
+
+{ #category : #initialize }
+Board >> initializeUsingEffects: aCollectionOfSlots [
+
+	slots := aCollectionOfSlots .
+	playerPositions := Dictionary new.
+
 ]
 
 { #category : #private }
