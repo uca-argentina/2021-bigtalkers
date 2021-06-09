@@ -9,23 +9,30 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-BoardSlotGenerator class >> basedOn: eventsDistribution [ 
-	
-	^self new initializeWith: eventsDistribution.
+{ #category : #'instance creation' }
+BoardSlotGenerator class >> basedOn: eventsDistribution [
+
+	self validateTotalProbability: eventsDistribution.
+	^ self new initializeWith: eventsDistribution
 ]
 
-{ #category : #'instance creation' }
-BoardSlotGenerator class >> distributing: someEffects havingProbabilities: someProbabilities [
+{ #category : #validation }
+BoardSlotGenerator class >> validateTotalProbability: eventsDistribution [ 
+	|probabilities totalProbability|
+	probabilities := OrderedCollection new.
+	eventsDistribution do: [ :event| probabilities add: (event probability) ].
+	totalProbability := probabilities inject: 0 into: [:sum :each | sum + each ].
+	
 
-	^ self new initializeWith: someEffects havingProbabilities: someProbabilities.
+	totalProbability  = 1
+	ifFalse: [ Error signal: 'All probabilities must sum 1' ]
 ]
 
 { #category : #generating }
-BoardSlotGenerator >> generates: aNumber [ 
+BoardSlotGenerator >> generates: aNumberOfSlots [ 
 	|events|
 	events := OrderedCollection new.
-	aNumber timesRepeat: [ events add: (eventsPool atRandom: randomness) ].	
+	aNumberOfSlots timesRepeat: [ events add: (eventsPool atRandom: randomness) ].	
 	^events.
 
 ]
@@ -35,20 +42,5 @@ BoardSlotGenerator >> initializeWith: eventsDistribution [
 
 	randomness := Random new. 
 	eventsPool := OrderedCollection new.
-	eventsDistribution do: [:probabilityEvent | eventsPool add: probabilityEvent event withOccurrences: (probabilityEvent 	probability + 100 ) asInteger ].
-]
-
-{ #category : #initialize }
-BoardSlotGenerator >> initializeWith: someEffects  havingProbabilities: someProbabilities [
-
-	slots := OrderedCollection new.
-	someProbabilities
-		doWithIndex:
-			[ :probability :index | 1 to: probability do: [ :iter | slots add: (someEffects at: index) ] ]
-]
-
-{ #category : #'accessing - slots' }
-BoardSlotGenerator >> randomSlot [
-
-	^ slots at: (1 to: 100) atRandom
+	eventsDistribution do: [:probabilityEvent | eventsPool add: probabilityEvent event withOccurrences: (probabilityEvent 	probability * 100 ) asInteger ].
 ]

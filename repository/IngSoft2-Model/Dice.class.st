@@ -18,11 +18,11 @@ Dice class >> validateEmptyDiceCollection: someDice [
 Dice class >> with: someDice [
 
 	self validateEmptyDiceCollection: someDice.
-	^ self new initializeUsing: someDice
+	^ self new initializeWith: someDice
 ]
 
-{ #category : #initialize }
-Dice >> initializeUsing: aDiceCollection [
+{ #category : #initialization }
+Dice >> initializeWith: aDiceCollection [
 
 	dice := aDiceCollection
 ]

@@ -10,7 +10,7 @@ Class {
 { #category : #'instance creation' }
 ActiveCardController class >> forPlayers: somePlayers [
 	
-	^self new initializeWithPlayers: somePlayers
+	^self new initializeWith: somePlayers
 ]
 
 { #category : #initialization }
@@ -23,7 +23,7 @@ ActiveCardController >> add: aCard to: aPlayer [
 ]
 
 { #category : #initialization }
-ActiveCardController >> initializeWithPlayers: somePlayers [
+ActiveCardController >> initializeWith: somePlayers [
 
 	cardregistry := Dictionary new.
 	somePlayers
@@ -47,10 +47,10 @@ ActiveCardController >> playerRollModifier: aPlayer [
 ]
 
 { #category : #initialization }
-ActiveCardController >> remove: aCard for: aPlayer [
+ActiveCardController >> remove: aCard from: aPlayer [
 	| currCards index |
 	currCards := cardregistry at: aPlayer.
-	index := currCards
+	index :=  currCards
 		indexOf: aCard
 		ifAbsent: [ Error signal: 'The player does not have that card' ].
 	currCards removeAt: index

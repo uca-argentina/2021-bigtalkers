@@ -42,7 +42,7 @@ DiceTest >> testLoadedDiceRollsExpectedValue [
 		with:
 			{aTwoSidedDie.
 			aFourSidedDie}.
-	100 timesRepeat: [ self assert: someDice roll equals: 6 ]
+	 self assert: someDice roll equals: 6 
 ]
 
 { #category : #tests }
@@ -73,5 +73,5 @@ DiceTest >> testTwoDiceWithFourSidesRollBetween2and8 [
 		with:
 			{anotherFourSidedDie.
 			aFourSidedDie}.
-	100 timesRepeat: [ self assert: (someDice roll between: 2 and: 8) ]
+	self assert: (someDice roll between: 2 and: 8)
 ]

@@ -11,7 +11,7 @@ Class {
 LoadedDie class >> rolling: anExpectedRoll [
 
 	self validateLoadedDieCannotHaveNegativeResult: anExpectedRoll.
-	^ self new initializeUsing: anExpectedRoll
+	^ self new initializeWith: anExpectedRoll
 ]
 
 { #category : #validation }
@@ -21,8 +21,8 @@ LoadedDie class >> validateLoadedDieCannotHaveNegativeResult: anExpectedRoll [
 		ifTrue: [ Error signal: 'A loaded die cannot have a negative result' ]
 ]
 
-{ #category : #initialize }
-LoadedDie >> initializeUsing: anExpectedRoll [
+{ #category : #initialization }
+LoadedDie >> initializeWith: anExpectedRoll [
 	
 	rollValue := anExpectedRoll.
 ]

@@ -18,11 +18,11 @@ Die class >> validateSides: aNumberOfSides [
 Die class >> withSides: aNumberOfSides [
 
 	self validateSides: aNumberOfSides.
-	^ self new initializeUsing: aNumberOfSides
+	^ self new initializeWith: aNumberOfSides
 ]
 
-{ #category : #initialize }
-Die >> initializeUsing: aNumberOfSides [
+{ #category : #initialization }
+Die >> initializeWith: aNumberOfSides [
 
 	sides := aNumberOfSides
 ]

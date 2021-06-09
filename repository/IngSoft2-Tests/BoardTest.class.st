@@ -27,19 +27,31 @@ BoardTest >> testBoardCannotBeCreatedWithZeroSlots [
 ]
 
 { #category : #tests }
-BoardTest >> testCreateABoardWithBoardSlotGenerator [
+BoardTest >> testBoardSlotGeneratorCannotBeBasedOnAnEventDistributionWithTotalProbabilitiesDifferentThanOne [
 
-	| eventsDistribution aBoardSlotGenerator aBoard |
+	| eventsDistribution  |
 	eventsDistribution := OrderedCollection new.
 	eventsDistribution
 		add: (DiscreteProbabilityEvent of: BoardSlot withNoEffect with: 0.38);
 		add: (DiscreteProbabilityEvent of: BoardSlot withSpeedUp with: 0.2);
 		add: (DiscreteProbabilityEvent of: BoardSlot withWormHole with: 0.2);
-		add: (DiscreteProbabilityEvent of: BoardSlot withMoonwalk with: 0.1);
+		add: (DiscreteProbabilityEvent of: BoardSlot withMoonwalk with: 0.3);
 		add: (DiscreteProbabilityEvent of: BoardSlot withAtomicBomb with: 0.02);
 		add: (DiscreteProbabilityEvent of: BoardSlot withGrabCard with: 0.10).
-	aBoardSlotGenerator := BoardSlotGenerator basedOn: eventsDistribution.
-	aBoard := Board using: aBoardSlotGenerator withAmount: 100.
-	self assert: aBoard slotsAmount equals: 100.
-	self assert: aBoardSlotGenerator areDistributedBaseOn: eventsDistribution withTolerance: 5.
+
+	
+	self
+		should: [ BoardSlotGenerator basedOn: eventsDistribution. ]
+		raise: Error
+		withMessage: 'All probabilities must sum 1'
+
+]
+
+{ #category : #tests }
+BoardTest >> testDiscreteProbabilityEventCannotHaveNegativeProbabilites [
+
+	self
+		should: [ DiscreteProbabilityEvent of: BoardSlot withNoEffect with: -0.38 ]
+		raise: Error
+		withMessage: 'Probabilities must be positive'
 ]

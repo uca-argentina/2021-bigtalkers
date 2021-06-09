@@ -15,7 +15,7 @@ Class {
 Player class >> named: aName [
 
 	self validatePlayersNameCannotBeEmpty: aName.
-	^ self new initializeWithName: aName
+	^ self new initializeWith: aName
 ]
 
 { #category : #validation }
@@ -25,15 +25,15 @@ Player class >> validatePlayersNameCannotBeEmpty: aName [
 		ifTrue: [ Error signal: 'A player cannot have an empty name' ]
 ]
 
-{ #category : #initialize }
+{ #category : #initialization }
 Player >> drawCardFrom: aDeck [
 	| newCard |
 	newCard := aDeck draw.
 	hand add: newCard
 ]
 
-{ #category : #initialize }
-Player >> initializeWithName: aName [
+{ #category : #initialization }
+Player >> initializeWith: aName [
 	
 	hand := OrderedCollection new.
 	name := aName
@@ -45,7 +45,7 @@ Player >> playerName [
 	^ name
 ]
 
-{ #category : #initialize }
+{ #category : #initialization }
 Player >> useCardFromHand: aCard [
 	| index |
 	index := hand indexOf: aCard ifAbsent: [ Error signal: 'The player does not have that card'  ] .

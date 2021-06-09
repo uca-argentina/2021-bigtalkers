@@ -11,18 +11,25 @@ Class {
 { #category : #'instance creation' }
 DiscreteProbabilityEvent class >> of: anEvent with: anEventProbability [
 
-
-	^self new initiliazeWith: anEvent with: anEventProbability. 
+	self validatePositiveProbability: anEventProbability.
+	^ self new initiliazeWith: anEvent whichProbabilityIs: anEventProbability
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #validation }
+DiscreteProbabilityEvent class >> validatePositiveProbability: aProbability [
+	aProbability > 0
+		ifFalse: [ Error signal: 'Probabilities must be positive' ].
+	
+]
+
+{ #category : #'accessing - variables' }
 DiscreteProbabilityEvent >> event [
 
 	^event
 ]
 
-{ #category : #initialize }
-DiscreteProbabilityEvent >> initiliazeWith: anEvent with: anEventProbability [
+{ #category : #initialization }
+DiscreteProbabilityEvent >> initiliazeWith: anEvent whichProbabilityIs: anEventProbability [
 	
 	event := anEvent.
 	probabilityOfEvent := anEventProbability. 
@@ -31,7 +38,7 @@ DiscreteProbabilityEvent >> initiliazeWith: anEvent with: anEventProbability [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'accessing - variables' }
 DiscreteProbabilityEvent >> probability [
 
 	^probabilityOfEvent 

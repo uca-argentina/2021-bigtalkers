@@ -10,7 +10,7 @@ Class {
 { #category : #'instance creation' }
 Deck class >> default [
 	^ self new
-		initializeUsing: {
+		initializeWith: {
 			Speed new.
 			Acceleration new.
 			Redo new.
@@ -20,43 +20,43 @@ Deck class >> default [
 			}
 ]
 
-{ #category : #'testing - instance creation' }
+{ #category : #'instance creation' }
 Deck class >> onlyAccelerationCards [
-	^ self new initializeUsing: {Acceleration new}
+	^ self new initializeWith: {Acceleration new}
 ]
 
-{ #category : #'testing - instance creation' }
+{ #category : #'instance creation' }
 Deck class >> onlyCancellationCards [
-	^ self new initializeUsing: {Cancellation  new}
+	^ self new initializeWith: {Cancellation  new}
 ]
 
-{ #category : #'testing - instance creation' }
+{ #category : #'instance creation' }
 Deck class >> onlyOverloadCards [
-	^ self new initializeUsing: {Overload new}
+	^ self new initializeWith: {Overload new}
 ]
 
-{ #category : #'testing - instance creation' }
+{ #category : #'instance creation' }
 Deck class >> onlyRedoCards [
-	^ self new initializeUsing: {Redo new}
+	^ self new initializeWith: {Redo new}
 ]
 
-{ #category : #'testing - instance creation' }
+{ #category : #'instance creation' }
 Deck class >> onlyRepeatCards [
-	^ self new initializeUsing: {Repeat new}
+	^ self new initializeWith: {Repeat new}
 ]
 
-{ #category : #'testing - instance creation' }
+{ #category : #'instance creation' }
 Deck class >> onlySpeedCards [
-	^ self new initializeUsing: {Speed new}
+	^ self new initializeWith: {Speed new}
 ]
 
 { #category : #'instance creation' }
 Deck class >> using: cardTypes [
 
-	^self new initializeUsing: cardTypes
+	^self new initializeWith: cardTypes
 ]
 
-{ #category : #initialization }
+{ #category : #drawing }
 Deck >> draw [
 	| drawnCard |
 	
@@ -65,7 +65,7 @@ Deck >> draw [
 ]
 
 { #category : #initialization }
-Deck >> initializeUsing: cardTypes [
+Deck >> initializeWith: cardTypes [
 	cards := OrderedCollection withAll: cardTypes .
 
 ]

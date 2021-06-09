@@ -3,7 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'slots',
-		'seedGenerator',
 		'playerPositions'
 	],
 	#category : #'IngSoft2-Model'
@@ -16,7 +15,7 @@ Board class >> sizedWithNoEffects: aNumberOfSlots [
 	self validateMinimumSlots: aNumberOfSlots.
 	slots := OrderedCollection new.
 	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
-	^ self new initializeUsingEffects: slots
+	^ self new initializeWithEffects: slots
 ]
 
 { #category : #'instance creation' }
@@ -26,7 +25,7 @@ Board class >> using: aBoardSlotGenerator withAmount: aNumberOfSlots [
 	self validateMinimumSlots: aNumberOfSlots.
 	slots := OrderedCollection new.
 	slots := aBoardSlotGenerator generates: aNumberOfSlots.
-	^ self new initializeUsingEffects: slots
+	^ self new initializeWithEffects: slots
 
 
 
@@ -42,7 +41,7 @@ Board class >> validateMinimumSlots: aNumberOfSlots [
 { #category : #'instance creation' }
 Board class >> withAll: aCollectionOfSlots [
 
-	^ self new initializeUsingEffects: aCollectionOfSlots
+	^ self new initializeWithEffects: aCollectionOfSlots
 ]
 
 { #category : #adding }
@@ -71,16 +70,8 @@ Board >> effectAt: aPosition [
 	^ (self slotAt: aPosition) effect
 ]
 
-{ #category : #initialize }
-Board >> initializeUsingEffects2: aCollectionOfSlots [
-
-	slots := OrderedCollection new.
-	playerPositions := Dictionary new.
-	aCollectionOfSlots do: [ :slot | slots add: slot ]
-]
-
-{ #category : #initialize }
-Board >> initializeUsingEffects: aCollectionOfSlots [
+{ #category : #initialization }
+Board >> initializeWithEffects: aCollectionOfSlots [
 
 	slots := aCollectionOfSlots .
 	playerPositions := Dictionary new.
@@ -138,12 +129,6 @@ Board >> reset: aPlayer [
 Board >> slotAt: aPosition [
 
 	^ slots at: aPosition
-]
-
-{ #category : #'accessing - slots' }
-Board >> slotsAmount [
-
-	^ slots size
 ]
 
 { #category : #private }

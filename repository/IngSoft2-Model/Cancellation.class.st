@@ -9,5 +9,5 @@ Cancellation >> applyOn: aGame to: affected [
 	| cancelledCard player |
 	cancelledCard := affected at: 1.
 	player := affected at: 2.
-	aGame removeActiveCard:  cancelledCard for: player
+	aGame removeActiveCard:  cancelledCard from: player
 ]
