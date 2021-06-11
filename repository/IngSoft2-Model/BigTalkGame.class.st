@@ -20,8 +20,8 @@ Class {
 { #category : #'instance creation' }
 BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard finishingAtLap: aLapNumber [
 
-	self validateDuplicatePlayers: somePlayers.
-	self validateNoPlayers: somePlayers.
+	self validate: somePlayers.
+
 	^ self new
 		initializeWithPlayers: somePlayers
 		withDice: someDice
@@ -33,14 +33,21 @@ BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard 
 { #category : #'instance creation' }
 BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard finishingAtLap: aLapNumber usingDeck: aDeck [
 
-	self validateDuplicatePlayers: somePlayers.
-	self validateNoPlayers: somePlayers.
+	self validate: somePlayers.
+	
 	^ self new
 		initializeWithPlayers: somePlayers
 		withDice: someDice
 		withBoard: aBoard
 		finishingAtLap: aLapNumber
 		withDeck: aDeck
+]
+
+{ #category : #validation }
+BigTalkGame class >> validate: somePlayers [
+
+	self validateNoPlayers: somePlayers.
+	self validateDuplicatePlayers: somePlayers
 ]
 
 { #category : #validation }
@@ -113,12 +120,6 @@ BigTalkGame >> applyWormHoleTo: aPlayer [
 	self playerMove: aPlayer slots: -4
 ]
 
-{ #category : #'accessing - variables' }
-BigTalkGame >> boardSlotsAmount [
-
-	^ board slotsAmount
-]
-
 { #category : #playing }
 BigTalkGame >> changeTurn [
 
@@ -145,18 +146,12 @@ BigTalkGame >> currentTurnPlayer [
 ]
 
 { #category : #'accesing - player' }
-BigTalkGame >> currentTurnPlayerName [
-
-	^ self currentTurnPlayer playerName
-]
-
-{ #category : #'accesing - player' }
 BigTalkGame >> currentTurnPlayerPosition [
 
 	^ self currentSlotOf: currentPlayer
 ]
 
-{ #category : #'accessing - variables' }
+{ #category : #playing }
 BigTalkGame >> drawFromDeck: aPlayer [
 
 	aPlayer drawCardFrom: deck
@@ -174,7 +169,7 @@ BigTalkGame >> hasFinished [
 	^ self leaderLap >= finishingLap
 ]
 
-{ #category : #initialize }
+{ #category : #initialization }
 BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: aBoard finishingAtLap: aLapNumber withDeck: aDeck [
 
 	finishingLap := aLapNumber.
@@ -205,12 +200,6 @@ BigTalkGame >> leaderLap [
 ]
 
 { #category : #'accessing - leader' }
-BigTalkGame >> leaderName [
-
-	^ scoreboard leaderName
-]
-
-{ #category : #'accessing - leader' }
 BigTalkGame >> leaderPosition [
 
 	^ scoreboard leaderPosition
@@ -230,7 +219,7 @@ BigTalkGame >> moveCurrentPlayer [
 { #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
 	
-	self validatePlayabilityOn: aCard usedBy: aPlayer usedOn: affected.
+	self validatePlayabilityOn: aCard by: aPlayer on: affected.
 	aPlayer useCardFromHand: aCard.
 	aCard applyOn: self to: affected.
 	(aCard = Redo new)
@@ -265,13 +254,13 @@ BigTalkGame >> rankOf: aPlayer [
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> removeActiveCard: aCard for: affected [ 
+BigTalkGame >> removeActiveCard: aCard from: affected [ 
 
-	activeCards remove: aCard for: affected 
+	activeCards remove: aCard from: affected 
 ]
 
-{ #category : #private }
-BigTalkGame >> validatePlayabilityOn: aCard usedBy: aPlayer usedOn: affected [
+{ #category : #'private - validations' }
+BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer on: affected [
 
 ( aCard isPermanent and: currentPlayer ~= aPlayer ) 
 	ifTrue: [ Error signal: 'Players can only play permanent cards during their turn'  ] .

@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #validation }
+Dice class >> validate: someDice [
+
+	self validateEmptyDiceCollection: someDice
+]
+
+{ #category : #validation }
 Dice class >> validateEmptyDiceCollection: someDice [
 
 	someDice isEmpty
@@ -17,12 +23,12 @@ Dice class >> validateEmptyDiceCollection: someDice [
 { #category : #'instance creation' }
 Dice class >> with: someDice [
 
-	self validateEmptyDiceCollection: someDice.
-	^ self new initializeUsing: someDice
+	self validate: someDice.
+	^ self new initializeWith: someDice
 ]
 
-{ #category : #initialize }
-Dice >> initializeUsing: aDiceCollection [
+{ #category : #initialization }
+Dice >> initializeWith: aDiceCollection [
 
 	dice := aDiceCollection
 ]

@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #test }
+{ #category : #tests }
 PlayerTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedErrorMessage [
 
 	self
@@ -14,19 +14,11 @@ PlayerTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedEr
 			[ :error | self assert: error messageText equals: expectedErrorMessage ]
 ]
 
-{ #category : #test }
+{ #category : #tests }
 PlayerTest >> testCannotCreateAPlayerWithoutName [
 
 	self
 		should: [Player named: '']
 		raise: Error 
 		withMessage: 'A player cannot have an empty name'.
-]
-
-{ #category : #test }
-PlayerTest >> testCreateAPlayerWithName [
-
-	| aPlayer |
-	aPlayer := Player named: 'Martin'.
-	self assert: aPlayer playerName equals: 'Martin'
 ]

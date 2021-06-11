@@ -10,10 +10,10 @@ Class {
 { #category : #'instance creation' }
 ActiveCardController class >> forPlayers: somePlayers [
 	
-	^self new initializeWithPlayers: somePlayers
+	^self new initializeWith: somePlayers
 ]
 
-{ #category : #initialization }
+{ #category : #'accessing - Card adding/removing' }
 ActiveCardController >> add: aCard to: aPlayer [
 
 	| currCards |
@@ -23,14 +23,14 @@ ActiveCardController >> add: aCard to: aPlayer [
 ]
 
 { #category : #initialization }
-ActiveCardController >> initializeWithPlayers: somePlayers [
+ActiveCardController >> initializeWith: somePlayers [
 
 	cardregistry := Dictionary new.
 	somePlayers
 		do: [ :player | cardregistry at: player put: OrderedCollection new ]
 ]
 
-{ #category : #initialization }
+{ #category : #validations }
 ActiveCardController >> isEmpty [ 
 | activeCards |
 
@@ -38,7 +38,7 @@ ActiveCardController >> isEmpty [
 	^ activeCards < 1
 ]
 
-{ #category : #initialization }
+{ #category : #'accessing - card effects' }
 ActiveCardController >> playerRollModifier: aPlayer [
 
 	| currCards |
@@ -46,11 +46,11 @@ ActiveCardController >> playerRollModifier: aPlayer [
 	^ currCards inject: 0 into: [ :prev :curr | prev + curr effect ]
 ]
 
-{ #category : #initialization }
-ActiveCardController >> remove: aCard for: aPlayer [
+{ #category : #'accessing - Card adding/removing' }
+ActiveCardController >> remove: aCard from: aPlayer [
 	| currCards index |
 	currCards := cardregistry at: aPlayer.
-	index := currCards
+	index :=  currCards
 		indexOf: aCard
 		ifAbsent: [ Error signal: 'The player does not have that card' ].
 	currCards removeAt: index

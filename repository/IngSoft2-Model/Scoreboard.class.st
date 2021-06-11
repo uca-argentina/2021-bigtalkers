@@ -10,11 +10,11 @@ Class {
 { #category : #'instance creation' }
 Scoreboard class >> competingPlayers: somePlayers [
 
-	^ self new initializeWithPlayers: somePlayers
+	^ self new initializeWith: somePlayers
 ]
 
-{ #category : #initialize }
-Scoreboard >> initializeWithPlayers: somePlayers [
+{ #category : #initialization }
+Scoreboard >> initializeWith: somePlayers [
 
 	scoreboard := Dictionary new.
 	somePlayers

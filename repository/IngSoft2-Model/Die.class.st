@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #validation }
+Die class >> validate: aNumberOfSides [
+
+	self validateSides: aNumberOfSides
+]
+
+{ #category : #validation }
 Die class >> validateSides: aNumberOfSides [
 
 	aNumberOfSides < 4
@@ -17,12 +23,12 @@ Die class >> validateSides: aNumberOfSides [
 { #category : #'instance creation' }
 Die class >> withSides: aNumberOfSides [
 
-	self validateSides: aNumberOfSides.
-	^ self new initializeUsing: aNumberOfSides
+	self validate: aNumberOfSides.
+	^ self new initializeWith: aNumberOfSides
 ]
 
-{ #category : #initialize }
-Die >> initializeUsing: aNumberOfSides [
+{ #category : #initialization }
+Die >> initializeWith: aNumberOfSides [
 
 	sides := aNumberOfSides
 ]
