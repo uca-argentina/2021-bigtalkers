@@ -32,6 +32,13 @@ Board class >> using: aBoardSlotGenerator withAmount: aNumberOfSlots [
 ]
 
 { #category : #validation }
+Board class >> validate: aNumberOfSlots [
+
+	self validateMinimumSlots: aNumberOfSlots
+
+]
+
+{ #category : #validation }
 Board class >> validateMinimumSlots: aNumberOfSlots [
 
 	aNumberOfSlots > 0

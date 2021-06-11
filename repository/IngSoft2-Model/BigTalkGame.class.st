@@ -20,8 +20,8 @@ Class {
 { #category : #'instance creation' }
 BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard finishingAtLap: aLapNumber [
 
-	self validateDuplicatePlayers: somePlayers.
-	self validateNoPlayers: somePlayers.
+	self validate: somePlayers.
+
 	^ self new
 		initializeWithPlayers: somePlayers
 		withDice: someDice
@@ -33,14 +33,21 @@ BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard 
 { #category : #'instance creation' }
 BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard finishingAtLap: aLapNumber usingDeck: aDeck [
 
-	self validateDuplicatePlayers: somePlayers.
-	self validateNoPlayers: somePlayers.
+	self validate: somePlayers.
+	
 	^ self new
 		initializeWithPlayers: somePlayers
 		withDice: someDice
 		withBoard: aBoard
 		finishingAtLap: aLapNumber
 		withDeck: aDeck
+]
+
+{ #category : #validation }
+BigTalkGame class >> validate: somePlayers [
+
+	self validateNoPlayers: somePlayers.
+	self validateDuplicatePlayers: somePlayers
 ]
 
 { #category : #validation }
@@ -252,7 +259,7 @@ BigTalkGame >> removeActiveCard: aCard from: affected [
 	activeCards remove: aCard from: affected 
 ]
 
-{ #category : #private }
+{ #category : #'private - validations' }
 BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer on: affected [
 
 ( aCard isPermanent and: currentPlayer ~= aPlayer ) 

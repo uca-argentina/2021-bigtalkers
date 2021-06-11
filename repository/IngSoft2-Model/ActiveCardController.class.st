@@ -13,7 +13,7 @@ ActiveCardController class >> forPlayers: somePlayers [
 	^self new initializeWith: somePlayers
 ]
 
-{ #category : #initialization }
+{ #category : #'accessing - Card adding/removing' }
 ActiveCardController >> add: aCard to: aPlayer [
 
 	| currCards |
@@ -30,7 +30,7 @@ ActiveCardController >> initializeWith: somePlayers [
 		do: [ :player | cardregistry at: player put: OrderedCollection new ]
 ]
 
-{ #category : #initialization }
+{ #category : #validations }
 ActiveCardController >> isEmpty [ 
 | activeCards |
 
@@ -38,7 +38,7 @@ ActiveCardController >> isEmpty [
 	^ activeCards < 1
 ]
 
-{ #category : #initialization }
+{ #category : #'accessing - card effects' }
 ActiveCardController >> playerRollModifier: aPlayer [
 
 	| currCards |
@@ -46,7 +46,7 @@ ActiveCardController >> playerRollModifier: aPlayer [
 	^ currCards inject: 0 into: [ :prev :curr | prev + curr effect ]
 ]
 
-{ #category : #initialization }
+{ #category : #'accessing - Card adding/removing' }
 ActiveCardController >> remove: aCard from: aPlayer [
 	| currCards index |
 	currCards := cardregistry at: aPlayer.

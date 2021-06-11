@@ -10,8 +10,15 @@ Class {
 { #category : #'instance creation' }
 LoadedDie class >> rolling: anExpectedRoll [
 
-	self validateLoadedDieCannotHaveNegativeResult: anExpectedRoll.
+	self validate: anExpectedRoll.
 	^ self new initializeWith: anExpectedRoll
+]
+
+{ #category : #validation }
+LoadedDie class >> validate: anExpectedRoll [
+
+	self validateLoadedDieCannotHaveNegativeResult: anExpectedRoll
+
 ]
 
 { #category : #validation }

@@ -12,15 +12,20 @@ Class {
 { #category : #'instance creation' }
 BoardSlotGenerator class >> basedOn: eventsDistribution [
 
-	self validateTotalProbability: eventsDistribution.
+	self validate: eventsDistribution.
 	^ self new initializeWith: eventsDistribution
+]
+
+{ #category : #validation }
+BoardSlotGenerator class >> validate: eventsDistribution [
+
+	self validateTotalProbability: eventsDistribution
 ]
 
 { #category : #validation }
 BoardSlotGenerator class >> validateTotalProbability: eventsDistribution [ 
 	|probabilities totalProbability|
-	probabilities := OrderedCollection new.
-	eventsDistribution do: [ :event| probabilities add: (event probability) ].
+	probabilities :=  eventsDistribution collect: [ :event| event probability ].
 	totalProbability := probabilities inject: 0 into: [:sum :each | sum + each ].
 	
 

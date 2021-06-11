@@ -11,8 +11,14 @@ Class {
 { #category : #'instance creation' }
 DiscreteProbabilityEvent class >> of: anEvent with: anEventProbability [
 
-	self validatePositiveProbability: anEventProbability.
+	self validate: anEventProbability.
 	^ self new initiliazeWith: anEvent whichProbabilityIs: anEventProbability
+]
+
+{ #category : #validation }
+DiscreteProbabilityEvent class >> validate: aProbability [
+
+	self validatePositiveProbability: aProbability
 ]
 
 { #category : #validation }
