@@ -178,6 +178,7 @@ BigTalkGame >> initializeWithPlayers: somePlayers withDice: someDice withBoard: 
 	board := aBoard.
 	board addPlayers: somePlayers.
 	deck := aDeck.
+	self playersDrawStartingCards.
 	activeCards := ActiveCardController forPlayers: somePlayers.
 	lastEffect := NoEffect new.
 	scoreboard := Scoreboard competingPlayers: somePlayers.
@@ -245,6 +246,14 @@ BigTalkGame >> playerMoveAfterRoll: aPlayer [
 BigTalkGame >> playerMoveToStart: aPlayer [
 
 	board moveToStart: aPlayer
+]
+
+{ #category : #private }
+BigTalkGame >> playersDrawStartingCards [
+	players
+		do: [ :player | 
+			player drawCardFrom: deck.
+			player drawCardFrom: deck ]
 ]
 
 { #category : #'accesing - player' }

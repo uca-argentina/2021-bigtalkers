@@ -65,7 +65,7 @@ CardTest >> testAGamePlayerPlaysCardNotInHand [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	self
-		should: [ aGame player: player1 usesCard: overloadCard on: player1 ]
+		should: [ aGame player: player1 usesCard: speedCard on: player1 ]
 		raise: Error
 		withMessage: 'The player does not have that card'
 ]
@@ -408,6 +408,8 @@ CardTest >> testPlayerFallsOnGrabCardGrabsSpeed [
 		finishingAtLap: 1
 		usingDeck: Deck onlySpeedCards.
 	
+	aGame player: player1 usesCard: speedCard on: player2.
+	aGame player: player1 usesCard: speedCard on: player2.
 	self
 		should: [ aGame player: player1 usesCard: speedCard on: player2 ]
 		raise: Error
@@ -424,5 +426,5 @@ CardTest >> testPlayerFallsOnGrabCardGrabsSpeed [
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 6.
-	self assert: (aGame currentSlotOf: player2) equals: 7
+	self assert: (aGame currentSlotOf: player2) equals: 5
 ]
