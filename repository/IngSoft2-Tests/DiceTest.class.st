@@ -42,7 +42,7 @@ DiceTest >> testLoadedDiceRollsExpectedValue [
 		with:
 			{aTwoSidedDie.
 			aFourSidedDie}.
-	 self assert: someDice roll equals: 6 
+	self assert: someDice roll equals: 6
 ]
 
 { #category : #tests }

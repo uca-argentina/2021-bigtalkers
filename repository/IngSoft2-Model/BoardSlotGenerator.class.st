@@ -23,29 +23,36 @@ BoardSlotGenerator class >> validate: eventsDistribution [
 ]
 
 { #category : #validation }
-BoardSlotGenerator class >> validateTotalProbability: eventsDistribution [ 
-	|probabilities totalProbability|
-	probabilities :=  eventsDistribution collect: [ :event| event probability ].
-	totalProbability := probabilities inject: 0 into: [:sum :each | sum + each ].
-	
+BoardSlotGenerator class >> validateTotalProbability: eventsDistribution [
 
-	totalProbability  = 1
-	ifFalse: [ Error signal: 'All probabilities must sum 1' ]
+	| probabilities totalProbability |
+	probabilities := eventsDistribution
+		collect: [ :event | event probability ].
+	totalProbability := probabilities
+		inject: 0
+		into: [ :sum :each | sum + each ].
+	totalProbability = 1
+		ifFalse: [ Error signal: 'All probabilities must sum 1' ]
 ]
 
 { #category : #generating }
-BoardSlotGenerator >> generates: aNumberOfSlots [ 
-	|events|
-	events := OrderedCollection new.
-	aNumberOfSlots timesRepeat: [ events add: (eventsPool atRandom: randomness) ].	
-	^events.
+BoardSlotGenerator >> generates: aNumberOfSlots [
 
+	| events |
+	events := OrderedCollection new.
+	aNumberOfSlots
+		timesRepeat: [ events add: (eventsPool atRandom: randomness) ].
+	^ events
 ]
 
 { #category : #initialization }
-BoardSlotGenerator >> initializeWith: eventsDistribution [ 
+BoardSlotGenerator >> initializeWith: eventsDistribution [
 
-	randomness := Random new. 
+	randomness := Random new.
 	eventsPool := OrderedCollection new.
-	eventsDistribution do: [:probabilityEvent | eventsPool add: probabilityEvent event withOccurrences: (probabilityEvent 	probability * 100 ) asInteger ].
+	eventsDistribution
+		do: [ :probabilityEvent | 
+			eventsPool
+				add: probabilityEvent event
+				withOccurrences: (probabilityEvent probability * 100) asInteger ]
 ]

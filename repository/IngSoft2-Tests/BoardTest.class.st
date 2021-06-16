@@ -29,22 +29,19 @@ BoardTest >> testBoardCannotBeCreatedWithZeroSlots [
 { #category : #tests }
 BoardTest >> testBoardSlotGeneratorCannotBeBasedOnAnEventDistributionWithTotalProbabilitiesDifferentThanOne [
 
-	| eventsDistribution  |
+	| eventsDistribution |
 	eventsDistribution := OrderedCollection new.
 	eventsDistribution
 		add: (DiscreteProbabilityEvent of: BoardSlot withNoEffect with: 0.38);
 		add: (DiscreteProbabilityEvent of: BoardSlot withSpeedUp with: 0.2);
 		add: (DiscreteProbabilityEvent of: BoardSlot withWormHole with: 0.2);
-		add: (DiscreteProbabilityEvent of: BoardSlot withMoonwalk with: 0.3);
+		add: (DiscreteProbabilityEvent of: BoardSlot withMoonwalkWithFixedValue with: 0.3);
 		add: (DiscreteProbabilityEvent of: BoardSlot withAtomicBomb with: 0.02);
 		add: (DiscreteProbabilityEvent of: BoardSlot withGrabCard with: 0.10).
-
-	
 	self
-		should: [ BoardSlotGenerator basedOn: eventsDistribution. ]
+		should: [ BoardSlotGenerator basedOn: eventsDistribution ]
 		raise: Error
 		withMessage: 'All probabilities must sum 1'
-
 ]
 
 { #category : #tests }

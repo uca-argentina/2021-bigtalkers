@@ -21,20 +21,18 @@ Class {
 BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard finishingAtLap: aLapNumber [
 
 	self validate: somePlayers.
-
 	^ self new
 		initializeWithPlayers: somePlayers
 		withDice: someDice
 		withBoard: aBoard
 		finishingAtLap: aLapNumber
-		withDeck: Deck onlyOverloadCards 
+		withDeck: Deck onlyOverloadCards
 ]
 
 { #category : #'instance creation' }
 BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard finishingAtLap: aLapNumber usingDeck: aDeck [
 
 	self validate: somePlayers.
-	
 	^ self new
 		initializeWithPlayers: somePlayers
 		withDice: someDice
@@ -69,6 +67,7 @@ BigTalkGame class >> validateNoPlayers: somePlayers [
 
 { #category : #private }
 BigTalkGame >> addActiveCard: aCard on: affected [
+
 	affected isCollection
 		ifTrue: [ affected do: [ :player | activeCards add: aCard to: player ] ]
 		ifFalse: [ activeCards add: aCard to: affected ]
@@ -92,7 +91,7 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 { #category : #'effect-application' }
 BigTalkGame >> applyLastCardTo: affected [
 
-	lastCardUsed  applyOn: self to: affected
+	lastCardUsed applyOn: self to: affected
 ]
 
 { #category : #'effect-application' }
@@ -102,7 +101,7 @@ BigTalkGame >> applyLastEffectTo: affected [
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyMoonWalk: N toPlayer: affected [ 
+BigTalkGame >> applyMoonWalk: N toPlayer: affected [
 
 	self playerMove: affected slots: N.
 	players do: [ :player | self playerMove: player slots: N * -1 ]
@@ -163,7 +162,7 @@ BigTalkGame >> effectAt: aPosition [
 	^ board effectAt: aPosition
 ]
 
-{ #category : #'accessing - variables' }
+{ #category : #'accessing - finishing' }
 BigTalkGame >> hasFinished [
 
 	^ self leaderLap >= finishingLap
@@ -219,11 +218,11 @@ BigTalkGame >> moveCurrentPlayer [
 
 { #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
-	
+
 	self validatePlayabilityOn: aCard by: aPlayer on: affected.
 	aPlayer useCardFromHand: aCard.
 	aCard applyOn: self to: affected.
-	(aCard = Redo new)
+	aCard = Redo new
 		ifFalse: [ lastCardUsed := aCard ]
 ]
 
@@ -250,6 +249,7 @@ BigTalkGame >> playerMoveToStart: aPlayer [
 
 { #category : #private }
 BigTalkGame >> playersDrawStartingCards [
+
 	players
 		do: [ :player | 
 			player drawCardFrom: deck.
@@ -263,17 +263,18 @@ BigTalkGame >> rankOf: aPlayer [
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> removeActiveCard: aCard from: affected [ 
+BigTalkGame >> removeActiveCard: aCard from: affected [
 
-	activeCards remove: aCard from: affected 
+	activeCards remove: aCard from: affected
 ]
 
 { #category : #'private - validations' }
 BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer on: affected [
 
-( aCard isPermanent and: currentPlayer ~= aPlayer ) 
-	ifTrue: [ Error signal: 'Players can only play permanent cards during their turn'  ] .
-
-( aCard className = 'Cancellation' and: activeCards isEmpty )
-	ifTrue: [ Error signal: 'Cant play cancellation with no active cards in game'  ] .
+	(aCard isPermanent and: currentPlayer ~= aPlayer)
+		ifTrue: [ Error
+				signal: 'Players can only play permanent cards during their turn' ].
+	(aCard className = 'Cancellation' and: activeCards isEmpty)
+		ifTrue:
+			[ Error signal: 'Cant play cancellation with no active cards in game' ]
 ]

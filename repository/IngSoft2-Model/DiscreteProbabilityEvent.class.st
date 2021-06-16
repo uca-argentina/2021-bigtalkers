@@ -23,9 +23,9 @@ DiscreteProbabilityEvent class >> validate: aProbability [
 
 { #category : #validation }
 DiscreteProbabilityEvent class >> validatePositiveProbability: aProbability [
+
 	aProbability > 0
-		ifFalse: [ Error signal: 'Probabilities must be positive' ].
-	
+		ifFalse: [ Error signal: 'Probabilities must be positive' ]
 ]
 
 { #category : #'accessing - variables' }

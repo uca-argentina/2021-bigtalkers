@@ -26,9 +26,6 @@ Board class >> using: aBoardSlotGenerator withAmount: aNumberOfSlots [
 	slots := OrderedCollection new.
 	slots := aBoardSlotGenerator generates: aNumberOfSlots.
 	^ self new initializeWithEffects: slots
-
-
-
 ]
 
 { #category : #validation }
@@ -80,9 +77,8 @@ Board >> effectAt: aPosition [
 { #category : #initialization }
 Board >> initializeWithEffects: aCollectionOfSlots [
 
-	slots := aCollectionOfSlots .
-	playerPositions := Dictionary new.
-
+	slots := aCollectionOfSlots.
+	playerPositions := Dictionary new
 ]
 
 { #category : #private }

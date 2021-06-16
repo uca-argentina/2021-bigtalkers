@@ -13,7 +13,7 @@ ActiveCardController class >> forPlayers: somePlayers [
 	^self new initializeWith: somePlayers
 ]
 
-{ #category : #'accessing - Card adding/removing' }
+{ #category : #'accessing - adding/removing' }
 ActiveCardController >> add: aCard to: aPlayer [
 
 	| currCards |
@@ -31,14 +31,16 @@ ActiveCardController >> initializeWith: somePlayers [
 ]
 
 { #category : #validations }
-ActiveCardController >> isEmpty [ 
-| activeCards |
+ActiveCardController >> isEmpty [
 
-	activeCards := cardregistry inject: 0 into: [ :prev :curr | prev + (curr size) ].
+	| activeCards |
+	activeCards := cardregistry
+		inject: 0
+		into: [ :prev :curr | prev + curr size ].
 	^ activeCards < 1
 ]
 
-{ #category : #'accessing - card effects' }
+{ #category : #'accessing -  effects' }
 ActiveCardController >> playerRollModifier: aPlayer [
 
 	| currCards |
@@ -46,11 +48,12 @@ ActiveCardController >> playerRollModifier: aPlayer [
 	^ currCards inject: 0 into: [ :prev :curr | prev + curr effect ]
 ]
 
-{ #category : #'accessing - Card adding/removing' }
+{ #category : #'accessing - adding/removing' }
 ActiveCardController >> remove: aCard from: aPlayer [
+
 	| currCards index |
 	currCards := cardregistry at: aPlayer.
-	index :=  currCards
+	index := currCards
 		indexOf: aCard
 		ifAbsent: [ Error signal: 'The player does not have that card' ].
 	currCards removeAt: index

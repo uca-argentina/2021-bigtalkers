@@ -18,7 +18,7 @@ PlayerTest >> should: anErrorBlock raise: exceptionClass withMessage: expectedEr
 PlayerTest >> testCannotCreateAPlayerWithoutName [
 
 	self
-		should: [Player named: '']
-		raise: Error 
-		withMessage: 'A player cannot have an empty name'.
+		should: [ Player named: '' ]
+		raise: Error
+		withMessage: 'A player cannot have an empty name'
 ]

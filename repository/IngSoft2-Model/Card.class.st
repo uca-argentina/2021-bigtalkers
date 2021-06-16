@@ -6,7 +6,8 @@ Class {
 
 { #category : #'card - effect applications' }
 Card >> = anotherCard [
-	^self className = anotherCard className
+
+	^ self className = anotherCard className
 ]
 
 { #category : #'card - effect applications' }

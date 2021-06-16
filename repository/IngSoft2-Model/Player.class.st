@@ -21,7 +21,7 @@ Player class >> named: aName [
 { #category : #validation }
 Player class >> validate: aName [
 
- self validatePlayersNameCannotBeEmpty: aName
+	self validatePlayersNameCannotBeEmpty: aName
 ]
 
 { #category : #validation }
@@ -33,6 +33,7 @@ Player class >> validatePlayersNameCannotBeEmpty: aName [
 
 { #category : #'accessing - cards' }
 Player >> drawCardFrom: aDeck [
+
 	| newCard |
 	newCard := aDeck draw.
 	hand add: newCard
@@ -53,8 +54,11 @@ Player >> playerName [
 
 { #category : #'accessing - cards' }
 Player >> useCardFromHand: aCard [
+
 	| index |
-	index := hand indexOf: aCard ifAbsent: [ Error signal: 'The player does not have that card'  ] .
+	index := hand
+		indexOf: aCard
+		ifAbsent: [ Error signal: 'The player does not have that card' ].
 	hand removeAt: index.
 	^ index >= 0
 ]
