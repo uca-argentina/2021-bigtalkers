@@ -386,6 +386,32 @@ CardTest >> testAGameWithRedoAnOverload [
 ]
 
 { #category : #tests }
+CardTest >> testDefaultDeckHandsAllCards [
+	| aDeck aSet|
+	aDeck := Deck default.
+	aSet := Set new.
+	
+	1 to: 100 do: [:iter | aSet add: aDeck draw.].
+	
+	self assert: aSet size equals: 6
+
+
+]
+
+{ #category : #tests }
+CardTest >> testDefaultDeckWithOnlySomeCardTypes [
+	| aDeck aSet|
+	aDeck := Deck using: {speedCard . overloadCard . accelerationCard }.
+	aSet := Set new.
+	
+	1 to: 100 do: [:iter | aSet add: aDeck draw.].
+	
+	self assert: aSet size equals: 3
+
+
+]
+
+{ #category : #tests }
 CardTest >> testPlayerFallsOnGrabCardGrabsSpeed [
 	| aGame aDie aBoard aDice slots |
 	aDie := LoadedDie rolling: 2.

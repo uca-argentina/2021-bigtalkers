@@ -41,12 +41,6 @@ Scoreboard >> leaderLap [
 ]
 
 { #category : #'accessing - leader' }
-Scoreboard >> leaderName [
-
-	^ self leader key playerName
-]
-
-{ #category : #'accessing - leader' }
 Scoreboard >> leaderPosition [
 
 	^ self leader value currentSlot

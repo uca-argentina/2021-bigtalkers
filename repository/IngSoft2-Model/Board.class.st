@@ -12,7 +12,7 @@ Class {
 Board class >> sizedWithNoEffects: aNumberOfSlots [
 
 	| slots |
-	self validateMinimumSlots: aNumberOfSlots.
+	self validate: aNumberOfSlots.
 	slots := OrderedCollection new.
 	1 to: aNumberOfSlots do: [ :iter | slots add: BoardSlot withNoEffect ].
 	^ self new initializeWithEffects: slots
@@ -22,7 +22,7 @@ Board class >> sizedWithNoEffects: aNumberOfSlots [
 Board class >> using: aBoardSlotGenerator withAmount: aNumberOfSlots [
 
 	| slots |
-	self validateMinimumSlots: aNumberOfSlots.
+	self validate: aNumberOfSlots.
 	slots := OrderedCollection new.
 	slots := aBoardSlotGenerator generates: aNumberOfSlots.
 	^ self new initializeWithEffects: slots
