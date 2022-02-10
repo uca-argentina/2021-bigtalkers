@@ -10,12 +10,6 @@ Instant >> applyOn: aGame to: affected [
 	^self subclassResponsibility
 ]
 
-{ #category : #'card - effect applications' }
-Instant >> isPermanent [
-
-	^false
-]
-
 { #category : #'private - validations' }
 Instant >> playableBy: aPlayer on: aGame affecting: target [
 

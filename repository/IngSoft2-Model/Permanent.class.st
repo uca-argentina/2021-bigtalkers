@@ -20,11 +20,6 @@ Permanent >> effect [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'card - effect applications' }
-Permanent >> isPermanent [
-
-	^ true
-]
 
 { #category : #'private - validations' }
 Permanent >> playableBy: aPlayer on: aGame affecting: target [
