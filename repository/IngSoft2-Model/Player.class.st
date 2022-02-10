@@ -39,6 +39,13 @@ Player >> drawCardFrom: aDeck [
 	hand add: newCard
 ]
 
+{ #category : #'private - validation' }
+Player >> hasEmptyHand [
+
+	(hand size equals: 0) ifTrue: [ 
+		Error signal: 'The player does not have cards left' ]
+]
+
 { #category : #initialization }
 Player >> initializeWith: aName [
 	
@@ -56,9 +63,12 @@ Player >> playerName [
 Player >> useCardFromHand: aCard [
 
 	| index |
-	index := hand
-		indexOf: aCard
-		ifAbsent: [ Error signal: 'The player does not have that card' ].
+	index := hand indexOf: aCard ifAbsent: [ 
+		         hand isEmpty
+			         ifTrue: [ 
+			         Error signal: 'The player does not have any cards left' ]
+			         ifFalse: [ 
+			         Error signal: 'The player does not have that card' ] ].
 	hand removeAt: index.
 	^ index >= 0
 ]
