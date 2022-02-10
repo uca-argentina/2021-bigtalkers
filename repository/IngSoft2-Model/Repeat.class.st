@@ -9,3 +9,9 @@ Repeat >> applyOn: aGame to: aPlayer [
 
 	aGame applyLastEffectTo: aPlayer
 ]
+
+{ #category : #'card - effect applications' }
+Repeat >> playableBy: aPlayer on: aGame [ 
+
+	^ true
+]

@@ -15,3 +15,9 @@ Instant >> isPermanent [
 
 	^false
 ]
+
+{ #category : #'card - effect applications' }
+Instant >> playableBy: aPlayer on: aGame [ 
+
+	^ self subclassResponsibility
+]

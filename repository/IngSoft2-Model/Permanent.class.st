@@ -25,3 +25,10 @@ Permanent >> isPermanent [
 
 	^ true
 ]
+
+{ #category : #'card - effect applications' }
+Permanent >> playableBy: aPlayer on: aGame [ 
+
+	aGame currentTurnPlayer  ~= aPlayer ifTrue: [ Error
+				signal: 'Players can only play permanent cards during their turn' ].
+]

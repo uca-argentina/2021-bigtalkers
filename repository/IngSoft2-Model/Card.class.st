@@ -21,3 +21,9 @@ Card >> isPermanent [
 
 	^ self subclassResponsibility
 ]
+
+{ #category : #'card - effect applications' }
+Card >> playableBy: aPlayer on: aGame [ 
+
+	^ self subclassResponsibility
+]

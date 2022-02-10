@@ -65,6 +65,12 @@ BigTalkGame class >> validateNoPlayers: somePlayers [
 		ifTrue: [ Error signal: 'You need at least one player to play' ]
 ]
 
+{ #category : #'accessing - game' }
+BigTalkGame >> activeCardStack [
+
+	^ activeCards 
+]
+
 { #category : #private }
 BigTalkGame >> addActiveCard: aCard on: affected [
 
@@ -219,7 +225,7 @@ BigTalkGame >> moveCurrentPlayer [
 { #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
 
-	self validatePlayabilityOn: aCard by: aPlayer on: affected.
+	self validatePlayabilityOn: aCard by: aPlayer.
 	aPlayer useCardFromHand: aCard.
 	aCard applyOn: self to: affected.
 	aCard = Redo new
@@ -269,12 +275,7 @@ BigTalkGame >> removeActiveCard: aCard from: affected [
 ]
 
 { #category : #'private - validations' }
-BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer on: affected [
+BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer [
 
-	(aCard isPermanent and: currentPlayer ~= aPlayer)
-		ifTrue: [ Error
-				signal: 'Players can only play permanent cards during their turn' ].
-	(aCard className = 'Cancellation' and: activeCards isEmpty)
-		ifTrue:
-			[ Error signal: 'Cant play cancellation with no active cards in game' ]
+	aCard playableBy: aPlayer on: self 
 ]

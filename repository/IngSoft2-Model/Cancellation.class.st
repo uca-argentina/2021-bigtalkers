@@ -12,3 +12,10 @@ Cancellation >> applyOn: aGame to: affected [
 	player := affected at: 2.
 	aGame removeActiveCard: cancelledCard from: player
 ]
+
+{ #category : #'private - validations' }
+Cancellation >> playableBy: aPlayer on: aGame [
+	
+	aGame activeCardStack isEmpty ifTrue: [ Error signal: 'Cant play cancellation with no active cards in game' ]
+	
+]

@@ -15,3 +15,9 @@ Redo >> isPermanent [
 
 	^ false
 ]
+
+{ #category : #'card - effect applications' }
+Redo >> playableBy: aPlayer on: aGame [ 
+
+	^ true
+]
