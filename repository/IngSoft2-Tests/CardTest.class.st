@@ -327,6 +327,48 @@ CardTest >> testAGameWithAnOverloadCard [
 ]
 
 { #category : #tests }
+CardTest >> testAGameWithAnOverloadCardOnTwoPlayers [
+
+	| aGame aDie aBoard aDice |
+	player1 drawCardFrom: overloadDeck.
+	aDie := LoadedDie rolling: 4.
+	aDice := Dice with: {aDie}.
+	aBoard := Board sizedWithNoEffects: 6.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 1.
+	self
+		should: [ aGame player: player1 usesCard: overloadCard on: {player1.player2} ]
+		raise: Error
+		withMessage: 'This card can only be played on 1 player'.
+]
+
+{ #category : #tests }
+CardTest >> testAGameWithAnSpeedCardOnTwoPlayers [
+
+	| aGame aDie aBoard aDice |
+	player1 drawCardFrom: speedDeck .
+	aDie := LoadedDie rolling: 4.
+	aDice := Dice with: {aDie}.
+	aBoard := Board sizedWithNoEffects: 6.
+	aGame := BigTalkGame
+		playedBy:
+			{player1.
+			player2}
+		usingDice: aDice
+		playedOn: aBoard
+		finishingAtLap: 1.
+	self
+		should: [ aGame player: player1 usesCard: speedCard  on: {player1.player2} ]
+		raise: Error
+		withMessage: 'This card can only be played on 1 player'.
+]
+
+{ #category : #tests }
 CardTest >> testAGameWithDoubleRedoAnAcceleration [
 	| aGame aDie aBoard aDice allPlayers |
 	player1 drawCardFrom: accelerationDeck.
