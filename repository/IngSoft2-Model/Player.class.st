@@ -39,13 +39,6 @@ Player >> drawCardFrom: aDeck [
 	hand add: newCard
 ]
 
-{ #category : #'private - validation' }
-Player >> hasEmptyHand [
-
-	(hand size equals: 0) ifTrue: [ 
-		Error signal: 'The player does not have cards left' ]
-]
-
 { #category : #initialization }
 Player >> initializeWith: aName [
 	
