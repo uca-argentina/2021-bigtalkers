@@ -9,3 +9,10 @@ Speed >> effect [
 
 	^1 
 ]
+
+{ #category : #'private - validations' }
+Speed >> playableBy: aPlayer on: aGame affecting: affected [
+
+	aGame currentTurnPlayer  ~= aPlayer ifTrue: [ Error
+				signal: 'Players can only play permanent cards during their turn' ].
+]

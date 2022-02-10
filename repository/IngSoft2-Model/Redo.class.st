@@ -16,8 +16,8 @@ Redo >> isPermanent [
 	^ false
 ]
 
-{ #category : #'card - effect applications' }
-Redo >> playableBy: aPlayer on: aGame [ 
+{ #category : #'private - validations' }
+Redo >> playableBy: aPlayer on: aGame affecting: affected [
 
 	^ true
 ]

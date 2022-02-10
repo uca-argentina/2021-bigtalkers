@@ -222,10 +222,10 @@ BigTalkGame >> moveCurrentPlayer [
 		ifTrue: [ Error signal: 'The game has finished' ]
 ]
 
-{ #category : #private }
+{ #category : #playing }
 BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
 
-	self validatePlayabilityOn: aCard by: aPlayer.
+	self validatePlayabilityOn: aCard by: aPlayer affecting: affected.
 	aPlayer useCardFromHand: aCard.
 	aCard applyOn: self to: affected.
 	aCard = Redo new
@@ -278,4 +278,10 @@ BigTalkGame >> removeActiveCard: aCard from: affected [
 BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer [
 
 	aCard playableBy: aPlayer on: self 
+]
+
+{ #category : #'private - validations' }
+BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer affecting: affected [
+
+	aCard playableBy: aPlayer on: self affecting: affected 
 ]

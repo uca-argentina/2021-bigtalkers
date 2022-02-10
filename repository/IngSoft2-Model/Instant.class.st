@@ -16,8 +16,8 @@ Instant >> isPermanent [
 	^false
 ]
 
-{ #category : #'card - effect applications' }
-Instant >> playableBy: aPlayer on: aGame [ 
+{ #category : #'private - validations' }
+Instant >> playableBy: aPlayer on: aGame affecting: affected [
 
 	^ self subclassResponsibility
 ]

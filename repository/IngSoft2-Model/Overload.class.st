@@ -9,3 +9,10 @@ Overload >> effect [
 
 	^ -2
 ]
+
+{ #category : #'private - validations' }
+Overload >> playableBy: aPlayer on: aGame affecting: affected [
+
+	aGame currentTurnPlayer  ~= aPlayer ifTrue: [ Error
+				signal: 'Players can only play permanent cards during their turn' ].
+]
