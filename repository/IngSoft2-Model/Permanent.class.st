@@ -20,7 +20,6 @@ Permanent >> effect [
 	^ self subclassResponsibility
 ]
 
-
 { #category : #'private - validations' }
 Permanent >> playableBy: aPlayer on: aGame affecting: target [
 

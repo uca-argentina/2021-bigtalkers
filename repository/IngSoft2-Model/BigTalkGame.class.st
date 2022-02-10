@@ -317,12 +317,6 @@ self player: aPlayer usesCard: Speed new  on: target.
 ]
 
 { #category : #'private - validations' }
-BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer [
-
-	aCard playableBy: aPlayer on: self 
-]
-
-{ #category : #'private - validations' }
 BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer affecting: affected [
 
 	aCard playableBy: aPlayer on: self affecting: affected 

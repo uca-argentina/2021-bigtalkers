@@ -10,7 +10,6 @@ Redo >> applyOn: aGame to: affected [
 	aGame applyLastCardTo: affected
 ]
 
-
 { #category : #'private - validations' }
 Redo >> playableBy: aPlayer on: aGame affecting: target [
 

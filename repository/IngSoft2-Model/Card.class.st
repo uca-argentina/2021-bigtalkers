@@ -16,7 +16,6 @@ Card >> applyOn: aGame to: affected [
 	^ self subclassResponsibility
 ]
 
-
 { #category : #'private - validations' }
 Card >> playableBy: aPlayer on: aGame affecting: target [
 
