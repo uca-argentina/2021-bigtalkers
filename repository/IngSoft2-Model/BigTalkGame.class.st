@@ -65,6 +65,12 @@ BigTalkGame class >> validateNoPlayers: somePlayers [
 		ifTrue: [ Error signal: 'You need at least one player to play' ]
 ]
 
+{ #category : #'playing - card usage' }
+BigTalkGame >> accelerationCardUsedBy: aPlayer [ 
+
+self player: aPlayer usesCard: Acceleration new  on: players.
+]
+
 { #category : #'accessing - game' }
 BigTalkGame >> activeCardStack [
 
@@ -72,11 +78,11 @@ BigTalkGame >> activeCardStack [
 ]
 
 { #category : #private }
-BigTalkGame >> addActiveCard: aCard on: affected [
+BigTalkGame >> addActiveCard: aCard on: target [
 
-	affected isCollection
-		ifTrue: [ affected do: [ :player | activeCards add: aCard to: player ] ]
-		ifFalse: [ activeCards add: aCard to: affected ]
+	target isCollection
+		ifTrue: [ target do: [ :player | activeCards add: aCard to: player ] ]
+		ifFalse: [ activeCards add: aCard to: target ]
 ]
 
 { #category : #'effect-application' }
@@ -95,22 +101,28 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyLastCardTo: affected [
+BigTalkGame >> applyGrabCardTo: aPlayer [
 
-	lastCardUsed applyOn: self to: affected
+	self drawFromDeck: aPlayer
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyLastEffectTo: affected [
+BigTalkGame >> applyLastCardTo: target [
 
-	lastEffect applyTo: self toPlayer: affected
+	lastCardUsed applyOn: self to: target
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyMoonWalk: N toPlayer: affected [
+BigTalkGame >> applyLastEffectTo: target [
 
-	self playerMove: affected slots: N.
-	players do: [ :player | self playerMove: player slots: N * -1 ]
+	lastEffect applyTo: self toPlayer: target
+]
+
+{ #category : #'effect-application' }
+BigTalkGame >> applyMoonWalk: steps toPlayer: target [
+
+	self playerMove: target slots: steps.
+	players do: [ :player | self playerMove: player slots: steps * -1 ]
 ]
 
 { #category : #'effect-application' }
@@ -123,6 +135,12 @@ BigTalkGame >> applySpeedUpTo: aPlayer [
 BigTalkGame >> applyWormHoleTo: aPlayer [
 
 	self playerMove: aPlayer slots: -4
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> cancellationCardUsedBy: aPlayer targetting: target removing: aCancelledCard [ 
+
+self player: aPlayer usesCard: Cancellation new  on: {aCancelledCard.target}.
 ]
 
 { #category : #playing }
@@ -222,7 +240,13 @@ BigTalkGame >> moveCurrentPlayer [
 		ifTrue: [ Error signal: 'The game has finished' ]
 ]
 
-{ #category : #playing }
+{ #category : #'playing - card usage' }
+BigTalkGame >> overloadCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Overload new  on: target.
+]
+
+{ #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: target [
 
 	self validatePlayabilityOn: aCard by: aPlayer affecting: target.
@@ -268,20 +292,38 @@ BigTalkGame >> rankOf: aPlayer [
 	^ scoreboard rankOf: aPlayer
 ]
 
+{ #category : #'playing - card usage' }
+BigTalkGame >> redoCardUsedBy: aPlayer [
+
+self player: aPlayer usesCard: Redo new  on: players.
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> redoCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Redo new  on: target.
+]
+
 { #category : #'effect-application' }
-BigTalkGame >> removeActiveCard: aCard from: affected [
+BigTalkGame >> removeActiveCard: aCard from: target [
 
-	activeCards remove: aCard from: affected
+	activeCards remove: aCard from: target
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> repeatCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Repeat new  on: target.
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> speedCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Speed new  on: target.
 ]
 
 { #category : #'private - validations' }
-BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer [
+BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer affecting: target [
 
-	aCard playableBy: aPlayer on: self 
-]
-
-{ #category : #'private - validations' }
-BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer affecting: affected [
-
-	aCard playableBy: aPlayer on: self affecting: affected 
+	aCard playableBy: aPlayer on: self affecting: target 
 ]

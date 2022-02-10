@@ -5,15 +5,9 @@ Class {
 }
 
 { #category : #'card - effect applications' }
-Redo >> applyOn: aGame to: affected [
+Redo >> applyOn: aGame to: target [
 
-	aGame applyLastCardTo: affected
-]
-
-{ #category : #'card - effect applications' }
-Redo >> isPermanent [
-
-	^ false
+	aGame applyLastCardTo: target
 ]
 
 { #category : #'private - validations' }

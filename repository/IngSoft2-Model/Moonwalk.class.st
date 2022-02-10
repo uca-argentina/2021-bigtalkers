@@ -14,9 +14,9 @@ Moonwalk class >> withFixedValue: aNumber [
 ]
 
 { #category : #'effect-application' }
-Moonwalk >> applyTo: aGame toPlayer: affected [ 
+Moonwalk >> applyTo: aGame toPlayer: target [ 
 
-	aGame applyMoonWalk: N toPlayer: affected 
+	aGame applyMoonWalk: N toPlayer: target 
 ]
 
 { #category : #initialization }

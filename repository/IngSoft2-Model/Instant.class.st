@@ -5,15 +5,9 @@ Class {
 }
 
 { #category : #'card - effect applications' }
-Instant >> applyOn: aGame to: affected [
+Instant >> applyOn: aGame to: target [
 
 	^self subclassResponsibility
-]
-
-{ #category : #'card - effect applications' }
-Instant >> isPermanent [
-
-	^false
 ]
 
 { #category : #'private - validations' }

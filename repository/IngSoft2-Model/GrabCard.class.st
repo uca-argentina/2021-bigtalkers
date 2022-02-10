@@ -7,5 +7,5 @@ Class {
 { #category : #'effect-application' }
 GrabCard >> applyTo: aGame toPlayer: aPlayer [
 
-	aGame drawFromDeck: aPlayer
+	aGame applyGrabCardTo: aPlayer
 ]
