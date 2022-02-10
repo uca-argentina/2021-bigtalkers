@@ -65,6 +65,12 @@ BigTalkGame class >> validateNoPlayers: somePlayers [
 		ifTrue: [ Error signal: 'You need at least one player to play' ]
 ]
 
+{ #category : #'playing - card usage' }
+BigTalkGame >> accelerationCardUsedBy: aPlayer [ 
+
+self player: aPlayer usesCard: Acceleration new  on: players.
+]
+
 { #category : #'accessing - game' }
 BigTalkGame >> activeCardStack [
 
@@ -222,7 +228,7 @@ BigTalkGame >> moveCurrentPlayer [
 		ifTrue: [ Error signal: 'The game has finished' ]
 ]
 
-{ #category : #playing }
+{ #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: target [
 
 	self validatePlayabilityOn: aCard by: aPlayer affecting: target.

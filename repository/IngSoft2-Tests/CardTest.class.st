@@ -165,7 +165,7 @@ CardTest >> testAGameWithAnAccelerationCard [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player1 usesCard: accelerationCard on: allPlayers.
+	aGame accelerationCardUsedBy: player1.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player2) equals: 5
@@ -384,7 +384,7 @@ CardTest >> testAGameWithDoubleRedoAnAcceleration [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player1 usesCard: accelerationCard on: allPlayers.
+	aGame accelerationCardUsedBy: player1.
 	aGame player: player1 usesCard: redoCard on: allPlayers.
 	aGame player: player1 usesCard: redoCard on: allPlayers.
 	aGame moveCurrentPlayer.
