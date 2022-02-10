@@ -63,5 +63,4 @@ Player >> useCardFromHand: aCard [
 			         ifFalse: [ 
 			         Error signal: 'The player does not have that card' ] ].
 	hand removeAt: index.
-	^ index >= 0
 ]
