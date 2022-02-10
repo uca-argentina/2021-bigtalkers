@@ -11,7 +11,7 @@ Repeat >> applyOn: aGame to: aPlayer [
 ]
 
 { #category : #'private - validations' }
-Repeat >> playableBy: aPlayer on: aGame affecting: affected [
+Repeat >> playableBy: aPlayer on: aGame affecting: target [
 
 	^ true
 ]

@@ -27,7 +27,7 @@ Permanent >> isPermanent [
 ]
 
 { #category : #'private - validations' }
-Permanent >> playableBy: aPlayer on: aGame affecting: affected [
+Permanent >> playableBy: aPlayer on: aGame affecting: target [
 
 	^ self subclassResponsibility 
 ]

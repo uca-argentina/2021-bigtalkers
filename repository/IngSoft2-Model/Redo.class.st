@@ -17,7 +17,7 @@ Redo >> isPermanent [
 ]
 
 { #category : #'private - validations' }
-Redo >> playableBy: aPlayer on: aGame affecting: affected [
+Redo >> playableBy: aPlayer on: aGame affecting: target [
 
 	^ true
 ]

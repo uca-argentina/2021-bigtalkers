@@ -223,11 +223,11 @@ BigTalkGame >> moveCurrentPlayer [
 ]
 
 { #category : #playing }
-BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
+BigTalkGame >> player: aPlayer usesCard: aCard on: target [
 
-	self validatePlayabilityOn: aCard by: aPlayer affecting: affected.
+	self validatePlayabilityOn: aCard by: aPlayer affecting: target.
 	aPlayer useCardFromHand: aCard.
-	aCard applyOn: self to: affected.
+	aCard applyOn: self to: target.
 	aCard = Redo new
 		ifFalse: [ lastCardUsed := aCard ]
 ]
