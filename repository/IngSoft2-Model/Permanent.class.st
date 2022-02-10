@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #'card - effect applications' }
-Permanent >> applyOn: aGame to: affected [
+Permanent >> applyOn: aGame to: target [
 	
-	aGame addActiveCard: self on: affected 
+	aGame addActiveCard: self on: target 
 	
 ]
 

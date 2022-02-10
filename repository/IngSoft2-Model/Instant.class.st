@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'card - effect applications' }
-Instant >> applyOn: aGame to: affected [
+Instant >> applyOn: aGame to: target [
 
 	^self subclassResponsibility
 ]

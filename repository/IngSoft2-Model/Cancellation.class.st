@@ -5,11 +5,11 @@ Class {
 }
 
 { #category : #'card - effect applications' }
-Cancellation >> applyOn: aGame to: affected [
+Cancellation >> applyOn: aGame to: target [
 
 	| cancelledCard player |
-	cancelledCard := affected at: 1.
-	player := affected at: 2.
+	cancelledCard := target at: 1.
+	player := target at: 2.
 	aGame removeActiveCard: cancelledCard from: player
 ]
 

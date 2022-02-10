@@ -11,7 +11,7 @@ Card >> = anotherCard [
 ]
 
 { #category : #'card - effect applications' }
-Card >> applyOn: aGame to: affected [
+Card >> applyOn: aGame to: target [
 
 	^ self subclassResponsibility
 ]

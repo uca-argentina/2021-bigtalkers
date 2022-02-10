@@ -78,11 +78,11 @@ BigTalkGame >> activeCardStack [
 ]
 
 { #category : #private }
-BigTalkGame >> addActiveCard: aCard on: affected [
+BigTalkGame >> addActiveCard: aCard on: target [
 
-	affected isCollection
-		ifTrue: [ affected do: [ :player | activeCards add: aCard to: player ] ]
-		ifFalse: [ activeCards add: aCard to: affected ]
+	target isCollection
+		ifTrue: [ target do: [ :player | activeCards add: aCard to: player ] ]
+		ifFalse: [ activeCards add: aCard to: target ]
 ]
 
 { #category : #'effect-application' }
@@ -101,21 +101,21 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyLastCardTo: affected [
+BigTalkGame >> applyLastCardTo: target [
 
-	lastCardUsed applyOn: self to: affected
+	lastCardUsed applyOn: self to: target
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyLastEffectTo: affected [
+BigTalkGame >> applyLastEffectTo: target [
 
-	lastEffect applyTo: self toPlayer: affected
+	lastEffect applyTo: self toPlayer: target
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyMoonWalk: N toPlayer: affected [
+BigTalkGame >> applyMoonWalk: N toPlayer: target [
 
-	self playerMove: affected slots: N.
+	self playerMove: target slots: N.
 	players do: [ :player | self playerMove: player slots: N * -1 ]
 ]
 
@@ -299,9 +299,9 @@ self player: aPlayer usesCard: Redo new  on: target.
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> removeActiveCard: aCard from: affected [
+BigTalkGame >> removeActiveCard: aCard from: target [
 
-	activeCards remove: aCard from: affected
+	activeCards remove: aCard from: target
 ]
 
 { #category : #'playing - card usage' }
@@ -317,7 +317,7 @@ self player: aPlayer usesCard: Speed new  on: target.
 ]
 
 { #category : #'private - validations' }
-BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer affecting: affected [
+BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer affecting: target [
 
-	aCard playableBy: aPlayer on: self affecting: affected 
+	aCard playableBy: aPlayer on: self affecting: target 
 ]
