@@ -66,7 +66,7 @@ CardTest >> testAGamePlayerPlaysCardNotInHand [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	self
-		should: [ aGame player: player1 usesCard: speedCard on: player1 ]
+		should: [ aGame speedCardUsedBy: player1 targetting: player2. ]
 		raise: Error
 		withMessage: 'The player does not have that card'
 ]
@@ -88,12 +88,7 @@ CardTest >> testAGameWithACancellationAndNoActiveCards [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	self
-		should: [ aGame
-				player: player1
-				usesCard: cancellationCard
-				on:
-					{speedCard.
-					player1} ]
+		should: [ aGame cancellationCardUsedBy: player1 targetting: player2 removing: speedCard .]
 		raise: Error
 		withMessage: 'Cant play cancellation with no active cards in game'.
 	aGame moveCurrentPlayer.
@@ -116,7 +111,7 @@ CardTest >> testAGameWithASpeedCard [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player1 usesCard: speedCard on: player1.
+	aGame speedCardUsedBy: player1 targetting: player1.
 	aGame moveCurrentPlayer.
 	aLeader := aGame leaderPosition.
 	self assert: aLeader equals: 5
@@ -138,13 +133,8 @@ CardTest >> testAGameWithASpeedCardAndCancellation [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player1 usesCard: speedCard on: player1.
-	aGame
-		player: player1
-		usesCard: cancellationCard
-		on:
-			{speedCard.
-			player1}.
+	aGame speedCardUsedBy: player1 targetting: player1.
+	aGame cancellationCardUsedBy: player1 targetting: player1 removing: speedCard.
 	aGame moveCurrentPlayer.
 	aLeader := aGame leaderPosition.
 	self assert: aLeader equals: 4
@@ -196,7 +186,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectAtomicBomb [
 		playedOn: aBoard
 		finishingAtLap: 2.
 	aGame moveCurrentPlayer.
-	aGame player: player2 usesCard: repeatCard on: player1.
+	aGame repeatCardUsedBy: player2 targetting: player1.
 	aLeaderPosition := aGame leaderPosition.
 	self assert: aLeaderPosition equals: 0
 ]
@@ -236,7 +226,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectMoonwalk [
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 8.
 	self assert: (aGame currentSlotOf: player2) equals: 2.
-	aGame player: player2 usesCard: repeatCard on: player1.
+	aGame repeatCardUsedBy: player2 targetting: player1.
 	self assert: (aGame currentSlotOf: player1) equals: 8.
 	self assert: (aGame currentSlotOf: player2) equals: 0
 ]
@@ -269,7 +259,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectSpeedUp [
 		playedOn: aBoard
 		finishingAtLap: 2.
 	aGame moveCurrentPlayer.
-	aGame player: player2 usesCard: repeatCard on: player1.
+	aGame repeatCardUsedBy: player2 targetting: player1.
 	aLeaderPosition := aGame leaderPosition.
 	self assert: aLeaderPosition equals: 11
 ]
@@ -298,7 +288,7 @@ CardTest >> testAGameWithAnInstantRepeatCardWithLastEffectWormHole [
 		playedOn: aBoard
 		finishingAtLap: 2.
 	3 timesRepeat: [ aGame moveCurrentPlayer ].
-	aGame player: player2 usesCard: repeatCard on: player1.
+	aGame repeatCardUsedBy: player2 targetting: player1.
 	aLeaderPosition := aGame leaderPosition.
 	self assert: aLeaderPosition equals: 4.
 	self assert: (aGame currentSlotOf: player1) equals: 0
@@ -319,7 +309,7 @@ CardTest >> testAGameWithAnOverloadCard [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player1 usesCard: overloadCard on: player1.
+	aGame overloadCardUsedBy: player1 targetting: player1.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 2.
@@ -342,7 +332,7 @@ CardTest >> testAGameWithAnOverloadCardOnTwoPlayers [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	self
-		should: [ aGame player: player1 usesCard: overloadCard on: {player1.player2} ]
+		should: [ aGame overloadCardUsedBy: player1 targetting: {player1.player2}. ]
 		raise: Error
 		withMessage: 'This card can only be played on 1 player'.
 ]
@@ -363,7 +353,7 @@ CardTest >> testAGameWithAnSpeedCardOnTwoPlayers [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	self
-		should: [ aGame player: player1 usesCard: speedCard  on: {player1.player2} ]
+		should: [ aGame speedCardUsedBy: player1 targetting: {player1.player2} ]
 		raise: Error
 		withMessage: 'This card can only be played on 1 player'.
 ]
@@ -385,8 +375,8 @@ CardTest >> testAGameWithDoubleRedoAnAcceleration [
 		playedOn: aBoard
 		finishingAtLap: 1.
 	aGame accelerationCardUsedBy: player1.
-	aGame player: player1 usesCard: redoCard on: allPlayers.
-	aGame player: player1 usesCard: redoCard on: allPlayers.
+	aGame redoCardUsedBy: player1.
+	aGame redoCardUsedBy: player1.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 7.
@@ -409,8 +399,8 @@ CardTest >> testAGameWithRedoAnAcceleration [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player1 usesCard: accelerationCard on: allPlayers.
-	aGame player: player1 usesCard: redoCard on: allPlayers.
+	aGame accelerationCardUsedBy: player1.
+	aGame redoCardUsedBy: player1.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 6.
@@ -433,8 +423,8 @@ CardTest >> testAGameWithRedoAnOverload [
 		usingDice: aDice
 		playedOn: aBoard
 		finishingAtLap: 1.
-	aGame player: player1 usesCard: overloadCard on: player1.
-	aGame player: player1 usesCard: redoCard on: player2.
+	aGame overloadCardUsedBy: player1 targetting: player1.
+	aGame redoCardUsedBy: player1 targetting: player2.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 2.
@@ -489,7 +479,7 @@ CardTest >> testPlayerApplyACardAtBeginning [
 		playedOn: aBoard
 		finishingAtLap: 1
 		usingDeck: speedDeck .
-	aGame player: player1 usesCard: speedCard on: player2.
+	aGame speedCardUsedBy: player1 targetting: player2. 
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 2.
@@ -521,7 +511,7 @@ CardTest >> testPlayerCantPlayPermanentCardsOutsideTurn [
 		usingDeck: Deck onlySpeedCards.
 	aGame moveCurrentPlayer.
 	self
-		should: [ aGame player: player1 usesCard: speedCard on: player2 ]
+		should: [ aGame speedCardUsedBy: player1 targetting: player2 ]
 		raise: Error
 		withMessage: 'Players can only play permanent cards during their turn'.
 
@@ -550,10 +540,10 @@ CardTest >> testPlayerFallsOnGrabCardGrabsSpeed [
 		playedOn: aBoard
 		finishingAtLap: 1
 		usingDeck: Deck onlySpeedCards.
-	aGame player: player1 usesCard: speedCard on: player2.
-	aGame player: player1 usesCard: speedCard on: player2.
+	aGame speedCardUsedBy: player1 targetting: player2.
+	aGame speedCardUsedBy: player1 targetting: player2.
 	self
-		should: [ aGame player: player1 usesCard: speedCard on: player2 ]
+		should: [ aGame speedCardUsedBy: player1 targetting: player2 ]
 		raise: Error
 		withMessage: 'The player does not have any cards left'.
 	aGame moveCurrentPlayer.
@@ -594,10 +584,10 @@ CardTest >> testPlayerStartsWithTwoCards [
 		playedOn: aBoard
 		finishingAtLap: 1
 		usingDeck: speedDeck .
-	aGame player: player1 usesCard: speedCard on: player2.
-	aGame player: player1 usesCard: speedCard on: player2.
+	aGame speedCardUsedBy: player1 targetting: player2.
+	aGame speedCardUsedBy: player1 targetting: player2.
 	self
-		should: [ aGame player: player1 usesCard: speedCard on: player2 ]
+		should: [ aGame speedCardUsedBy: player1 targetting: player2]
 		raise: Error
 		withMessage: 'The player does not have any cards left'.
 ]

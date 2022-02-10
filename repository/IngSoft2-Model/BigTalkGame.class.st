@@ -131,6 +131,12 @@ BigTalkGame >> applyWormHoleTo: aPlayer [
 	self playerMove: aPlayer slots: -4
 ]
 
+{ #category : #'playing - card usage' }
+BigTalkGame >> cancellationCardUsedBy: aPlayer targetting: target removing: aCancelledCard [ 
+
+self player: aPlayer usesCard: Cancellation new  on: {aCancelledCard.target}.
+]
+
 { #category : #playing }
 BigTalkGame >> changeTurn [
 
@@ -228,6 +234,12 @@ BigTalkGame >> moveCurrentPlayer [
 		ifTrue: [ Error signal: 'The game has finished' ]
 ]
 
+{ #category : #'playing - card usage' }
+BigTalkGame >> overloadCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Overload new  on: target.
+]
+
 { #category : #private }
 BigTalkGame >> player: aPlayer usesCard: aCard on: target [
 
@@ -274,10 +286,34 @@ BigTalkGame >> rankOf: aPlayer [
 	^ scoreboard rankOf: aPlayer
 ]
 
+{ #category : #'playing - card usage' }
+BigTalkGame >> redoCardUsedBy: aPlayer [
+
+self player: aPlayer usesCard: Redo new  on: players.
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> redoCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Redo new  on: target.
+]
+
 { #category : #'effect-application' }
 BigTalkGame >> removeActiveCard: aCard from: affected [
 
 	activeCards remove: aCard from: affected
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> repeatCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Repeat new  on: target.
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> speedCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Speed new  on: target.
 ]
 
 { #category : #'private - validations' }
