@@ -42,12 +42,6 @@ Position >> >= aPosition [
 		ifFalse: [ ^ self currentLap > aPosition currentLap ]
 ]
 
-{ #category : #private }
-Position >> backToStart [
-
-	slot := 0
-]
-
 { #category : #'accessing - position' }
 Position >> currentLap [
 
@@ -65,11 +59,4 @@ Position >> initializeUsing: aSlot andLap: aLap [
 
 	slot := aSlot.
 	lap := aLap
-]
-
-{ #category : #private }
-Position >> reset [
-
-	lap := 0.
-	slot := 0
 ]

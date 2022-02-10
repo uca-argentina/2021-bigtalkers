@@ -48,7 +48,7 @@ Board class >> withAll: aCollectionOfSlots [
 	^ self new initializeWithEffects: aCollectionOfSlots
 ]
 
-{ #category : #adding }
+{ #category : #private }
 Board >> addPlayers: somePlayers [
 
 	somePlayers
@@ -107,10 +107,10 @@ Board >> movePlayer: aPlayer to: valueToMove [
 { #category : #private }
 Board >> moveToStart: aPlayer [
 
-	| currentPosition |
+	| currentPosition newPosition|
 	currentPosition := playerPositions at: aPlayer.
-	currentPosition backToStart.
-	playerPositions at: aPlayer put: currentPosition
+	newPosition := Position atSlot: 0 andLap: (currentPosition currentLap).
+	playerPositions at: aPlayer put: newPosition
 ]
 
 { #category : #'accessing - positions' }
@@ -122,10 +122,10 @@ Board >> playerPositions [
 { #category : #private }
 Board >> reset: aPlayer [
 
-	| currentPosition |
+	| currentPosition newPosition|
 	currentPosition := playerPositions at: aPlayer.
-	currentPosition reset.
-	playerPositions at: aPlayer put: currentPosition
+	newPosition := Position atSlot: 0 andLap: 0.
+	playerPositions at: aPlayer put: newPosition
 ]
 
 { #category : #'accessing - slots' }
