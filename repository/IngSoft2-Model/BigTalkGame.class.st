@@ -101,6 +101,12 @@ BigTalkGame >> applyEffectAt: aPlayerPosition [
 ]
 
 { #category : #'effect-application' }
+BigTalkGame >> applyGrabCardTo: aPlayer [
+
+	self drawFromDeck: aPlayer
+]
+
+{ #category : #'effect-application' }
 BigTalkGame >> applyLastCardTo: target [
 
 	lastCardUsed applyOn: self to: target
@@ -113,10 +119,10 @@ BigTalkGame >> applyLastEffectTo: target [
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyMoonWalk: N toPlayer: target [
+BigTalkGame >> applyMoonWalk: steps toPlayer: target [
 
-	self playerMove: target slots: N.
-	players do: [ :player | self playerMove: player slots: N * -1 ]
+	self playerMove: target slots: steps.
+	players do: [ :player | self playerMove: player slots: steps * -1 ]
 ]
 
 { #category : #'effect-application' }
