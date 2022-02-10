@@ -548,13 +548,13 @@ CardTest >> testPlayerFallsOnGrabCardGrabsSpeed [
 		withMessage: 'The player does not have any cards left'.
 	aGame moveCurrentPlayer.
 	self
-		should: [ aGame player: player1 usesCard: speedCard on: player2 ]
+		should: [ aGame speedCardUsedBy: player1 targetting: player2  ]
 		raise: Error
 		withMessage: 'Players can only play permanent cards during their turn'.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
-	aGame player: player1 usesCard: speedCard on: player2.
+	aGame speedCardUsedBy: player1 targetting: player2 .
 	aGame moveCurrentPlayer.
 	aGame moveCurrentPlayer.
 	self assert: (aGame currentSlotOf: player1) equals: 6.
