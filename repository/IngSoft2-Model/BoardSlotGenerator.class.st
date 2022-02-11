@@ -13,7 +13,7 @@ Class {
 BoardSlotGenerator class >> basedOn: eventsDistribution [
 
 	self validate: eventsDistribution.
-	^ self new initializeWith: eventsDistribution
+	^ self new initializeWith: eventsDistribution.
 ]
 
 { #category : #validation }
