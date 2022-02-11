@@ -35,6 +35,14 @@ BoardSlotGenerator class >> validateTotalProbability: eventsDistribution [
 		ifFalse: [ Error signal: 'All probabilities must sum 1' ]
 ]
 
+{ #category : #initialization }
+BoardSlotGenerator >> add: probabilityEvent [
+
+	^ eventsPool
+		add: probabilityEvent event
+		withOccurrences: (probabilityEvent probability * 100) asInteger
+]
+
 { #category : #generating }
 BoardSlotGenerator >> generates: aNumberOfSlots [
 
@@ -51,8 +59,5 @@ BoardSlotGenerator >> initializeWith: eventsDistribution [
 	randomness := Random new.
 	eventsPool := OrderedCollection new.
 	eventsDistribution
-		do: [ :probabilityEvent | 
-			eventsPool
-				add: probabilityEvent event
-				withOccurrences: (probabilityEvent probability * 100) asInteger ]
+		do: [ :probabilityEvent | self add: probabilityEvent ]
 ]
