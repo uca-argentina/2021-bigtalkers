@@ -18,16 +18,6 @@ Board class >> sizedWithNoEffects: aNumberOfSlots [
 	^ self new initializeWithEffects: slots
 ]
 
-{ #category : #'instance creation' }
-Board class >> using: aBoardSlotGenerator withAmount: aNumberOfSlots [
-
-	| slots |
-	self validate: aNumberOfSlots.
-	slots := OrderedCollection new.
-	slots := aBoardSlotGenerator generates: aNumberOfSlots.
-	^ self new initializeWithEffects: slots
-]
-
 { #category : #validation }
 Board class >> validate: aNumberOfSlots [
 
@@ -54,6 +44,15 @@ Board >> addPlayers: somePlayers [
 	somePlayers
 		do:
 			[ :player | playerPositions at: player put: Position startingPosition ]
+]
+
+{ #category : #private }
+Board >> applyEffectTo: aGame toPlayer: aPlayer [
+
+	| effect | 
+	effect := self effectAt: (self currentSlotOf: aPlayer ).
+	effect applyTo: aGame  toPlayer: aPlayer.
+ 	^effect
 ]
 
 { #category : #'accessing - positions' }

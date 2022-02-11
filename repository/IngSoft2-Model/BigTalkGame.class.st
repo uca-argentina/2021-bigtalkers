@@ -92,6 +92,12 @@ BigTalkGame >> applyAtomicBombTo: aPlayer [
 ]
 
 { #category : #'effect-application' }
+BigTalkGame >> applyCurrentEffect [
+
+	^ board applyEffectTo: self toPlayer: self currentTurnPlayer
+]
+
+{ #category : #'effect-application' }
 BigTalkGame >> applyEffectAt: aPlayerPosition [
 
 	| effect |
@@ -234,7 +240,7 @@ BigTalkGame >> moveCurrentPlayer [
 
 	self hasFinished
 		ifFalse: [ self playerMoveAfterRoll: self currentTurnPlayer.
-			lastEffect := self applyEffectAt: self currentTurnPlayerPosition.
+			lastEffect := self applyCurrentEffect.
 			self changeTurn.
 			scoreboard update: board playerPositions ]
 		ifTrue: [ Error signal: 'The game has finished' ]
