@@ -98,15 +98,6 @@ BigTalkGame >> applyCurrentEffect [
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyEffectAt: aPlayerPosition [
-
-	| effect |
-	effect := self effectAt: aPlayerPosition.
-	effect applyTo: self toPlayer: self currentTurnPlayer.
-	^ effect
-]
-
-{ #category : #'effect-application' }
 BigTalkGame >> applyGrabCardTo: aPlayer [
 
 	self drawFromDeck: aPlayer
@@ -184,12 +175,6 @@ BigTalkGame >> currentTurnPlayerPosition [
 BigTalkGame >> drawFromDeck: aPlayer [
 
 	aPlayer drawCardFrom: deck
-]
-
-{ #category : #'effect-application' }
-BigTalkGame >> effectAt: aPosition [
-
-	^ board effectAt: aPosition
 ]
 
 { #category : #'accessing - finishing' }
