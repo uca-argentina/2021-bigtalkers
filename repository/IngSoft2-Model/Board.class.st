@@ -51,20 +51,20 @@ Board >> applyEffectTo: aGame toPlayer: aPlayer [
 
 	| effect | 
 	effect := self effectAt: (self currentSlotOf: aPlayer ).
-	effect applyTo: aGame  toPlayer: aPlayer.
+	effect applyTo: aGame  triggeredBy: aPlayer.
  	^effect
 ]
 
 { #category : #'accessing - positions' }
 Board >> currentLapOf: aPlayer [
 
-	^ (playerPositions at: aPlayer) currentLap
+	^ (playerPositions at: aPlayer) getLap
 ]
 
 { #category : #'accessing - positions' }
 Board >> currentSlotOf: aPlayer [
 
-	^ (playerPositions at: aPlayer) currentSlot
+	^ (playerPositions at: aPlayer) getSlot
 ]
 
 { #category : #'accessing - slots' }
@@ -108,7 +108,7 @@ Board >> moveToStart: aPlayer [
 
 	| currentPosition newPosition|
 	currentPosition := playerPositions at: aPlayer.
-	newPosition := Position atSlot: 0 andLap: (currentPosition currentLap).
+	newPosition := Position atSlot: 0 andLap: (currentPosition getLap).
 	playerPositions at: aPlayer put: newPosition
 ]
 

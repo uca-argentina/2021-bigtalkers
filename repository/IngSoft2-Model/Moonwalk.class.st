@@ -8,13 +8,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-Moonwalk class >> withFixedValue: aNumber [
+Moonwalk class >> withStepsBack: aNumber [
 
 	^ self new initializeWithN: aNumber
 ]
 
 { #category : #'effect-application' }
-Moonwalk >> applyTo: aGame toPlayer: target [ 
+Moonwalk >> applyTo: aGame triggeredBy: target [ 
 
 	aGame applyMoonWalk: N toPlayer: target 
 ]

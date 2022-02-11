@@ -51,10 +51,9 @@ ActiveCardController >> playerRollModifier: aPlayer [
 { #category : #'accessing - adding/removing' }
 ActiveCardController >> remove: aCard from: aPlayer [
 
-	| currCards index |
+	| currCards |
 	currCards := cardregistry at: aPlayer.
-	index := currCards
-		indexOf: aCard
-		ifAbsent: [ Error signal: 'The player does not have that card' ].
-	currCards removeAt: index
+	currCards
+		remove: aCard
+		ifAbsent: [ Error signal: 'The player does not have that card' ]
 ]

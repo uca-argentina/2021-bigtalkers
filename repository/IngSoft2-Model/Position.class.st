@@ -23,33 +23,33 @@ Position class >> startingPosition [
 { #category : #arithmetic }
 Position >> <= aPosition [
 
-	self currentLap = aPosition currentLap
-		ifTrue: [ ^ self currentSlot <= aPosition currentSlot ]
-		ifFalse: [ ^ self currentLap < aPosition currentLap ]
+	self getLap = aPosition getLap
+		ifTrue: [ ^ self getSlot <= aPosition getSlot ]
+		ifFalse: [ ^ self getLap < aPosition getLap ]
 ]
 
 { #category : #arithmetic }
 Position >> > aPosition [
 
-	^ self currentSlot > aPosition currentSlot
+	^ self getSlot > aPosition getSlot
 ]
 
 { #category : #arithmetic }
 Position >> >= aPosition [
 
-	self currentLap = aPosition currentLap
-		ifTrue: [ ^ self currentSlot >= aPosition currentSlot ]
-		ifFalse: [ ^ self currentLap > aPosition currentLap ]
+	self getLap = aPosition getLap
+		ifTrue: [ ^ self getSlot >= aPosition getSlot ]
+		ifFalse: [ ^ self getLap > aPosition getLap ]
 ]
 
 { #category : #'accessing - position' }
-Position >> currentLap [
+Position >> getLap [
 
 	^ lap
 ]
 
 { #category : #'accessing - position' }
-Position >> currentSlot [
+Position >> getSlot [
 
 	^ slot
 ]

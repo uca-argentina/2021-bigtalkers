@@ -37,13 +37,13 @@ Scoreboard >> leader [
 { #category : #'accessing - leader' }
 Scoreboard >> leaderLap [
 
-	^ self leader value currentLap
+	^ self leader value getLap
 ]
 
 { #category : #'accessing - leader' }
 Scoreboard >> leaderPosition [
 
-	^ self leader value currentSlot
+	^ self leader value getSlot
 ]
 
 { #category : #private }

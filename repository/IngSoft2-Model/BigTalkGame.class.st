@@ -26,7 +26,7 @@ BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard 
 		withDice: someDice
 		withBoard: aBoard
 		finishingAtLap: aLapNumber
-		withDeck: Deck onlyOverloadCards
+		withDeck: Deck default 
 ]
 
 { #category : #'instance creation' }
@@ -112,7 +112,7 @@ BigTalkGame >> applyLastCardTo: target [
 { #category : #'effect-application' }
 BigTalkGame >> applyLastEffectTo: target [
 
-	lastEffect applyTo: self toPlayer: target
+	lastEffect applyTo: self triggeredBy: target
 ]
 
 { #category : #'effect-application' }
@@ -132,6 +132,12 @@ BigTalkGame >> applySpeedUpTo: aPlayer [
 BigTalkGame >> applyWormHoleTo: aPlayer [
 
 	self playerMove: aPlayer slots: -4
+]
+
+{ #category : #'private - validations' }
+BigTalkGame >> assertGameIsNotFinished [
+
+	self hasFinished ifTrue: [ Error signal: 'The game has finished' ]
 ]
 
 { #category : #'playing - card usage' }
@@ -217,12 +223,11 @@ BigTalkGame >> leaderPosition [
 { #category : #playing }
 BigTalkGame >> moveCurrentPlayer [
 
-	self hasFinished
-		ifFalse: [ self playerMoveAfterRoll: self currentTurnPlayer.
-			lastEffect := self applyCurrentEffect.
-			self changeTurn.
-			scoreboard update: board playerPositions ]
-		ifTrue: [ Error signal: 'The game has finished' ]
+	self assertGameIsNotFinished.
+	self playerMoveAfterRoll: self currentTurnPlayer.
+	lastEffect := self applyCurrentEffect.
+	self changeTurn.
+	scoreboard update: board playerPositions
 ]
 
 { #category : #'playing - card usage' }

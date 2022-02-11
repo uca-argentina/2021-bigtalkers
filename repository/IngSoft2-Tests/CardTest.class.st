@@ -64,7 +64,8 @@ CardTest >> testAGamePlayerPlaysCardNotInHand [
 			player2}
 		usingDice: aDice
 		playedOn: aBoard
-		finishingAtLap: 1.
+		finishingAtLap: 1
+		usingDeck: Deck onlyOverloadCards .
 	self
 		should: [ aGame speedCardUsedBy: player1 targetting: player2. ]
 		raise: Error
