@@ -165,12 +165,6 @@ BigTalkGame >> currentTurnPlayer [
 	^ currentPlayer
 ]
 
-{ #category : #'accesing - player' }
-BigTalkGame >> currentTurnPlayerPosition [
-
-	^ self currentSlotOf: currentPlayer
-]
-
 { #category : #playing }
 BigTalkGame >> drawFromDeck: aPlayer [
 
