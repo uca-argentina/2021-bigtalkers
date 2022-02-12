@@ -30,7 +30,7 @@ DiscreteProbabilityEvent class >> validatePositiveProbability: aProbability [
 
 { #category : #'accessing - variables' }
 DiscreteProbabilityEvent >> event [
-
+	"Coverage issue: Message in use in BoardSlotGenerator >> initializeWith: "
 	^event
 ]
 

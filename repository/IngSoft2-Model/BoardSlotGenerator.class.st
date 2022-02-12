@@ -13,7 +13,7 @@ Class {
 BoardSlotGenerator class >> basedOn: eventsDistribution [
 
 	self validate: eventsDistribution.
-	^ self new initializeWith: eventsDistribution
+	^ self new initializeWith: eventsDistribution.
 ]
 
 { #category : #validation }
@@ -45,7 +45,7 @@ BoardSlotGenerator >> generate [
 
 { #category : #initialization }
 BoardSlotGenerator >> initializeWith: eventsDistribution [
-
+	"Coverage issue: Message in use in BoardSlotGenerator class >> basedOn: "
 	randomness := Random new.
 	eventsPool := OrderedCollection new.
 	eventsDistribution
