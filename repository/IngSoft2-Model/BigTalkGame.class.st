@@ -26,7 +26,7 @@ BigTalkGame class >> playedBy: somePlayers usingDice: someDice playedOn: aBoard 
 		withDice: someDice
 		withBoard: aBoard
 		finishingAtLap: aLapNumber
-		withDeck: Deck onlyOverloadCards
+		withDeck: Deck default 
 ]
 
 { #category : #'instance creation' }
@@ -65,12 +65,24 @@ BigTalkGame class >> validateNoPlayers: somePlayers [
 		ifTrue: [ Error signal: 'You need at least one player to play' ]
 ]
 
-{ #category : #private }
-BigTalkGame >> addActiveCard: aCard on: affected [
+{ #category : #'playing - card usage' }
+BigTalkGame >> accelerationCardUsedBy: aPlayer [ 
 
-	affected isCollection
-		ifTrue: [ affected do: [ :player | activeCards add: aCard to: player ] ]
-		ifFalse: [ activeCards add: aCard to: affected ]
+self player: aPlayer usesCard: Acceleration new  on: players.
+]
+
+{ #category : #'accessing - game' }
+BigTalkGame >> activeCardStack [
+
+	^ activeCards 
+]
+
+{ #category : #private }
+BigTalkGame >> addActiveCard: aCard on: target [
+
+	target isCollection
+		ifTrue: [ target do: [ :player | activeCards add: aCard to: player ] ]
+		ifFalse: [ activeCards add: aCard to: target ]
 ]
 
 { #category : #'effect-application' }
@@ -80,31 +92,34 @@ BigTalkGame >> applyAtomicBombTo: aPlayer [
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyEffectAt: aPlayerPosition [
+BigTalkGame >> applyCurrentEffect [
 
-	| effect |
-	effect := self effectAt: aPlayerPosition.
-	effect applyTo: self toPlayer: self currentTurnPlayer.
-	^ effect
+	^ board applyEffectTo: self toPlayer: self currentTurnPlayer
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyLastCardTo: affected [
+BigTalkGame >> applyGrabCardTo: aPlayer [
 
-	lastCardUsed applyOn: self to: affected
+	self drawFromDeck: aPlayer
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyLastEffectTo: affected [
+BigTalkGame >> applyLastCardTo: target [
 
-	lastEffect applyTo: self toPlayer: affected
+	lastCardUsed applyOn: self to: target
 ]
 
 { #category : #'effect-application' }
-BigTalkGame >> applyMoonWalk: N toPlayer: affected [
+BigTalkGame >> applyLastEffectTo: target [
 
-	self playerMove: affected slots: N.
-	players do: [ :player | self playerMove: player slots: N * -1 ]
+	lastEffect applyTo: self triggeredBy: target
+]
+
+{ #category : #'effect-application' }
+BigTalkGame >> applyMoonWalk: steps toPlayer: target [
+
+	self playerMove: target slots: steps.
+	players do: [ :player | self playerMove: player slots: steps * -1 ]
 ]
 
 { #category : #'effect-application' }
@@ -117,6 +132,18 @@ BigTalkGame >> applySpeedUpTo: aPlayer [
 BigTalkGame >> applyWormHoleTo: aPlayer [
 
 	self playerMove: aPlayer slots: -4
+]
+
+{ #category : #'private - validations' }
+BigTalkGame >> assertGameIsNotFinished [
+
+	self hasFinished ifTrue: [ Error signal: 'The game has finished' ]
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> cancellationCardUsedBy: aPlayer targetting: target removing: aCancelledCard [ 
+
+self player: aPlayer usesCard: Cancellation new  on: {aCancelledCard.target}.
 ]
 
 { #category : #playing }
@@ -144,22 +171,10 @@ BigTalkGame >> currentTurnPlayer [
 	^ currentPlayer
 ]
 
-{ #category : #'accesing - player' }
-BigTalkGame >> currentTurnPlayerPosition [
-
-	^ self currentSlotOf: currentPlayer
-]
-
 { #category : #playing }
 BigTalkGame >> drawFromDeck: aPlayer [
 
 	aPlayer drawCardFrom: deck
-]
-
-{ #category : #'effect-application' }
-BigTalkGame >> effectAt: aPosition [
-
-	^ board effectAt: aPosition
 ]
 
 { #category : #'accessing - finishing' }
@@ -208,20 +223,25 @@ BigTalkGame >> leaderPosition [
 { #category : #playing }
 BigTalkGame >> moveCurrentPlayer [
 
-	self hasFinished
-		ifFalse: [ self playerMoveAfterRoll: self currentTurnPlayer.
-			lastEffect := self applyEffectAt: self currentTurnPlayerPosition.
-			self changeTurn.
-			scoreboard update: board playerPositions ]
-		ifTrue: [ Error signal: 'The game has finished' ]
+	self assertGameIsNotFinished.
+	self playerMoveAfterRoll: self currentTurnPlayer.
+	lastEffect := self applyCurrentEffect.
+	self changeTurn.
+	scoreboard update: board playerPositions
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> overloadCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Overload new  on: target.
 ]
 
 { #category : #private }
-BigTalkGame >> player: aPlayer usesCard: aCard on: affected [
+BigTalkGame >> player: aPlayer usesCard: aCard on: target [
 
-	self validatePlayabilityOn: aCard by: aPlayer on: affected.
+	self validatePlayabilityOn: aCard by: aPlayer affecting: target.
 	aPlayer useCardFromHand: aCard.
-	aCard applyOn: self to: affected.
+	aCard applyOn: self to: target.
 	aCard = Redo new
 		ifFalse: [ lastCardUsed := aCard ]
 ]
@@ -262,19 +282,38 @@ BigTalkGame >> rankOf: aPlayer [
 	^ scoreboard rankOf: aPlayer
 ]
 
-{ #category : #'effect-application' }
-BigTalkGame >> removeActiveCard: aCard from: affected [
+{ #category : #'playing - card usage' }
+BigTalkGame >> redoCardUsedBy: aPlayer [
 
-	activeCards remove: aCard from: affected
+self player: aPlayer usesCard: Redo new  on: players.
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> redoCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Redo new  on: target.
+]
+
+{ #category : #'effect-application' }
+BigTalkGame >> removeActiveCard: aCard from: target [
+
+	activeCards remove: aCard from: target
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> repeatCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Repeat new  on: target.
+]
+
+{ #category : #'playing - card usage' }
+BigTalkGame >> speedCardUsedBy: aPlayer targetting: target [
+
+self player: aPlayer usesCard: Speed new  on: target.
 ]
 
 { #category : #'private - validations' }
-BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer on: affected [
+BigTalkGame >> validatePlayabilityOn: aCard by: aPlayer affecting: target [
 
-	(aCard isPermanent and: currentPlayer ~= aPlayer)
-		ifTrue: [ Error
-				signal: 'Players can only play permanent cards during their turn' ].
-	(aCard className = 'Cancellation' and: activeCards isEmpty)
-		ifTrue:
-			[ Error signal: 'Cant play cancellation with no active cards in game' ]
+	aCard playableBy: aPlayer on: self affecting: target 
 ]

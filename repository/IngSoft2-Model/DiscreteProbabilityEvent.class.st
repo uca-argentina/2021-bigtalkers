@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-DiscreteProbabilityEvent class >> of: anEvent with: anEventProbability [
+DiscreteProbabilityEvent class >> of: anEvent havingProbability: anEventProbability [
 
 	self validate: anEventProbability.
 	^ self new initiliazeWith: anEvent whichProbabilityIs: anEventProbability
@@ -30,7 +30,7 @@ DiscreteProbabilityEvent class >> validatePositiveProbability: aProbability [
 
 { #category : #'accessing - variables' }
 DiscreteProbabilityEvent >> event [
-
+	"Coverage issue: Message in use in BoardSlotGenerator >> initializeWith: "
 	^event
 ]
 

@@ -5,13 +5,13 @@ Class {
 }
 
 { #category : #'card - effect applications' }
-Instant >> applyOn: aGame to: affected [
+Instant >> applyOn: aGame to: target [
 
 	^self subclassResponsibility
 ]
 
-{ #category : #'card - effect applications' }
-Instant >> isPermanent [
+{ #category : #'private - validations' }
+Instant >> playableBy: aPlayer on: aGame affecting: target [
 
-	^false
+	^ self subclassResponsibility
 ]

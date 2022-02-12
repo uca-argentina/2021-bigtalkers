@@ -18,16 +18,6 @@ Board class >> sizedWithNoEffects: aNumberOfSlots [
 	^ self new initializeWithEffects: slots
 ]
 
-{ #category : #'instance creation' }
-Board class >> using: aBoardSlotGenerator withAmount: aNumberOfSlots [
-
-	| slots |
-	self validate: aNumberOfSlots.
-	slots := OrderedCollection new.
-	slots := aBoardSlotGenerator generates: aNumberOfSlots.
-	^ self new initializeWithEffects: slots
-]
-
 { #category : #validation }
 Board class >> validate: aNumberOfSlots [
 
@@ -48,7 +38,7 @@ Board class >> withAll: aCollectionOfSlots [
 	^ self new initializeWithEffects: aCollectionOfSlots
 ]
 
-{ #category : #adding }
+{ #category : #private }
 Board >> addPlayers: somePlayers [
 
 	somePlayers
@@ -56,16 +46,25 @@ Board >> addPlayers: somePlayers [
 			[ :player | playerPositions at: player put: Position startingPosition ]
 ]
 
+{ #category : #private }
+Board >> applyEffectTo: aGame toPlayer: aPlayer [
+
+	| effect | 
+	effect := self effectAt: (self currentSlotOf: aPlayer ).
+	effect applyTo: aGame  triggeredBy: aPlayer.
+ 	^effect
+]
+
 { #category : #'accessing - positions' }
 Board >> currentLapOf: aPlayer [
 
-	^ (playerPositions at: aPlayer) currentLap
+	^ (playerPositions at: aPlayer) getLap
 ]
 
 { #category : #'accessing - positions' }
 Board >> currentSlotOf: aPlayer [
 
-	^ (playerPositions at: aPlayer) currentSlot
+	^ (playerPositions at: aPlayer) getSlot
 ]
 
 { #category : #'accessing - slots' }
@@ -107,10 +106,10 @@ Board >> movePlayer: aPlayer to: valueToMove [
 { #category : #private }
 Board >> moveToStart: aPlayer [
 
-	| currentPosition |
+	| currentPosition newPosition|
 	currentPosition := playerPositions at: aPlayer.
-	currentPosition backToStart.
-	playerPositions at: aPlayer put: currentPosition
+	newPosition := Position atSlot: 0 andLap: (currentPosition getLap).
+	playerPositions at: aPlayer put: newPosition
 ]
 
 { #category : #'accessing - positions' }
@@ -122,10 +121,10 @@ Board >> playerPositions [
 { #category : #private }
 Board >> reset: aPlayer [
 
-	| currentPosition |
+	| currentPosition newPosition|
 	currentPosition := playerPositions at: aPlayer.
-	currentPosition reset.
-	playerPositions at: aPlayer put: currentPosition
+	newPosition := Position atSlot: 0 andLap: 0.
+	playerPositions at: aPlayer put: newPosition
 ]
 
 { #category : #'accessing - slots' }

@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #'card - effect applications' }
-Permanent >> applyOn: aGame to: affected [
+Permanent >> applyOn: aGame to: target [
 	
-	aGame addActiveCard: self on: affected 
+	aGame addActiveCard: self on: target 
 	
 ]
 
@@ -20,8 +20,8 @@ Permanent >> effect [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'card - effect applications' }
-Permanent >> isPermanent [
+{ #category : #'private - validations' }
+Permanent >> playableBy: aPlayer on: aGame affecting: target [
 
-	^ true
+	^ self subclassResponsibility 
 ]

@@ -55,10 +55,8 @@ Player >> playerName [
 { #category : #'accessing - cards' }
 Player >> useCardFromHand: aCard [
 
-	| index |
-	index := hand
-		indexOf: aCard
-		ifAbsent: [ Error signal: 'The player does not have that card' ].
-	hand removeAt: index.
-	^ index >= 0
+	hand remove: aCard ifAbsent: [ 
+		hand isEmpty
+			ifTrue: [ Error signal: 'The player does not have any cards left' ]
+			ifFalse: [ Error signal: 'The player does not have that card' ] ]
 ]

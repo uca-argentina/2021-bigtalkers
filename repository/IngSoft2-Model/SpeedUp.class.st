@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'effect-application' }
-SpeedUp >> applyTo: aGame toPlayer: aPlayer [
+SpeedUp >> applyTo: aGame triggeredBy: aPlayer [
 
 	aGame applySpeedUpTo: aPlayer
 	

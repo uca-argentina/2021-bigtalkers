@@ -5,13 +5,13 @@ Class {
 }
 
 { #category : #'card - effect applications' }
-Redo >> applyOn: aGame to: affected [
+Redo >> applyOn: aGame to: target [
 
-	aGame applyLastCardTo: affected
+	aGame applyLastCardTo: target
 ]
 
-{ #category : #'card - effect applications' }
-Redo >> isPermanent [
+{ #category : #'private - validations' }
+Redo >> playableBy: aPlayer on: aGame affecting: target [
 
-	^ false
+	^ true
 ]

@@ -11,13 +11,13 @@ Card >> = anotherCard [
 ]
 
 { #category : #'card - effect applications' }
-Card >> applyOn: aGame to: affected [
+Card >> applyOn: aGame to: target [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #'card - effect applications' }
-Card >> isPermanent [
+{ #category : #'private - validations' }
+Card >> playableBy: aPlayer on: aGame affecting: target [
 
 	^ self subclassResponsibility
 ]

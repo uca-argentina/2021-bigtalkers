@@ -13,6 +13,16 @@ Scoreboard class >> competingPlayers: somePlayers [
 	^ self new initializeWith: somePlayers
 ]
 
+{ #category : #private }
+Scoreboard >> findBestScore [
+
+	| bestScore |
+	bestScore := Association key: false value: Position startingPosition.
+	scoreboard associationsDo: [ :score | 
+		bestScore := self score: bestScore betterThan: score ].
+	^bestScore 
+]
+
 { #category : #initialization }
 Scoreboard >> initializeWith: somePlayers [
 
@@ -24,26 +34,19 @@ Scoreboard >> initializeWith: somePlayers [
 { #category : #'accessing - leader' }
 Scoreboard >> leader [
 
-	| topScore leader |
-	topScore := Position startingPosition.
-	scoreboard
-		associationsDo: [ :score | 
-			topScore <= score value
-				ifTrue: [ topScore := score value.
-					leader := score ] ].
-	^ leader
+	^ self findBestScore
 ]
 
 { #category : #'accessing - leader' }
 Scoreboard >> leaderLap [
 
-	^ self leader value currentLap
+	^ self leader value getLap
 ]
 
 { #category : #'accessing - leader' }
 Scoreboard >> leaderPosition [
 
-	^ self leader value currentSlot
+	^ self leader value getSlot
 ]
 
 { #category : #private }
@@ -63,6 +66,12 @@ Scoreboard >> rankOf: aPlayer [
 			(scoreboard at: aPlayer) >= score
 				ifFalse: [ place := place + 1 ] ].
 	^ place
+]
+
+{ #category : #private }
+Scoreboard >> score: leader betterThan: anotherScore [
+	leader value <= anotherScore value  ifTrue: [ ^anotherScore ].
+	^leader
 ]
 
 { #category : #private }
