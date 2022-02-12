@@ -13,7 +13,7 @@ Class {
 BoardSlotGenerator class >> basedOn: eventsDistribution [
 
 	self validate: eventsDistribution.
-	^ self new initializeWith: eventsDistribution
+	^ self new initializeWith: eventsDistribution.
 ]
 
 { #category : #validation }
@@ -53,11 +53,3 @@ BoardSlotGenerator >> generates: aNumberOfSlots [
 	^ events
 ]
 
-{ #category : #initialization }
-BoardSlotGenerator >> initializeWith: eventsDistribution [
-
-	randomness := Random new.
-	eventsPool := OrderedCollection new.
-	eventsDistribution
-		do: [ :probabilityEvent | self add: probabilityEvent ]
-]

@@ -38,6 +38,7 @@ BoardTest >> testBoardSlotGeneratorCannotBeBasedOnAnEventDistributionWithTotalPr
 		add: (DiscreteProbabilityEvent of: BoardSlot withMoonwalkWithFixedValue with: 0.3);
 		add: (DiscreteProbabilityEvent of: BoardSlot withAtomicBomb with: 0.02);
 		add: (DiscreteProbabilityEvent of: BoardSlot withGrabCard with: 0.10).
+		
 	self
 		should: [ BoardSlotGenerator basedOn: eventsDistribution ]
 		raise: Error
