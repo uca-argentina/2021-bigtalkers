@@ -32,12 +32,12 @@ BoardTest >> testBoardSlotGeneratorCannotBeBasedOnAnEventDistributionWithTotalPr
 	| eventsDistribution |
 	eventsDistribution := OrderedCollection new.
 	eventsDistribution
-		add: (DiscreteProbabilityEvent of: BoardSlot withNoEffect with: 0.38);
-		add: (DiscreteProbabilityEvent of: BoardSlot withSpeedUp with: 0.2);
-		add: (DiscreteProbabilityEvent of: BoardSlot withWormHole with: 0.2);
-		add: (DiscreteProbabilityEvent of: BoardSlot withMoonwalkWithFixedValue with: 0.3);
-		add: (DiscreteProbabilityEvent of: BoardSlot withAtomicBomb with: 0.02);
-		add: (DiscreteProbabilityEvent of: BoardSlot withGrabCard with: 0.10).
+		add: (DiscreteProbabilityEvent of: BoardSlot withNoEffect havingProbability: 0.38);
+		add: (DiscreteProbabilityEvent of: BoardSlot withSpeedUp havingProbability: 0.2);
+		add: (DiscreteProbabilityEvent of: BoardSlot withWormHole havingProbability: 0.2);
+		add: (DiscreteProbabilityEvent of: BoardSlot withMoonwalkWithTwoStepsBack havingProbability: 0.3);
+		add: (DiscreteProbabilityEvent of: BoardSlot withAtomicBomb havingProbability: 0.02);
+		add: (DiscreteProbabilityEvent of: BoardSlot withGrabCard havingProbability: 0.10).
 	self
 		should: [ BoardSlotGenerator basedOn: eventsDistribution ]
 		raise: Error
@@ -45,10 +45,23 @@ BoardTest >> testBoardSlotGeneratorCannotBeBasedOnAnEventDistributionWithTotalPr
 ]
 
 { #category : #tests }
+BoardTest >> testBoardSlotGeneratorGeneratesSlot [
+
+	|slotToUse eventsDistribution generator boardSlot|
+	eventsDistribution := OrderedCollection new.
+	slotToUse := BoardSlot withMoonwalkWithTwoStepsBack.
+	eventsDistribution
+		add: (DiscreteProbabilityEvent of: slotToUse havingProbability: 1).
+	generator := BoardSlotGenerator basedOn: eventsDistribution.
+	boardSlot := generator generate.
+	self assert: (boardSlot effect) equals: (slotToUse effect)
+]
+
+{ #category : #tests }
 BoardTest >> testDiscreteProbabilityEventCannotHaveNegativeProbabilites [
 
 	self
-		should: [ DiscreteProbabilityEvent of: BoardSlot withNoEffect with: -0.38 ]
+		should: [ DiscreteProbabilityEvent of: BoardSlot withNoEffect havingProbability: -0.38 ]
 		raise: Error
 		withMessage: 'Probabilities must be positive'
 ]

@@ -299,7 +299,7 @@ GameTest >> testGameCreatedUsingFixedSlotsFinishedWithTwoLaps [
 	slots := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withMoonwalkWithTwoStepsBack.
 	BoardSlot withAtomicBomb.
 	BoardSlot withNoEffect}.
 	aBoard := Board withAll: slots.
@@ -392,7 +392,7 @@ GameTest >> testGamePlayerOneFallsInAtomicBomb [
 	slots := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withMoonwalkWithTwoStepsBack.
 	BoardSlot withAtomicBomb.
 	BoardSlot withNoEffect}.
 	aBoard := Board withAll: slots.
@@ -415,7 +415,7 @@ GameTest >> testGamePlayerOneFallsInMoonWalk [
 	slots := {BoardSlot withNoEffect.
 	BoardSlot withNoEffect.
 	BoardSlot withNoEffect.
-	BoardSlot withMoonwalkWithFixedValue}.
+	BoardSlot withMoonwalkWithTwoStepsBack}.
 	aBoard := Board withAll: slots.
 	aDie := LoadedDie rolling: 4.
 	aDice := Dice with: {aDie}.
@@ -444,7 +444,7 @@ GameTest >> testGamePlayerOneFallsInMoonWalkAndWouldHaveNegativeLaps [
 	slots := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withMoonwalkWithTwoStepsBack.
 	BoardSlot withAtomicBomb.
 	BoardSlot withNoEffect}.
 	aBoard := Board withAll: slots.
@@ -469,7 +469,7 @@ GameTest >> testGamePlayerOneFallsInSpeedUp [
 	slots := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withMoonwalkWithTwoStepsBack.
 	BoardSlot withAtomicBomb.
 	BoardSlot withNoEffect}.
 	aBoard := Board withAll: slots.
@@ -495,7 +495,7 @@ GameTest >> testGamePlayerOneFallsInWormhole [
 	slots := {BoardSlot withNoEffect.
 	BoardSlot withWormHole.
 	BoardSlot withSpeedUp.
-	BoardSlot withMoonwalkWithFixedValue.
+	BoardSlot withMoonwalkWithTwoStepsBack.
 	BoardSlot withAtomicBomb.
 	BoardSlot withWormHole}.
 	aBoard := Board withAll: slots.

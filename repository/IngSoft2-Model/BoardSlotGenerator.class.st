@@ -36,13 +36,11 @@ BoardSlotGenerator class >> validateTotalProbability: eventsDistribution [
 ]
 
 { #category : #generating }
-BoardSlotGenerator >> generates: aNumberOfSlots [
+BoardSlotGenerator >> generate [
 
 	| events |
 	events := OrderedCollection new.
-	aNumberOfSlots
-		timesRepeat: [ events add: (eventsPool atRandom: randomness) ].
-	^ events
+	^ eventsPool atRandom: randomness
 ]
 
 { #category : #initialization }
