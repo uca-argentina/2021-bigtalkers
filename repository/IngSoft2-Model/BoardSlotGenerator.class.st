@@ -37,7 +37,7 @@ BoardSlotGenerator class >> validateTotalProbability: eventsDistribution [
 
 { #category : #initialization }
 BoardSlotGenerator >> initializeWith: eventsDistribution [
-
+	"Coverage issue: Message in use"
 	randomness := Random new.
 	eventsPool := OrderedCollection new.
 	eventsDistribution
